@@ -13,9 +13,9 @@ model User {
   student     Student?
   doctor      Doctor?
 
-  accounts    Account[]
-  sessions    Session[]
-  verifications Verification[]
+  account    Account[]
+  session   Session[]
+  verification Verification[]
 
   @@map("user")
 }
@@ -58,6 +58,10 @@ model Account {
 
 model Verification {
     id         String   @id @default(uuid())
+
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
     identifier String
     value      String
     expiresAt  DateTime
@@ -65,5 +69,6 @@ model Verification {
     updatedAt  DateTime @updatedAt
 
     @@index([identifier])
+    @@index([userId])
     @@map("verification")
 }
