@@ -5,6 +5,7 @@ import AppError from "../errorHelpers/appError";
 import { jwtUtils } from "../utils/jwt";
 import { envVars } from "../config/env";
 import { prisma } from "../lib/prisma";
+import { UserStatus } from "../generated/enums";
 
 export const checkAuth =
     (...authRoles: string[]) =>
@@ -31,15 +32,19 @@ export const checkAuth =
 
                 // ======================= VERIFY USER ACCESS AND OTHERS =======================
                 const user = await prisma.user.findUnique({
-                    where: { id, isDeleted: false },
+                    where: { id },
                 });
 
-                if (!user) {
-                    throw new AppError(status.NOT_FOUND, "User not found.");
+                if (!user || !user.isActive) {
+                    throw new AppError(status.NOT_FOUND, "User not found or inactive.");
                 }
 
                 if (user.status === UserStatus.BLOCKED) {
                     throw new AppError(status.FORBIDDEN, "User is blocked.");
+                }
+
+                if (user.mustChangePassword && !req.originalUrl.includes('/change-password')) {
+                    throw new AppError(status.FORBIDDEN, "You must change your password before accessing this route.");
                 }
 
                 // ======================= VERIFY USER ROLE =======================

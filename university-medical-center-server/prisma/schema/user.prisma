@@ -3,9 +3,12 @@ model User {
   name        String
   email       String   @unique
   password    String
+  phone       String?  @unique
   role        Role
   status      UserStatus @default(ACTIVE)
   isActive    Boolean  @default(true)
+  mustChangePassword Boolean @default(false)
+  isProfileComplete Boolean @default(true)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

@@ -2,13 +2,12 @@ model Student {
   id            String   @id @default(uuid())
 
   userId        String   @unique
-  user          User     @relation(fields: [userId], references: [id])
+  user          User     @relation(fields: [userId], references: [id] onDelete:Cascade)
 
   studentId     String   @unique
   department    String
   session       String
 
-  phone         String?
   gender        Gender?
   bloodGroup    BloodGroup?
 

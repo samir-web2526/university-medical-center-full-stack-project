@@ -1195,7 +1195,6 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const DoctorScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  phone: 'phone',
   gender: 'gender',
   qualification: 'qualification',
   specialization: 'specialization',
@@ -1257,7 +1256,6 @@ export const StudentScalarFieldEnum = {
   studentId: 'studentId',
   department: 'department',
   session: 'session',
-  phone: 'phone',
   gender: 'gender',
   bloodGroup: 'bloodGroup',
   imageUrl: 'imageUrl',
@@ -1273,9 +1271,12 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
+  phone: 'phone',
   role: 'role',
   status: 'status',
   isActive: 'isActive',
+  mustChangePassword: 'mustChangePassword',
+  isProfileComplete: 'isProfileComplete',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
