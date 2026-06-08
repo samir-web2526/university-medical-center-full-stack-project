@@ -1,0 +1,18 @@
+model PrescriptionMedicine {
+  id              String   @id @default(uuid())
+
+  prescriptionId  String
+  prescription    Prescription @relation(fields: [prescriptionId], references: [id])
+
+  medicineId      String
+  medicine        Medicine @relation(fields: [medicineId], references: [id])
+
+  dosage          String
+  duration        String
+  instructions    String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("prescription_medicine")
+}

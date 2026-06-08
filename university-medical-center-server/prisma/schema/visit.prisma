@@ -1,0 +1,26 @@
+model Visit {
+  id               String   @id @default(uuid())
+
+  studentId        String
+  student          Student  @relation(fields: [studentId], references: [id])
+
+  doctorId         String
+  doctor           Doctor   @relation(fields: [doctorId], references: [id])
+
+  chiefComplaint   String
+
+  bloodPressure    String?
+  temperature      Float?
+  weight           Float?
+  pulseRate        Int?
+
+  notes            String?
+
+  prescription     Prescription?
+
+  visitDate        DateTime @default(now())
+
+  updatedAt        DateTime @updatedAt
+
+  @@map("visit")
+}

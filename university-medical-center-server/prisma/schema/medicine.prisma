@@ -1,0 +1,18 @@
+model Medicine {
+  id               String   @id @default(uuid())
+
+  name             String
+  genericName      String?
+  manufacturer     String?
+  stockQuantity    Int
+  minimumStock     Int
+  expiryDate       DateTime?
+  unitPrice        Float?
+
+  prescriptions    PrescriptionMedicine[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("medicine")
+}

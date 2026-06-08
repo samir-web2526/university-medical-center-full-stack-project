@@ -1,0 +1,22 @@
+model Doctor {
+  id             String   @id @default(uuid())
+
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id])
+
+  phone          String?
+  gender         Gender?
+
+  qualification  String?
+  specialization String?
+
+  imageUrl       String?
+
+  visits         Visit[]
+  prescriptions  Prescription[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("doctor")
+}
