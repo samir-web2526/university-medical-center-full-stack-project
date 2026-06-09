@@ -29,13 +29,23 @@ const createPrescription = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllPrescriptions = catchAsync(async (req: Request, res: Response) => {
+
     const options = pick(req.query, [
         'limit',
         'page',
         'sortBy',
         'sortOrder',
     ]);
-    const result = await PrescriptionService.getAllPrescriptions(options);
+
+    const filters = pick(req.query, [
+        'searchTerm',
+        'doctorId',
+        'studentId',
+        'visitId',
+    ]);
+
+    const result = await PrescriptionService.getAllPrescriptions(filters, options);
+
     sendResponse(res, {
         statusCode: status.OK,
         success: true,

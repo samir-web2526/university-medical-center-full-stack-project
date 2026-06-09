@@ -2,6 +2,9 @@ model Medicine {
   id               String   @id @default(uuid())
 
   name             String
+  description      String?
+  dosageForm       String
+  strength         String
   genericName      String?
   manufacturer     String?
   stockQuantity    Int

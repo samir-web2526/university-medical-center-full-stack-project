@@ -52,6 +52,7 @@ export type BloodGroup = (typeof BloodGroup)[keyof typeof BloodGroup]
 
 export const NotificationType = {
   MEDICINE_LOW_STOCK: 'MEDICINE_LOW_STOCK',
+  OUT_OF_STOCK: 'OUT_OF_STOCK',
   PRESCRIPTION_CREATED: 'PRESCRIPTION_CREATED',
   VISIT_CREATED: 'VISIT_CREATED',
   SYSTEM_ALERT: 'SYSTEM_ALERT'

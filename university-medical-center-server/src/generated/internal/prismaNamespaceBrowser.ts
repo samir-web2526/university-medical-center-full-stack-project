@@ -97,6 +97,9 @@ export type DoctorScalarFieldEnum = (typeof DoctorScalarFieldEnum)[keyof typeof 
 export const MedicineScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
+  dosageForm: 'dosageForm',
+  strength: 'strength',
   genericName: 'genericName',
   manufacturer: 'manufacturer',
   stockQuantity: 'stockQuantity',

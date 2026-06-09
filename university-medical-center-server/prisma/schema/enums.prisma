@@ -28,6 +28,7 @@ enum BloodGroup {
 }
 enum NotificationType {
   MEDICINE_LOW_STOCK
+  OUT_OF_STOCK
   PRESCRIPTION_CREATED
   VISIT_CREATED
   SYSTEM_ALERT

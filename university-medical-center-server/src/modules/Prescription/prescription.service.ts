@@ -3,8 +3,8 @@ import AppError from '../../errorHelpers/appError';
 import status from 'http-status';
 import { IPrescriptionCreate } from './prescription.interface';
 import { paginationHelper } from '../../sharedFile/paginationHelper';
-import { NotificationType } from '../../generated/enums';
 import { Prisma } from '../../generated/client';
+import { MedicineService } from '../Medicine/medicine.service';
 
 const createPrescription = async (
     userId: string,
@@ -40,12 +40,6 @@ const createPrescription = async (
         );
     }
 
-    const admin = await prisma.user.findFirst({
-        where: {
-            role: 'ADMIN'
-        }
-    });
-
     const result = await prisma.$transaction(async (tx) => {
 
         const prescription = await tx.prescription.create({
@@ -73,58 +67,10 @@ const createPrescription = async (
             },
         });
 
-        // Update Medicine Stock
+        // Update Medicine Stock via Medicine module
         for (const med of payload.medicines) {
-
-            const medicine = await tx.medicine.findUnique({
-                where: {
-                    id: med.medicineId,
-                },
-            });
-
-            if (!medicine) {
-                throw new AppError(
-                    status.NOT_FOUND,
-                    'Medicine not found'
-                );
-            }
-
             const quantity = med.quantity ?? 1;
-
-            if (medicine.stockQuantity < quantity) {
-                throw new AppError(
-                    status.BAD_REQUEST,
-                    `${medicine.name} is out of stock`
-                );
-            }
-
-            const updatedStock =
-                medicine.stockQuantity - quantity;
-
-            await tx.medicine.update({
-                where: {
-                    id: medicine.id,
-                },
-                data: {
-                    stockQuantity: updatedStock,
-                },
-            });
-
-            // Low Stock Notification
-            if (
-                admin &&
-                updatedStock <= medicine.minimumStock
-            ) {
-                await tx.notification.create({
-                    data: {
-                        title: 'Low Stock Alert',
-                        message: `${medicine.name} stock is low (${updatedStock} remaining)`,
-                        type: NotificationType.MEDICINE_LOW_STOCK,
-                        userId: admin.id,
-                        medicineId: medicine.id,
-                    },
-                });
-            }
+            await MedicineService.decreaseStock(med.medicineId, { quantity }, tx);
         }
 
         return prescription;
@@ -425,60 +371,95 @@ const getMyPrescriptionsAsPatient = async (
     };
 };
 
-const getPrescriptionById = async (userId: string, userRole: string, prescriptionId: string) => {
+const getPrescriptionById = async (
+    userId: string,
+    userRole: string,
+    prescriptionId: string
+) => {
+
     const prescription = await prisma.prescription.findUnique({
         where: { id: prescriptionId },
+
         include: {
-            doctor: { include: { user: { select: { name: true } } } },
-            student: { include: { user: { select: { name: true, email: true, phone: true } } } },
+            doctor: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                        },
+                    },
+                },
+            },
+
+            student: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            phone: true,
+                        },
+                    },
+                },
+            },
+
             visit: true,
+
             medicines: {
                 include: {
-                    medicine: { select: { name: true, genericName: true } }
-                }
-            }
-        }
+                    medicine: {
+                        select: {
+                            id: true,
+                            name: true,
+                            genericName: true,
+                        },
+                    },
+                },
+            },
+        },
     });
 
-    if (!prescription) throw new AppError(status.NOT_FOUND, 'Prescription not found');
+    if (!prescription) {
+        throw new AppError(
+            status.NOT_FOUND,
+            'Prescription not found'
+        );
+    }
 
-    // RBAC validation
+    // ---------------------------
+    // RBAC (clean & safe)
+    // ---------------------------
+
     if (userRole === 'DOCTOR') {
-        const doctor = await prisma.doctor.findUnique({ where: { userId } });
-        if (doctor && prescription.doctorId !== doctor.id) {
-            throw new AppError(status.FORBIDDEN, 'You do not have access to this prescription');
-        }
-    } else if (userRole === 'STUDENT') {
-        const student = await prisma.student.findUnique({ where: { userId } });
-        if (student && prescription.studentId !== student.id) {
-            throw new AppError(status.FORBIDDEN, 'You do not have access to this prescription');
+        const doctor = await prisma.doctor.findUnique({
+            where: { userId },
+        });
+
+        if (doctor?.id !== prescription.doctorId) {
+            throw new AppError(
+                status.FORBIDDEN,
+                'Access denied'
+            );
         }
     }
 
-    // Flatten nested medicines for frontend
-    const mappedMedicines = prescription.medicines.map((m) => ({
-        id: m.id,
-        medicineName: m.medicine.name,
-        genericName: m.medicine.genericName,
-        dosage: m.dosage,
-        duration: m.duration,
-        instructions: m.instructions,
-    }));
+    if (userRole === 'STUDENT') {
+        const student = await prisma.student.findUnique({
+            where: { userId },
+        });
 
-    return {
-        id: prescription.id,
-        visitDate: prescription.visit.visitDate,
-        createdAt: prescription.createdAt,
-        diagnosis: prescription.diagnosis,
-        advice: prescription.advice,
-        doctorName: prescription.doctor.user.name,
-        patient: {
-            name: prescription.student.user.name,
-            email: prescription.student.user.email,
-            phone: prescription.student.user.phone,
-        },
-        medicines: mappedMedicines,
-    };
+        if (student?.id !== prescription.studentId) {
+            throw new AppError(
+                status.FORBIDDEN,
+                'Access denied'
+            );
+        }
+    }
+
+    return prescription;
 };
 
 export const PrescriptionService = {

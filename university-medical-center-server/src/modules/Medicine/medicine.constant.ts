@@ -1,0 +1,1 @@
+export const MedicineSearchableFields = ['name', 'dosageForm', 'strength', 'genericName', 'manufacturer'];
