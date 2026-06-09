@@ -5,6 +5,8 @@ import { IPrescriptionCreate } from './prescription.interface';
 import { paginationHelper } from '../../sharedFile/paginationHelper';
 import { Prisma } from '../../generated/client';
 import { MedicineService } from '../Medicine/medicine.service';
+import { NotificationService } from '../Notification/notification.service';
+import { NotificationType } from '../../generated/enums';
 
 const createPrescription = async (
     userId: string,
@@ -79,6 +81,21 @@ const createPrescription = async (
                 { quantity },
                 tx
             );
+        }
+
+        const student = await tx.student.findUnique({
+            where: { id: visit.studentId },
+        });
+
+        if (student) {
+            await NotificationService.createNotification({
+                title: 'New Prescription',
+                message: 'A new prescription has been added for your visit.',
+                type: NotificationType.PRESCRIPTION_CREATED,
+                userId: student.userId,
+                prescriptionId: prescription.id,
+                visitId: visit.id,
+            }, tx);
         }
 
         return prescription;
@@ -494,6 +511,7 @@ const cancelPrescription = async (
 
     const prescription = await prisma.prescription.findUnique({
         where: { id: prescriptionId },
+        include: { student: true }
     });
 
     if (!prescription) {
@@ -514,6 +532,14 @@ const cancelPrescription = async (
             cancelReason,
             cancelledAt: new Date(),
         },
+    });
+
+    await NotificationService.createNotification({
+        title: 'Prescription Cancelled',
+        message: `Your prescription has been cancelled. Reason: ${cancelReason}`,
+        type: NotificationType.PRESCRIPTION_CANCELLED,
+        userId: prescription.student.userId,
+        prescriptionId: prescription.id,
     });
 
     return result;
