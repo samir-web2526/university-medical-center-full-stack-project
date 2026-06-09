@@ -10,6 +10,7 @@
  */
 export type * from './models/Doctor'
 export type * from './models/Medicine'
+export type * from './models/Notification'
 export type * from './models/Prescription'
 export type * from './models/PrescriptionMedicine'
 export type * from './models/Student'

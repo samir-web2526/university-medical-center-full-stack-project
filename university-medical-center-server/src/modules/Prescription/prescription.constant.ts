@@ -1,3 +1,4 @@
 export const PrescriptionSearchableFields = [
-    // Add searchable fields here
-    ];
+    'student.user.name',
+    'doctor.user.name',
+];

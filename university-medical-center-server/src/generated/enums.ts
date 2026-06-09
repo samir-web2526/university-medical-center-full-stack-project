@@ -48,3 +48,13 @@ export const BloodGroup = {
 } as const
 
 export type BloodGroup = (typeof BloodGroup)[keyof typeof BloodGroup]
+
+
+export const NotificationType = {
+  MEDICINE_LOW_STOCK: 'MEDICINE_LOW_STOCK',
+  PRESCRIPTION_CREATED: 'PRESCRIPTION_CREATED',
+  VISIT_CREATED: 'VISIT_CREATED',
+  SYSTEM_ALERT: 'SYSTEM_ALERT'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]

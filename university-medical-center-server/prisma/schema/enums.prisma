@@ -26,3 +26,9 @@ enum BloodGroup {
     O_POSITIVE
     O_NEGATIVE
 }
+enum NotificationType {
+  MEDICINE_LOW_STOCK
+  PRESCRIPTION_CREATED
+  VISIT_CREATED
+  SYSTEM_ALERT
+}

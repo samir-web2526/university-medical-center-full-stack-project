@@ -4,6 +4,7 @@ import { checkAuth } from '../../middlewares/checkAuth';
 import { validateRequest } from '../../middlewares/validateRequest';
 import { PrescriptionValidation } from './prescription.validation';
 
+
 const router = express.Router();
 
 // Doctor creates prescription

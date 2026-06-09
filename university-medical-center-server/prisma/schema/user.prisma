@@ -15,6 +15,7 @@ model User {
 
   student     Student?
   doctor      Doctor?
+  notifications Notification[]
 
   account    Account[]
   session   Session[]

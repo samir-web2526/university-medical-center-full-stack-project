@@ -4,13 +4,22 @@ import { PrescriptionService } from './prescription.service';
 import sendResponse from '../../sharedFile/sendResponse';
 import pick from '../../sharedFile/pick';
 import { catchAsync } from '../../sharedFile';
+import AppError from '../../errorHelpers/appError';
+
+const getUserFromReq = (req: Request) => {
+    const user = (req as any).user;
+    if (!user?.id) {
+        throw new AppError(status.UNAUTHORIZED, 'User not found');
+    }
+    return user;
+};
 
 const createPrescription = catchAsync(async (req: Request, res: Response) => {
-    const userId = (req as any).user?.id;
-    if (!userId) throw new Error('User ID not found');
-
-    const result = await PrescriptionService.createPrescription(userId, req.body);
-
+    const { id: userId } = getUserFromReq(req);
+    const result = await PrescriptionService.createPrescription(
+        userId,
+        req.body
+    );
     sendResponse(res, {
         statusCode: status.CREATED,
         success: true,
@@ -20,9 +29,13 @@ const createPrescription = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllPrescriptions = catchAsync(async (req: Request, res: Response) => {
-    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+    const options = pick(req.query, [
+        'limit',
+        'page',
+        'sortBy',
+        'sortOrder',
+    ]);
     const result = await PrescriptionService.getAllPrescriptions(options);
-
     sendResponse(res, {
         statusCode: status.OK,
         success: true,
@@ -33,12 +46,17 @@ const getAllPrescriptions = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getMyPrescriptionsAsDoctor = catchAsync(async (req: Request, res: Response) => {
-    const userId = (req as any).user?.id;
-    if (!userId) throw new Error('User ID not found');
-
-    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = await PrescriptionService.getMyPrescriptionsAsDoctor(userId, options);
-
+    const { id: userId } = getUserFromReq(req);
+    const options = pick(req.query, [
+        'limit',
+        'page',
+        'sortBy',
+        'sortOrder',
+    ]);
+    const result = await PrescriptionService.getMyPrescriptionsAsDoctor(
+        userId,
+        options
+    );
     sendResponse(res, {
         statusCode: status.OK,
         success: true,
@@ -49,12 +67,17 @@ const getMyPrescriptionsAsDoctor = catchAsync(async (req: Request, res: Response
 });
 
 const getMyPrescriptionsAsPatient = catchAsync(async (req: Request, res: Response) => {
-    const userId = (req as any).user?.id;
-    if (!userId) throw new Error('User ID not found');
-
-    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
-    const result = await PrescriptionService.getMyPrescriptionsAsPatient(userId, options);
-
+    const { id: userId } = getUserFromReq(req);
+    const options = pick(req.query, [
+        'limit',
+        'page',
+        'sortBy',
+        'sortOrder',
+    ]);
+    const result = await PrescriptionService.getMyPrescriptionsAsPatient(
+        userId,
+        options
+    );
     sendResponse(res, {
         statusCode: status.OK,
         success: true,
@@ -65,12 +88,12 @@ const getMyPrescriptionsAsPatient = catchAsync(async (req: Request, res: Respons
 });
 
 const getPrescriptionById = catchAsync(async (req: Request, res: Response) => {
-    const userId = (req as any).user?.id;
-    const userRole = (req as any).user?.role;
-    if (!userId || !userRole) throw new Error('User details not found');
-
-    const result = await PrescriptionService.getPrescriptionById(userId, userRole, req.params.id as string);
-
+    const { id: userId, role: userRole } = getUserFromReq(req);
+    const result = await PrescriptionService.getPrescriptionById(
+        userId,
+        userRole,
+        req.params.id as string
+    );
     sendResponse(res, {
         statusCode: status.OK,
         success: true,
