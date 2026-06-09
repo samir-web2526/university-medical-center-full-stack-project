@@ -49,6 +49,7 @@ export type VisitMinAggregateOutputType = {
   pulseRate: number | null
   notes: string | null
   visitDate: Date | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
@@ -63,6 +64,7 @@ export type VisitMaxAggregateOutputType = {
   pulseRate: number | null
   notes: string | null
   visitDate: Date | null
+  createdAt: Date | null
   updatedAt: Date | null
 }
 
@@ -77,6 +79,7 @@ export type VisitCountAggregateOutputType = {
   pulseRate: number
   notes: number
   visitDate: number
+  createdAt: number
   updatedAt: number
   _all: number
 }
@@ -105,6 +108,7 @@ export type VisitMinAggregateInputType = {
   pulseRate?: true
   notes?: true
   visitDate?: true
+  createdAt?: true
   updatedAt?: true
 }
 
@@ -119,6 +123,7 @@ export type VisitMaxAggregateInputType = {
   pulseRate?: true
   notes?: true
   visitDate?: true
+  createdAt?: true
   updatedAt?: true
 }
 
@@ -133,6 +138,7 @@ export type VisitCountAggregateInputType = {
   pulseRate?: true
   notes?: true
   visitDate?: true
+  createdAt?: true
   updatedAt?: true
   _all?: true
 }
@@ -234,6 +240,7 @@ export type VisitGroupByOutputType = {
   pulseRate: number | null
   notes: string | null
   visitDate: Date
+  createdAt: Date
   updatedAt: Date
   _count: VisitCountAggregateOutputType | null
   _avg: VisitAvgAggregateOutputType | null
@@ -271,6 +278,7 @@ export type VisitWhereInput = {
   pulseRate?: Prisma.IntNullableFilter<"Visit"> | number | null
   notes?: Prisma.StringNullableFilter<"Visit"> | string | null
   visitDate?: Prisma.DateTimeFilter<"Visit"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   doctor?: Prisma.XOR<Prisma.DoctorScalarRelationFilter, Prisma.DoctorWhereInput>
@@ -288,6 +296,7 @@ export type VisitOrderByWithRelationInput = {
   pulseRate?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   visitDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   student?: Prisma.StudentOrderByWithRelationInput
   doctor?: Prisma.DoctorOrderByWithRelationInput
@@ -308,6 +317,7 @@ export type VisitWhereUniqueInput = Prisma.AtLeast<{
   pulseRate?: Prisma.IntNullableFilter<"Visit"> | number | null
   notes?: Prisma.StringNullableFilter<"Visit"> | string | null
   visitDate?: Prisma.DateTimeFilter<"Visit"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
   student?: Prisma.XOR<Prisma.StudentScalarRelationFilter, Prisma.StudentWhereInput>
   doctor?: Prisma.XOR<Prisma.DoctorScalarRelationFilter, Prisma.DoctorWhereInput>
@@ -325,6 +335,7 @@ export type VisitOrderByWithAggregationInput = {
   pulseRate?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   visitDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.VisitCountOrderByAggregateInput
   _avg?: Prisma.VisitAvgOrderByAggregateInput
@@ -347,6 +358,7 @@ export type VisitScalarWhereWithAggregatesInput = {
   pulseRate?: Prisma.IntNullableWithAggregatesFilter<"Visit"> | number | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Visit"> | string | null
   visitDate?: Prisma.DateTimeWithAggregatesFilter<"Visit"> | Date | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Visit"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Visit"> | Date | string
 }
 
@@ -359,6 +371,7 @@ export type VisitCreateInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutVisitsInput
   doctor: Prisma.DoctorCreateNestedOneWithoutVisitsInput
@@ -376,6 +389,7 @@ export type VisitUncheckedCreateInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   prescription?: Prisma.PrescriptionUncheckedCreateNestedOneWithoutVisitInput
 }
@@ -389,6 +403,7 @@ export type VisitUpdateInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutVisitsNestedInput
   doctor?: Prisma.DoctorUpdateOneRequiredWithoutVisitsNestedInput
@@ -406,6 +421,7 @@ export type VisitUncheckedUpdateInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prescription?: Prisma.PrescriptionUncheckedUpdateOneWithoutVisitNestedInput
 }
@@ -421,6 +437,7 @@ export type VisitCreateManyInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
@@ -433,6 +450,7 @@ export type VisitUpdateManyMutationInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -447,6 +465,7 @@ export type VisitUncheckedUpdateManyInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -476,6 +495,7 @@ export type VisitCountOrderByAggregateInput = {
   pulseRate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   visitDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -496,6 +516,7 @@ export type VisitMaxOrderByAggregateInput = {
   pulseRate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   visitDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -510,6 +531,7 @@ export type VisitMinOrderByAggregateInput = {
   pulseRate?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   visitDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -617,14 +639,6 @@ export type VisitUncheckedUpdateManyWithoutStudentNestedInput = {
   deleteMany?: Prisma.VisitScalarWhereInput | Prisma.VisitScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type VisitCreateWithoutDoctorInput = {
   id?: string
   chiefComplaint: string
@@ -634,6 +648,7 @@ export type VisitCreateWithoutDoctorInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutVisitsInput
   prescription?: Prisma.PrescriptionCreateNestedOneWithoutVisitInput
@@ -649,6 +664,7 @@ export type VisitUncheckedCreateWithoutDoctorInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   prescription?: Prisma.PrescriptionUncheckedCreateNestedOneWithoutVisitInput
 }
@@ -693,6 +709,7 @@ export type VisitScalarWhereInput = {
   pulseRate?: Prisma.IntNullableFilter<"Visit"> | number | null
   notes?: Prisma.StringNullableFilter<"Visit"> | string | null
   visitDate?: Prisma.DateTimeFilter<"Visit"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Visit"> | Date | string
 }
 
@@ -705,6 +722,7 @@ export type VisitCreateWithoutPrescriptionInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutVisitsInput
   doctor: Prisma.DoctorCreateNestedOneWithoutVisitsInput
@@ -721,6 +739,7 @@ export type VisitUncheckedCreateWithoutPrescriptionInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
@@ -749,6 +768,7 @@ export type VisitUpdateWithoutPrescriptionInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutVisitsNestedInput
   doctor?: Prisma.DoctorUpdateOneRequiredWithoutVisitsNestedInput
@@ -765,6 +785,7 @@ export type VisitUncheckedUpdateWithoutPrescriptionInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -777,6 +798,7 @@ export type VisitCreateWithoutStudentInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   doctor: Prisma.DoctorCreateNestedOneWithoutVisitsInput
   prescription?: Prisma.PrescriptionCreateNestedOneWithoutVisitInput
@@ -792,6 +814,7 @@ export type VisitUncheckedCreateWithoutStudentInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
   prescription?: Prisma.PrescriptionUncheckedCreateNestedOneWithoutVisitInput
 }
@@ -832,6 +855,7 @@ export type VisitCreateManyDoctorInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
@@ -844,6 +868,7 @@ export type VisitUpdateWithoutDoctorInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutVisitsNestedInput
   prescription?: Prisma.PrescriptionUpdateOneWithoutVisitNestedInput
@@ -859,6 +884,7 @@ export type VisitUncheckedUpdateWithoutDoctorInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prescription?: Prisma.PrescriptionUncheckedUpdateOneWithoutVisitNestedInput
 }
@@ -873,6 +899,7 @@ export type VisitUncheckedUpdateManyWithoutDoctorInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -886,6 +913,7 @@ export type VisitCreateManyStudentInput = {
   pulseRate?: number | null
   notes?: string | null
   visitDate?: Date | string
+  createdAt?: Date | string
   updatedAt?: Date | string
 }
 
@@ -898,6 +926,7 @@ export type VisitUpdateWithoutStudentInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   doctor?: Prisma.DoctorUpdateOneRequiredWithoutVisitsNestedInput
   prescription?: Prisma.PrescriptionUpdateOneWithoutVisitNestedInput
@@ -913,6 +942,7 @@ export type VisitUncheckedUpdateWithoutStudentInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prescription?: Prisma.PrescriptionUncheckedUpdateOneWithoutVisitNestedInput
 }
@@ -927,6 +957,7 @@ export type VisitUncheckedUpdateManyWithoutStudentInput = {
   pulseRate?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -943,6 +974,7 @@ export type VisitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pulseRate?: boolean
   notes?: boolean
   visitDate?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
@@ -960,6 +992,7 @@ export type VisitSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   pulseRate?: boolean
   notes?: boolean
   visitDate?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
@@ -976,6 +1009,7 @@ export type VisitSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   pulseRate?: boolean
   notes?: boolean
   visitDate?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
@@ -992,10 +1026,11 @@ export type VisitSelectScalar = {
   pulseRate?: boolean
   notes?: boolean
   visitDate?: boolean
+  createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type VisitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "doctorId" | "chiefComplaint" | "bloodPressure" | "temperature" | "weight" | "pulseRate" | "notes" | "visitDate" | "updatedAt", ExtArgs["result"]["visit"]>
+export type VisitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "studentId" | "doctorId" | "chiefComplaint" | "bloodPressure" | "temperature" | "weight" | "pulseRate" | "notes" | "visitDate" | "createdAt" | "updatedAt", ExtArgs["result"]["visit"]>
 export type VisitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.DoctorDefaultArgs<ExtArgs>
@@ -1028,6 +1063,7 @@ export type $VisitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     pulseRate: number | null
     notes: string | null
     visitDate: Date
+    createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["visit"]>
   composites: {}
@@ -1465,6 +1501,7 @@ export interface VisitFieldRefs {
   readonly pulseRate: Prisma.FieldRef<"Visit", 'Int'>
   readonly notes: Prisma.FieldRef<"Visit", 'String'>
   readonly visitDate: Prisma.FieldRef<"Visit", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"Visit", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Visit", 'DateTime'>
 }
     

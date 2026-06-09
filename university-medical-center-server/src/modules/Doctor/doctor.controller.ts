@@ -3,8 +3,9 @@ import { DoctorService } from "./doctor.service";
 import sendResponse from "../../sharedFile/sendResponse";
 import status from "http-status";
 import pick from "../../sharedFile/pick";
+import { catchAsync } from "../../sharedFile";
 
-const getMyProfile = async (req: Request, res: Response) => {
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
     const userId = (req as any).user?.id;
 
     if (!userId) {
@@ -19,9 +20,9 @@ const getMyProfile = async (req: Request, res: Response) => {
         message: 'Doctor profile fetched successfully',
         data: result,
     });
-};
+});
 
-const updateMyProfile = async (req: Request, res: Response) => {
+const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
     const result = await DoctorService.updateMyProfile(req.user.id as string, req.body);
 
     sendResponse(res, {
@@ -30,9 +31,9 @@ const updateMyProfile = async (req: Request, res: Response) => {
         message: 'Doctor profile updated successfully',
         data: result,
     });
-};
+});
 
-const getAllDoctors = async (req: Request, res: Response) => {
+const getAllDoctors = catchAsync(async (req: Request, res: Response) => {
     const filters = pick(req.query, ['searchTerm', 'doctorId', 'name', 'email', 'contactNo', 'gender', 'bloodGroup', 'specialization', 'visitingHours', 'isActive']);
     const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
@@ -45,9 +46,9 @@ const getAllDoctors = async (req: Request, res: Response) => {
         meta: result.meta,
         data: result.data,
     });
-};
+});
 
-const getSingleDoctor = async (req: Request, res: Response) => {
+const getSingleDoctor = catchAsync(async (req: Request, res: Response) => {
     const result = await DoctorService.getSingleDoctor(req.params.id as string);
 
     sendResponse(res, {
@@ -56,9 +57,9 @@ const getSingleDoctor = async (req: Request, res: Response) => {
         message: 'Doctor fetched successfully',
         data: result,
     });
-};
+});
 
-const updateDoctor = async (req: Request, res: Response) => {
+const updateDoctor = catchAsync(async (req: Request, res: Response) => {
     const result = await DoctorService.updateDoctor(req.params.id as string, req.body);
 
     sendResponse(res, {
@@ -67,9 +68,9 @@ const updateDoctor = async (req: Request, res: Response) => {
         message: 'Doctor updated successfully',
         data: result,
     });
-};
+});
 
-const deleteDoctor = async (req: Request, res: Response) => {
+const deleteDoctor = catchAsync(async (req: Request, res: Response) => {
     await DoctorService.deleteDoctor(req.params.id as string);
 
     sendResponse(res, {
@@ -77,7 +78,7 @@ const deleteDoctor = async (req: Request, res: Response) => {
         success: true,
         message: 'Doctor deleted successfully',
     });
-};
+});
 
 export const DoctorController = {
     getMyProfile,

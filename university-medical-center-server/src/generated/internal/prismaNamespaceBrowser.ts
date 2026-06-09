@@ -116,6 +116,7 @@ export const PrescriptionScalarFieldEnum = {
   doctorId: 'doctorId',
   diagnosis: 'diagnosis',
   advice: 'advice',
+  prescriptionImage: 'prescriptionImage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -129,6 +130,7 @@ export const PrescriptionMedicineScalarFieldEnum = {
   medicineId: 'medicineId',
   dosage: 'dosage',
   duration: 'duration',
+  quantity: 'quantity',
   instructions: 'instructions',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -228,6 +230,7 @@ export const VisitScalarFieldEnum = {
   pulseRate: 'pulseRate',
   notes: 'notes',
   visitDate: 'visitDate',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 

@@ -9,6 +9,9 @@ model PrescriptionMedicine {
 
   dosage          String
   duration        String
+
+  quantity        Int?
+
   instructions    String?
 
   createdAt       DateTime @default(now())
