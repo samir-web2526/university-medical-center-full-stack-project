@@ -16,6 +16,11 @@ enum Gender {
     OTHER
 }
 
+enum PrescriptionStatus {
+  ACTIVE
+  CANCELLED
+}
+
 enum BloodGroup {
     A_POSITIVE
     A_NEGATIVE

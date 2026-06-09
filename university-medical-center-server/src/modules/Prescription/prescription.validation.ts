@@ -10,6 +10,7 @@ const createPrescription = z.object({
             z.object({
                 medicineId: z.string(),
                 dosage: z.string(),
+                quantity: z.number().min(1),
                 duration: z.string(),
                 instructions: z.string().optional(),
             })
@@ -17,6 +18,13 @@ const createPrescription = z.object({
     }).strict(),
 });
 
+const cancelPrescription = z.object({
+    body: z.object({
+        cancelReason: z.string().min(3, 'Reason is required'),
+    }),
+});
+
 export const PrescriptionValidation = {
     createPrescription,
+    cancelPrescription
 };

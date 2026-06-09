@@ -32,6 +32,9 @@ export type PrescriptionMinAggregateOutputType = {
   diagnosis: string | null
   advice: string | null
   prescriptionImage: string | null
+  status: $Enums.PrescriptionStatus | null
+  cancelReason: string | null
+  cancelledAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +47,9 @@ export type PrescriptionMaxAggregateOutputType = {
   diagnosis: string | null
   advice: string | null
   prescriptionImage: string | null
+  status: $Enums.PrescriptionStatus | null
+  cancelReason: string | null
+  cancelledAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +62,9 @@ export type PrescriptionCountAggregateOutputType = {
   diagnosis: number
   advice: number
   prescriptionImage: number
+  status: number
+  cancelReason: number
+  cancelledAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +79,9 @@ export type PrescriptionMinAggregateInputType = {
   diagnosis?: true
   advice?: true
   prescriptionImage?: true
+  status?: true
+  cancelReason?: true
+  cancelledAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +94,9 @@ export type PrescriptionMaxAggregateInputType = {
   diagnosis?: true
   advice?: true
   prescriptionImage?: true
+  status?: true
+  cancelReason?: true
+  cancelledAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +109,9 @@ export type PrescriptionCountAggregateInputType = {
   diagnosis?: true
   advice?: true
   prescriptionImage?: true
+  status?: true
+  cancelReason?: true
+  cancelledAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +197,9 @@ export type PrescriptionGroupByOutputType = {
   diagnosis: string | null
   advice: string | null
   prescriptionImage: string | null
+  status: $Enums.PrescriptionStatus
+  cancelReason: string | null
+  cancelledAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PrescriptionCountAggregateOutputType | null
@@ -212,6 +233,9 @@ export type PrescriptionWhereInput = {
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  cancelledAt?: Prisma.DateTimeNullableFilter<"Prescription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
   visit?: Prisma.XOR<Prisma.VisitScalarRelationFilter, Prisma.VisitWhereInput>
@@ -228,6 +252,9 @@ export type PrescriptionOrderByWithRelationInput = {
   diagnosis?: Prisma.SortOrderInput | Prisma.SortOrder
   advice?: Prisma.SortOrderInput | Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   visit?: Prisma.VisitOrderByWithRelationInput
@@ -247,6 +274,9 @@ export type PrescriptionWhereUniqueInput = Prisma.AtLeast<{
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  cancelledAt?: Prisma.DateTimeNullableFilter<"Prescription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
   visit?: Prisma.XOR<Prisma.VisitScalarRelationFilter, Prisma.VisitWhereInput>
@@ -263,6 +293,9 @@ export type PrescriptionOrderByWithAggregationInput = {
   diagnosis?: Prisma.SortOrderInput | Prisma.SortOrder
   advice?: Prisma.SortOrderInput | Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PrescriptionCountOrderByAggregateInput
@@ -281,6 +314,9 @@ export type PrescriptionScalarWhereWithAggregatesInput = {
   diagnosis?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
+  status?: Prisma.EnumPrescriptionStatusWithAggregatesFilter<"Prescription"> | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
+  cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Prescription"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Prescription"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Prescription"> | Date | string
 }
@@ -290,6 +326,9 @@ export type PrescriptionCreateInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visit: Prisma.VisitCreateNestedOneWithoutPrescriptionInput
@@ -306,6 +345,9 @@ export type PrescriptionUncheckedCreateInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedCreateNestedManyWithoutPrescriptionInput
@@ -316,6 +358,9 @@ export type PrescriptionUpdateInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visit?: Prisma.VisitUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -332,6 +377,9 @@ export type PrescriptionUncheckedUpdateInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedUpdateManyWithoutPrescriptionNestedInput
@@ -345,6 +393,9 @@ export type PrescriptionCreateManyInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -354,6 +405,9 @@ export type PrescriptionUpdateManyMutationInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -366,6 +420,9 @@ export type PrescriptionUncheckedUpdateManyInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -388,6 +445,9 @@ export type PrescriptionCountOrderByAggregateInput = {
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  cancelReason?: Prisma.SortOrder
+  cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -400,6 +460,9 @@ export type PrescriptionMaxOrderByAggregateInput = {
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  cancelReason?: Prisma.SortOrder
+  cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -412,6 +475,9 @@ export type PrescriptionMinOrderByAggregateInput = {
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  cancelReason?: Prisma.SortOrder
+  cancelledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -466,6 +532,10 @@ export type PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput = {
   update?: Prisma.PrescriptionUpdateWithWhereUniqueWithoutDoctorInput | Prisma.PrescriptionUpdateWithWhereUniqueWithoutDoctorInput[]
   updateMany?: Prisma.PrescriptionUpdateManyWithWhereWithoutDoctorInput | Prisma.PrescriptionUpdateManyWithWhereWithoutDoctorInput[]
   deleteMany?: Prisma.PrescriptionScalarWhereInput | Prisma.PrescriptionScalarWhereInput[]
+}
+
+export type EnumPrescriptionStatusFieldUpdateOperationsInput = {
+  set?: $Enums.PrescriptionStatus
 }
 
 export type PrescriptionCreateNestedOneWithoutMedicinesInput = {
@@ -561,6 +631,9 @@ export type PrescriptionCreateWithoutDoctorInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visit: Prisma.VisitCreateNestedOneWithoutPrescriptionInput
@@ -575,6 +648,9 @@ export type PrescriptionUncheckedCreateWithoutDoctorInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedCreateNestedManyWithoutPrescriptionInput
@@ -617,6 +693,9 @@ export type PrescriptionScalarWhereInput = {
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  cancelledAt?: Prisma.DateTimeNullableFilter<"Prescription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Prescription"> | Date | string
 }
@@ -626,6 +705,9 @@ export type PrescriptionCreateWithoutMedicinesInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visit: Prisma.VisitCreateNestedOneWithoutPrescriptionInput
@@ -641,6 +723,9 @@ export type PrescriptionUncheckedCreateWithoutMedicinesInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -666,6 +751,9 @@ export type PrescriptionUpdateWithoutMedicinesInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visit?: Prisma.VisitUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -681,6 +769,9 @@ export type PrescriptionUncheckedUpdateWithoutMedicinesInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -690,6 +781,9 @@ export type PrescriptionCreateWithoutStudentInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visit: Prisma.VisitCreateNestedOneWithoutPrescriptionInput
@@ -704,6 +798,9 @@ export type PrescriptionUncheckedCreateWithoutStudentInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedCreateNestedManyWithoutPrescriptionInput
@@ -740,6 +837,9 @@ export type PrescriptionCreateWithoutVisitInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   student: Prisma.StudentCreateNestedOneWithoutPrescriptionsInput
@@ -754,6 +854,9 @@ export type PrescriptionUncheckedCreateWithoutVisitInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedCreateNestedManyWithoutPrescriptionInput
@@ -780,6 +883,9 @@ export type PrescriptionUpdateWithoutVisitInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   student?: Prisma.StudentUpdateOneRequiredWithoutPrescriptionsNestedInput
@@ -794,6 +900,9 @@ export type PrescriptionUncheckedUpdateWithoutVisitInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedUpdateManyWithoutPrescriptionNestedInput
@@ -806,6 +915,9 @@ export type PrescriptionCreateManyDoctorInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -815,6 +927,9 @@ export type PrescriptionUpdateWithoutDoctorInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visit?: Prisma.VisitUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -829,6 +944,9 @@ export type PrescriptionUncheckedUpdateWithoutDoctorInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedUpdateManyWithoutPrescriptionNestedInput
@@ -841,6 +959,9 @@ export type PrescriptionUncheckedUpdateManyWithoutDoctorInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -852,6 +973,9 @@ export type PrescriptionCreateManyStudentInput = {
   diagnosis?: string | null
   advice?: string | null
   prescriptionImage?: string | null
+  status?: $Enums.PrescriptionStatus
+  cancelReason?: string | null
+  cancelledAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -861,6 +985,9 @@ export type PrescriptionUpdateWithoutStudentInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visit?: Prisma.VisitUpdateOneRequiredWithoutPrescriptionNestedInput
@@ -875,6 +1002,9 @@ export type PrescriptionUncheckedUpdateWithoutStudentInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   medicines?: Prisma.PrescriptionMedicineUncheckedUpdateManyWithoutPrescriptionNestedInput
@@ -887,6 +1017,9 @@ export type PrescriptionUncheckedUpdateManyWithoutStudentInput = {
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
+  cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -930,6 +1063,9 @@ export type PrescriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   diagnosis?: boolean
   advice?: boolean
   prescriptionImage?: boolean
+  status?: boolean
+  cancelReason?: boolean
+  cancelledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   visit?: boolean | Prisma.VisitDefaultArgs<ExtArgs>
@@ -947,6 +1083,9 @@ export type PrescriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   diagnosis?: boolean
   advice?: boolean
   prescriptionImage?: boolean
+  status?: boolean
+  cancelReason?: boolean
+  cancelledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   visit?: boolean | Prisma.VisitDefaultArgs<ExtArgs>
@@ -962,6 +1101,9 @@ export type PrescriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   diagnosis?: boolean
   advice?: boolean
   prescriptionImage?: boolean
+  status?: boolean
+  cancelReason?: boolean
+  cancelledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   visit?: boolean | Prisma.VisitDefaultArgs<ExtArgs>
@@ -977,11 +1119,14 @@ export type PrescriptionSelectScalar = {
   diagnosis?: boolean
   advice?: boolean
   prescriptionImage?: boolean
+  status?: boolean
+  cancelReason?: boolean
+  cancelledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PrescriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "visitId" | "studentId" | "doctorId" | "diagnosis" | "advice" | "prescriptionImage" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
+export type PrescriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "visitId" | "studentId" | "doctorId" | "diagnosis" | "advice" | "prescriptionImage" | "status" | "cancelReason" | "cancelledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
 export type PrescriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   visit?: boolean | Prisma.VisitDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -1016,6 +1161,9 @@ export type $PrescriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     diagnosis: string | null
     advice: string | null
     prescriptionImage: string | null
+    status: $Enums.PrescriptionStatus
+    cancelReason: string | null
+    cancelledAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["prescription"]>
@@ -1452,6 +1600,9 @@ export interface PrescriptionFieldRefs {
   readonly diagnosis: Prisma.FieldRef<"Prescription", 'String'>
   readonly advice: Prisma.FieldRef<"Prescription", 'String'>
   readonly prescriptionImage: Prisma.FieldRef<"Prescription", 'String'>
+  readonly status: Prisma.FieldRef<"Prescription", 'PrescriptionStatus'>
+  readonly cancelReason: Prisma.FieldRef<"Prescription", 'String'>
+  readonly cancelledAt: Prisma.FieldRef<"Prescription", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Prescription", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Prescription", 'DateTime'>
 }

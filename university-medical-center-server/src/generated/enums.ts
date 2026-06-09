@@ -36,6 +36,14 @@ export const Gender = {
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
 
+export const PrescriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PrescriptionStatus = (typeof PrescriptionStatus)[keyof typeof PrescriptionStatus]
+
+
 export const BloodGroup = {
   A_POSITIVE: 'A_POSITIVE',
   A_NEGATIVE: 'A_NEGATIVE',

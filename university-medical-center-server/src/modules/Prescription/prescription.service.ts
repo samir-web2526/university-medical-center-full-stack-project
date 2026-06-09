@@ -12,25 +12,19 @@ const createPrescription = async (
 ) => {
 
     const doctor = await prisma.doctor.findUnique({
-        where: { userId }
+        where: { userId },
     });
 
     if (!doctor) {
-        throw new AppError(
-            status.NOT_FOUND,
-            'Doctor not found'
-        );
+        throw new AppError(status.NOT_FOUND, 'Doctor not found');
     }
 
     const visit = await prisma.visit.findUnique({
-        where: { id: payload.visitId }
+        where: { id: payload.visitId },
     });
 
     if (!visit) {
-        throw new AppError(
-            status.NOT_FOUND,
-            'Visit not found'
-        );
+        throw new AppError(status.NOT_FOUND, 'Visit not found');
     }
 
     if (visit.doctorId !== doctor.id) {
@@ -41,6 +35,16 @@ const createPrescription = async (
     }
 
     const result = await prisma.$transaction(async (tx) => {
+        const existingPrescription = await tx.prescription.findUnique({
+            where: { visitId: visit.id },
+        });
+
+        if (existingPrescription) {
+            throw new AppError(
+                status.BAD_REQUEST,
+                'Prescription already exists for this visit'
+            );
+        }
 
         const prescription = await tx.prescription.create({
             data: {
@@ -67,16 +71,211 @@ const createPrescription = async (
             },
         });
 
-        // Update Medicine Stock via Medicine module
         for (const med of payload.medicines) {
             const quantity = med.quantity ?? 1;
-            await MedicineService.decreaseStock(med.medicineId, { quantity }, tx);
+
+            await MedicineService.decreaseStock(
+                med.medicineId,
+                { quantity },
+                tx
+            );
         }
 
         return prescription;
     });
 
     return result;
+};
+
+const getMyPrescriptionsAsDoctor = async (
+    userId: string,
+    filters: any,
+    options: any
+) => {
+
+    const { limit, page, skip, sortBy, sortOrder } =
+        paginationHelper.calculatePagination(options);
+
+    const doctor = await prisma.doctor.findUnique({
+        where: { userId },
+    });
+
+    if (!doctor) {
+        throw new AppError(status.NOT_FOUND, 'Doctor not found');
+    }
+
+    const { searchTerm } = filters;
+
+    const andConditions: Prisma.PrescriptionWhereInput[] = [];
+
+    if (searchTerm) {
+        andConditions.push({
+            OR: [
+                {
+                    student: {
+                        user: {
+                            name: {
+                                contains: searchTerm,
+                                mode: 'insensitive',
+                            },
+                        },
+                    },
+                },
+                {
+                    studentId: searchTerm,
+                },
+            ],
+        });
+    }
+
+    andConditions.push({
+        doctorId: doctor.id,
+    });
+
+    const whereConditions: Prisma.PrescriptionWhereInput =
+        andConditions.length > 0 ? { AND: andConditions } : {};
+
+    const result = await prisma.prescription.findMany({
+        where: whereConditions,
+
+        skip,
+        take: limit,
+
+        orderBy: {
+            [sortBy]: sortOrder,
+        },
+
+        include: {
+            student: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                        },
+                    },
+                },
+            },
+
+            medicines: {
+                include: {
+                    medicine: {
+                        select: {
+                            id: true,
+                            name: true,
+                            strength: true,
+                        },
+                    },
+                },
+            },
+
+            visit: {
+                select: {
+                    id: true,
+                    visitDate: true,
+                },
+            },
+        },
+    });
+
+    const total = await prisma.prescription.count({
+        where: whereConditions,
+    });
+
+    return {
+        meta: {
+            total,
+            page,
+            limit,
+        },
+        data: result,
+    };
+};
+
+const getMyPrescriptionsAsPatient = async (
+    userId: string,
+    options: any
+) => {
+
+    const {
+        limit,
+        page,
+        skip,
+        sortBy,
+        sortOrder,
+    } = paginationHelper.calculatePagination(options);
+
+    const student = await prisma.student.findUnique({
+        where: { userId },
+    });
+
+    if (!student) {
+        throw new AppError(
+            status.NOT_FOUND,
+            'Student not found'
+        );
+    }
+
+    const result = await prisma.prescription.findMany({
+        where: {
+            studentId: student.id,
+        },
+
+        skip,
+        take: limit,
+
+        orderBy: {
+            [sortBy]: sortOrder,
+        },
+
+        include: {
+            doctor: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                        },
+                    },
+                },
+            },
+
+            medicines: {
+                include: {
+                    medicine: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
+            },
+
+            visit: {
+                select: {
+                    id: true,
+                    visitDate: true,
+                },
+            },
+        },
+    });
+
+    const total = await prisma.prescription.count({
+        where: {
+            studentId: student.id,
+        },
+    });
+
+    return {
+        meta: {
+            total,
+            page,
+            limit,
+        },
+        data: result,
+    };
 };
 
 const getAllPrescriptions = async (
@@ -123,7 +322,6 @@ const getAllPrescriptions = async (
         });
     }
 
-    // FILTERS
     if (Object.keys(filterData).length > 0) {
         andConditions.push({
             AND: Object.keys(filterData).map((key) => ({
@@ -144,7 +342,7 @@ const getAllPrescriptions = async (
         skip,
         take: limit,
         orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
+            [sortBy]: sortOrder,
         },
 
         include: {
@@ -190,175 +388,6 @@ const getAllPrescriptions = async (
 
     const total = await prisma.prescription.count({
         where: whereConditions,
-    });
-
-    return {
-        meta: {
-            total,
-            page,
-            limit,
-        },
-        data: result,
-    };
-};
-
-const getMyPrescriptionsAsDoctor = async (
-    userId: string,
-    options: any
-) => {
-
-    const {
-        limit,
-        page,
-        skip,
-        sortBy,
-        sortOrder,
-    } = paginationHelper.calculatePagination(options);
-
-    const doctor = await prisma.doctor.findUnique({
-        where: { userId },
-    });
-
-    if (!doctor) {
-        throw new AppError(
-            status.NOT_FOUND,
-            'Doctor not found'
-        );
-    }
-
-    const result = await prisma.prescription.findMany({
-        where: {
-            doctorId: doctor.id,
-        },
-
-        skip,
-        take: limit,
-        orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
-        },
-
-        include: {
-            student: {
-                include: {
-                    user: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true,
-                        },
-                    },
-                },
-            },
-
-            medicines: {
-                include: {
-                    medicine: {
-                        select: {
-                            id: true,
-                            name: true,
-                        },
-                    },
-                },
-            },
-
-            visit: {
-                select: {
-                    id: true,
-                    visitDate: true,
-                },
-            },
-        },
-    });
-
-    const total = await prisma.prescription.count({
-        where: {
-            doctorId: doctor.id,
-        },
-    });
-
-    return {
-        meta: {
-            total,
-            page,
-            limit,
-        },
-        data: result,
-    };
-};
-
-const getMyPrescriptionsAsPatient = async (
-    userId: string,
-    options: any
-) => {
-
-    const {
-        limit,
-        page,
-        skip,
-        sortBy,
-        sortOrder,
-    } = paginationHelper.calculatePagination(options);
-
-    const student = await prisma.student.findUnique({
-        where: { userId },
-    });
-
-    if (!student) {
-        throw new AppError(
-            status.NOT_FOUND,
-            'Student not found'
-        );
-    }
-
-    const result = await prisma.prescription.findMany({
-        where: {
-            studentId: student.id,
-        },
-
-        skip,
-        take: limit,
-
-        orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
-        },
-
-        include: {
-            doctor: {
-                include: {
-                    user: {
-                        select: {
-                            id: true,
-                            name: true,
-                            email: true,
-                        },
-                    },
-                },
-            },
-
-            medicines: {
-                include: {
-                    medicine: {
-                        select: {
-                            id: true,
-                            name: true,
-                        },
-                    },
-                },
-            },
-
-            visit: {
-                select: {
-                    id: true,
-                    visitDate: true,
-                },
-            },
-        },
-    });
-
-    const total = await prisma.prescription.count({
-        where: {
-            studentId: student.id,
-        },
     });
 
     return {
@@ -429,10 +458,6 @@ const getPrescriptionById = async (
         );
     }
 
-    // ---------------------------
-    // RBAC (clean & safe)
-    // ---------------------------
-
     if (userRole === 'DOCTOR') {
         const doctor = await prisma.doctor.findUnique({
             where: { userId },
@@ -462,10 +487,43 @@ const getPrescriptionById = async (
     return prescription;
 };
 
+const cancelPrescription = async (
+    prescriptionId: string,
+    cancelReason: string
+) => {
+
+    const prescription = await prisma.prescription.findUnique({
+        where: { id: prescriptionId },
+    });
+
+    if (!prescription) {
+        throw new AppError(status.NOT_FOUND, 'Prescription not found');
+    }
+
+    if (prescription.status === 'CANCELLED') {
+        throw new AppError(
+            status.BAD_REQUEST,
+            'Prescription already cancelled'
+        );
+    }
+
+    const result = await prisma.prescription.update({
+        where: { id: prescriptionId },
+        data: {
+            status: 'CANCELLED',
+            cancelReason,
+            cancelledAt: new Date(),
+        },
+    });
+
+    return result;
+};
+
 export const PrescriptionService = {
     createPrescription,
     getAllPrescriptions,
     getMyPrescriptionsAsDoctor,
     getMyPrescriptionsAsPatient,
     getPrescriptionById,
+    cancelPrescription,
 };

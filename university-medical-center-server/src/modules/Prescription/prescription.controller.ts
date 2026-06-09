@@ -63,9 +63,15 @@ const getMyPrescriptionsAsDoctor = catchAsync(async (req: Request, res: Response
         'sortBy',
         'sortOrder',
     ]);
+
+    const filters = pick(req.query, [
+        'searchTerm',
+    ]);
+
     const result = await PrescriptionService.getMyPrescriptionsAsDoctor(
         userId,
-        options
+        options,
+        filters
     );
     sendResponse(res, {
         statusCode: status.OK,
@@ -112,10 +118,28 @@ const getPrescriptionById = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const cancelPrescription = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { cancelReason } = req.body;
+
+    const result = await PrescriptionService.cancelPrescription(
+        id as string,
+        cancelReason
+    );
+
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Prescription cancelled successfully',
+        data: result,
+    });
+});
+
 export const PrescriptionController = {
     createPrescription,
     getAllPrescriptions,
     getMyPrescriptionsAsDoctor,
     getMyPrescriptionsAsPatient,
     getPrescriptionById,
+    cancelPrescription
 };

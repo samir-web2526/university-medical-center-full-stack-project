@@ -138,6 +138,9 @@ export const PrescriptionScalarFieldEnum = {
   diagnosis: 'diagnosis',
   advice: 'advice',
   prescriptionImage: 'prescriptionImage',
+  status: 'status',
+  cancelReason: 'cancelReason',
+  cancelledAt: 'cancelledAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

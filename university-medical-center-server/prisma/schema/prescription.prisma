@@ -17,6 +17,11 @@ model Prescription {
 
   medicines          PrescriptionMedicine[]
 
+  status             PrescriptionStatus @default(ACTIVE)
+
+  cancelReason       String?
+  cancelledAt        DateTime?
+
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 

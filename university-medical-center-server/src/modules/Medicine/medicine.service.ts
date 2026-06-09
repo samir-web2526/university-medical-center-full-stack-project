@@ -65,7 +65,7 @@ const getAllMedicines = async (filters: any, options: any) => {
         skip,
         take: limit,
         orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
+            [sortBy]: sortOrder,
         },
     });
 

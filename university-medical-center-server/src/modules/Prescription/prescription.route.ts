@@ -7,7 +7,6 @@ import { PrescriptionValidation } from './prescription.validation';
 
 const router = express.Router();
 
-// Doctor creates prescription
 router.post(
     '/',
     checkAuth('DOCTOR'),
@@ -15,32 +14,35 @@ router.post(
     PrescriptionController.createPrescription
 );
 
-// Doctor sees all their issued prescriptions
 router.get(
     '/doctor-prescriptions',
     checkAuth('DOCTOR'),
     PrescriptionController.getMyPrescriptionsAsDoctor
 );
 
-// Student sees all their received prescriptions
 router.get(
     '/my-prescriptions',
     checkAuth('STUDENT'),
     PrescriptionController.getMyPrescriptionsAsPatient
 );
 
-// Admin sees all prescriptions
 router.get(
     '/',
     checkAuth('ADMIN'),
     PrescriptionController.getAllPrescriptions
 );
 
-// Get single prescription details (Access checked inside service)
 router.get(
     '/:id',
     checkAuth('ADMIN', 'DOCTOR', 'STUDENT'),
     PrescriptionController.getPrescriptionById
+);
+
+router.patch(
+    '/:id/cancel',
+    checkAuth('DOCTOR'),
+    validateRequest(PrescriptionValidation.cancelPrescription),
+    PrescriptionController.cancelPrescription
 );
 
 export const PrescriptionRoutes = router;
