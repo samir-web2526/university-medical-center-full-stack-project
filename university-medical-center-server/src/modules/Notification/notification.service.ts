@@ -31,33 +31,20 @@ const getMyNotifications = async (
 
     const { searchTerm } = filters;
 
-    const notifications = await prisma.notification.findMany({
-        where: {
-            userId,
-            ...(searchTerm && {
-                OR: [
-                    {
-                        title: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        message: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        type: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                ],
-            }),
-        },
+    const whereCondition = {
+        userId,
+        ...(searchTerm && {
+            OR: NotificationSearchableFields.map((field) => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive',
+                },
+            })),
+        }),
+    };
 
+    const notifications = await prisma.notification.findMany({
+        where: whereCondition,
         skip,
         take: limit,
         orderBy: {
@@ -66,31 +53,7 @@ const getMyNotifications = async (
     });
 
     const total = await prisma.notification.count({
-        where: {
-            userId,
-            ...(searchTerm && {
-                OR: [
-                    {
-                        title: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        message: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        type: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                ],
-            }),
-        },
+        where: whereCondition,
     });
 
     return {
@@ -109,32 +72,19 @@ const getAllNotifications = async (options: any, filters: any) => {
 
     const { searchTerm } = filters;
 
-    const notifications = await prisma.notification.findMany({
-        where: {
-            ...(searchTerm && {
-                OR: [
-                    {
-                        title: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        message: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                    {
-                        type: {
-                            contains: searchTerm,
-                            mode: 'insensitive',
-                        },
-                    },
-                ],
-            }),
-        },
+    const whereCondition = {
+        ...(searchTerm && {
+            OR: NotificationSearchableFields.map((field) => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive',
+                },
+            })),
+        }),
+    };
 
+    const notifications = await prisma.notification.findMany({
+        where: whereCondition,
         skip,
         take: limit,
         orderBy: {
@@ -154,15 +104,7 @@ const getAllNotifications = async (options: any, filters: any) => {
     });
 
     const total = await prisma.notification.count({
-        where: {
-            ...(searchTerm && {
-                OR: [
-                    { title: { contains: searchTerm, mode: 'insensitive' } },
-                    { message: { contains: searchTerm, mode: 'insensitive' } },
-                    { type: { contains: searchTerm, mode: 'insensitive' } },
-                ],
-            }),
-        },
+        where: whereCondition,
     });
 
     return {
