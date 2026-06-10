@@ -7,9 +7,21 @@ import pick from '../../sharedFile/pick';
 
 const getMyNotifications = catchAsync(async (req: Request, res: Response) => {
     const user = (req as any).user;
-    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
 
-    const result = await NotificationService.getMyNotifications(user.id, options);
+    const options = pick(req.query, [
+        'limit',
+        'page',
+        'sortBy',
+        'sortOrder',
+    ]);
+
+    const filters = pick(req.query, ['searchTerm']);
+
+    const result = await NotificationService.getMyNotifications(
+        user.id,
+        options,
+        filters
+    );
 
     sendResponse(res, {
         statusCode: status.OK,
@@ -21,9 +33,19 @@ const getMyNotifications = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllNotifications = catchAsync(async (req: Request, res: Response) => {
-    const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+    const options = pick(req.query, [
+        'limit',
+        'page',
+        'sortBy',
+        'sortOrder',
+    ]);
 
-    const result = await NotificationService.getAllNotifications(options);
+    const filters = pick(req.query, ['searchTerm']);
+
+    const result = await NotificationService.getAllNotifications(
+        options,
+        filters
+    );
 
     sendResponse(res, {
         statusCode: status.OK,
@@ -61,10 +83,23 @@ const markAllAsRead = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getUnreadNotificationCount = catchAsync(async (req, res) => {
+    const user = (req as any).user;
+    const count = await NotificationService.getUnreadNotificationCount(user.id);
+
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Unread notification count fetched successfully',
+        data: count,
+    });
+});
+
 const deleteNotification = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
+    const user = (req as any).user;
 
-    const result = await NotificationService.deleteNotification(id as string);
+    const result = await NotificationService.deleteNotification(id as string, user.id);
 
     sendResponse(res, {
         statusCode: status.OK,
@@ -79,5 +114,6 @@ export const NotificationController = {
     getAllNotifications,
     markAsRead,
     markAllAsRead,
+    getUnreadNotificationCount,
     deleteNotification,
 };

@@ -4,58 +4,93 @@ import status from 'http-status';
 import { paginationHelper } from '../../sharedFile/paginationHelper';
 import { Prisma } from '../../generated/client';
 import { TNotification } from './notification.interface';
+import { NotificationSearchableFields } from './notification.constant';
 
 const createNotification = async (
     payload: TNotification,
     existingTx?: Prisma.TransactionClient
 ) => {
-    // Avoid duplicate notifications (e.g., if a system alert with the same title/message already exists and is unread)
-    const operation = async (tx: Prisma.TransactionClient) => {
-        // Optional: Check for duplicate active notification to prevent spam
-        const existing = await tx.notification.findFirst({
-            where: {
-                userId: payload.userId,
-                type: payload.type,
-                title: payload.title,
-                message: payload.message,
-                isRead: false,
-                medicineId: payload.medicineId,
-                prescriptionId: payload.prescriptionId,
-            },
-        });
-
-        if (existing) {
-            return existing; // Return existing if it's already there and unread to avoid spam
-        }
-
-        const result = await tx.notification.create({
+    if (existingTx) {
+        return await existingTx.notification.create({
             data: payload,
         });
-
-        return result;
-    };
-
-    if (existingTx) {
-        return await operation(existingTx);
     }
 
-    return await prisma.$transaction(operation);
+    return await prisma.notification.create({
+        data: payload,
+    });
 };
 
-const getMyNotifications = async (userId: string, options: any) => {
-    const { limit, page, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
+const getMyNotifications = async (
+    userId: string,
+    options: any,
+    filters: any
+) => {
+    const { page, limit, skip } =
+        paginationHelper.calculatePagination(options);
 
-    const result = await prisma.notification.findMany({
-        where: { userId },
+    const { searchTerm } = filters;
+
+    const notifications = await prisma.notification.findMany({
+        where: {
+            userId,
+            ...(searchTerm && {
+                OR: [
+                    {
+                        title: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        message: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        type: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            }),
+        },
+
         skip,
         take: limit,
         orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
+            createdAt: 'desc',
         },
     });
 
     const total = await prisma.notification.count({
-        where: { userId },
+        where: {
+            userId,
+            ...(searchTerm && {
+                OR: [
+                    {
+                        title: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        message: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        type: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            }),
+        },
     });
 
     return {
@@ -64,19 +99,48 @@ const getMyNotifications = async (userId: string, options: any) => {
             page,
             limit,
         },
-        data: result,
+        data: notifications,
     };
 };
 
-const getAllNotifications = async (options: any) => {
-    const { limit, page, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
+const getAllNotifications = async (options: any, filters: any) => {
+    const { page, limit, skip } =
+        paginationHelper.calculatePagination(options);
 
-    const result = await prisma.notification.findMany({
+    const { searchTerm } = filters;
+
+    const notifications = await prisma.notification.findMany({
+        where: {
+            ...(searchTerm && {
+                OR: [
+                    {
+                        title: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        message: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        type: {
+                            contains: searchTerm,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            }),
+        },
+
         skip,
         take: limit,
         orderBy: {
-            [sortBy || 'createdAt']: sortOrder || 'desc',
+            createdAt: 'desc',
         },
+
         include: {
             user: {
                 select: {
@@ -89,7 +153,17 @@ const getAllNotifications = async (options: any) => {
         },
     });
 
-    const total = await prisma.notification.count();
+    const total = await prisma.notification.count({
+        where: {
+            ...(searchTerm && {
+                OR: [
+                    { title: { contains: searchTerm, mode: 'insensitive' } },
+                    { message: { contains: searchTerm, mode: 'insensitive' } },
+                    { type: { contains: searchTerm, mode: 'insensitive' } },
+                ],
+            }),
+        },
+    });
 
     return {
         meta: {
@@ -97,7 +171,7 @@ const getAllNotifications = async (options: any) => {
             page,
             limit,
         },
-        data: result,
+        data: notifications,
     };
 };
 
@@ -106,45 +180,51 @@ const markAsRead = async (id: string, userId: string) => {
         where: { id },
     });
 
-    if (!notification) {
+    if (!notification || notification.userId !== userId) {
         throw new AppError(status.NOT_FOUND, 'Notification not found');
     }
 
-    if (notification.userId !== userId) {
-        throw new AppError(status.FORBIDDEN, 'Access denied');
-    }
-
-    const result = await prisma.notification.update({
+    return prisma.notification.update({
         where: { id },
         data: { isRead: true },
     });
-
-    return result;
 };
 
 const markAllAsRead = async (userId: string) => {
-    const result = await prisma.notification.updateMany({
-        where: { userId, isRead: false },
-        data: { isRead: true },
+    return await prisma.notification.updateMany({
+        where: {
+            userId,
+            isRead: false,
+        },
+        data: {
+            isRead: true,
+        },
     });
-
-    return result;
 };
 
-const deleteNotification = async (id: string) => {
+const getUnreadNotificationCount = async (userId: string) => {
+    const count = await prisma.notification.count({
+        where: {
+            userId,
+            isRead: false,
+        },
+    });
+
+    return count;
+};
+
+const deleteNotification = async (id: string, userId: string) => {
     const notification = await prisma.notification.findUnique({
         where: { id },
     });
 
-    if (!notification) {
+    if (!notification || notification.userId !== userId) {
         throw new AppError(status.NOT_FOUND, 'Notification not found');
     }
 
-    const result = await prisma.notification.delete({
+    return prisma.notification.delete({
         where: { id },
     });
-
-    return result;
 };
 
 export const NotificationService = {
@@ -153,5 +233,6 @@ export const NotificationService = {
     getAllNotifications,
     markAsRead,
     markAllAsRead,
+    getUnreadNotificationCount,
     deleteNotification,
 };

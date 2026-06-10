@@ -34,6 +34,12 @@ router.patch(
     NotificationController.markAsRead
 );
 
+router.get(
+    '/unread-count',
+    checkAuth(Role.STUDENT, Role.DOCTOR, Role.ADMIN),
+    NotificationController.getUnreadNotificationCount
+);
+
 router.delete(
     '/:id',
     checkAuth(Role.ADMIN),
