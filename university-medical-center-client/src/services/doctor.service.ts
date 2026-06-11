@@ -46,7 +46,7 @@ export async function updateMyProfile(
   try {
     const token = await getToken();
 
-    const res = await fetch(`${API}/api/v1/doctors/profile`, {
+    const res = await fetch(`${API}/api/v1/users/update-doctor-profile`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

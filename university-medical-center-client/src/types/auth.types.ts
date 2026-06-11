@@ -30,11 +30,14 @@ export interface RegisterRequest {
   email: string;
   password: string;
   name: string;
-  studentId: string;
-  department: string;
-  session: string;
-  bloodGroup?: string;
-  contactNumber?: string;
+  role: Role;
+  student:{
+    studentId: string;
+    department: string;
+    session: string;
+    bloodGroup?: string;
+    contactNumber?: string;
+  }
 }
 
 export interface CreateDoctorRequest {
@@ -48,6 +51,15 @@ export interface CreateDoctorRequest {
 
 export interface ChangePasswordRequest {
   oldPassword: string;
+  newPassword: string;
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface ResetPasswordRequest {
+  token: string;
   newPassword: string;
 }
 

@@ -5,11 +5,12 @@ import type {
   ChangePasswordRequest,
   CreateDoctorRequest,
   Doctor,
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
   RegisterRequest,
+  ResetPasswordRequest,
   ServiceResponse,
-  UpdateDoctorProfileRequest,
 } from "@/types";
 
 const API = process.env.NEXT_PUBLIC_API;
@@ -125,6 +126,56 @@ export async function logout(): Promise<ServiceResponse<null>> {
   }
 }
 
+export async function forgotPassword(
+  payload: ForgotPasswordRequest
+): Promise<ServiceResponse<{ message: string }>> {
+  try {
+    const res = await fetch(`${API}/api/v1/users/forgot-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to send reset link" };
+    }
+
+    return { data: { message: json?.message || "Reset link sent!" }, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
+export async function resetPassword(
+  payload: ResetPasswordRequest
+): Promise<ServiceResponse<{ message: string }>> {
+  try {
+    const res = await fetch(`${API}/api/v1/users/reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to reset password" };
+    }
+
+    return { data: { message: json?.message || "Password reset successfully!" }, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
 export async function changePassword(
   payload: ChangePasswordRequest
 ): Promise<ServiceResponse<null>> {
@@ -155,32 +206,4 @@ export async function changePassword(
   }
 }
 
-export async function updateDoctorProfile(
-  payload: UpdateDoctorProfileRequest
-): Promise<ServiceResponse<Doctor>> {
-  try {
-    const token = await getToken();
 
-    const res = await fetch(`${API}/api/v1/users/update-doctor-profile`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      return { data: null, error: json?.message || "Failed to update profile" };
-    }
-
-    return { data: json?.data ?? null, error: null };
-  } catch (err) {
-    return {
-      data: null,
-      error: err instanceof Error ? err.message : "Unexpected error",
-    };
-  }
-}
