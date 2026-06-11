@@ -77,10 +77,25 @@ export const loginUserValidationSchema = z.object({
     }),
 });
 
+export const forgotPasswordValidationSchema = z.object({
+    body: z.object({
+        email: z.string({ message: 'Email is required' }).email('Invalid email address'),
+    }),
+});
+
+export const resetPasswordValidationSchema = z.object({
+    body: z.object({
+        token: z.string({ message: 'Token is required' }),
+        newPassword: z.string({ message: 'New password is required' }).min(8, 'Password must be at least 8 characters'),
+    }),
+});
+
 export const userValidationSchema = {
     registerUserValidationSchema,
     createDoctorValidationSchema,
     changePasswordValidationSchema,
     updateDoctorProfileValidationSchema,
     loginUserValidationSchema,
+    forgotPasswordValidationSchema,
+    resetPasswordValidationSchema,
 };

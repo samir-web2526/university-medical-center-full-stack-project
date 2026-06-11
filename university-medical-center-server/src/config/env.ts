@@ -19,6 +19,12 @@ interface EnvConfig {
     ADMIN_PASSWORD: string;
     ADMIN_NAME: string;
     ADMIN_PHONE: string;
+    SMTP_HOST: string;
+    SMTP_PORT: number;
+    SMTP_USER: string;
+    SMTP_PASS: string;
+    RESET_TOKEN_SECRET: string;
+    RESET_TOKEN_EXPIRES_IN: number;
 }
 
 
@@ -37,6 +43,12 @@ const loadEnvVariables = (): EnvConfig => {
         'ADMIN_PASSWORD',
         'ADMIN_NAME',
         'ADMIN_PHONE',
+        'SMTP_HOST',
+        'SMTP_PORT',
+        'SMTP_USER',
+        'SMTP_PASS',
+        'RESET_TOKEN_SECRET',
+        'RESET_TOKEN_EXPIRES_IN',
     ]
 
     requireEnvVariable.forEach((variable) => {
@@ -59,6 +71,12 @@ const loadEnvVariables = (): EnvConfig => {
         ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
         ADMIN_NAME: process.env.ADMIN_NAME as string,
         ADMIN_PHONE: process.env.ADMIN_PHONE as string,
+        SMTP_HOST: process.env.SMTP_HOST as string,
+        SMTP_PORT: parseInt(process.env.SMTP_PORT as string),
+        SMTP_USER: process.env.SMTP_USER as string,
+        SMTP_PASS: process.env.SMTP_PASS as string,
+        RESET_TOKEN_SECRET: process.env.RESET_TOKEN_SECRET as string,
+        RESET_TOKEN_EXPIRES_IN: parseInt(process.env.RESET_TOKEN_EXPIRES_IN as string),
     }
 }
 

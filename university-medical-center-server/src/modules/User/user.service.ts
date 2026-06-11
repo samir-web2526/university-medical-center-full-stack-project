@@ -6,6 +6,8 @@ import status from 'http-status';
 import { tokenUtils } from '../../utils/token';
 import { jwtUtils } from '../../utils/jwt';
 import { envVars } from '../../config/env';
+import { sendPasswordResetEmail } from '../../utils/email';
+import { SignOptions } from 'jsonwebtoken';
 
 const registerUser = async (payload: any) => {
     const { password, email, role, name, student } = payload;
@@ -243,6 +245,60 @@ const refreshToken = async (token: string) => {
     };
 };
 
+const forgotPassword = async (payload: { email: string }) => {
+    const { email } = payload;
+
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, 'No account found with this email');
+    }
+
+    if (!user.isActive || user.status === 'BLOCKED') {
+        throw new AppError(status.FORBIDDEN, 'Your account is inactive or blocked');
+    }
+
+    const resetPayload = { id: user.id, email: user.email };
+    const options: SignOptions = { expiresIn: envVars.RESET_TOKEN_EXPIRES_IN };
+    const resetToken = jwtUtils.createToken(resetPayload, envVars.RESET_TOKEN_SECRET, options);
+
+    const resetLink = `${envVars.FRONTEND_URL}/auth/reset-password?token=${resetToken}`;
+
+    await sendPasswordResetEmail(user.email, resetLink);
+
+    return { message: 'Password reset link sent to your email' };
+};
+
+const resetPassword = async (payload: { token: string; newPassword: string }) => {
+    const { token, newPassword } = payload;
+
+    const verifyResponse = jwtUtils.verifyToken(token, envVars.RESET_TOKEN_SECRET);
+
+    if (!verifyResponse.success) {
+        throw new AppError(status.UNAUTHORIZED, 'Reset link is invalid or has expired');
+    }
+
+    const { id } = verifyResponse.data!;
+
+    const user = await prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, 'User not found');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await prisma.user.update({
+        where: { id },
+        data: {
+            password: hashedPassword,
+            mustChangePassword: false,
+        },
+    });
+
+    return { message: 'Password reset successfully' };
+};
+
 export const UserService = {
     registerUser,
     createDoctor,
@@ -250,4 +306,6 @@ export const UserService = {
     updateDoctorProfile,
     login,
     refreshToken,
+    forgotPassword,
+    resetPassword,
 };

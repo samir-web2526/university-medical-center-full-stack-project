@@ -90,6 +90,26 @@ const logoutUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const forgotPassword = catchAsync(async (req: Request, res: Response) => {
+    const result = await UserService.forgotPassword(req.body);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: result.message,
+        data: null,
+    });
+});
+
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+    const result = await UserService.resetPassword(req.body);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: result.message,
+        data: null,
+    });
+});
+
 export const UserController = {
     registerUser,
     createDoctor,
@@ -98,4 +118,6 @@ export const UserController = {
     loginUser,
     refreshToken,
     logoutUser,
+    forgotPassword,
+    resetPassword,
 };
