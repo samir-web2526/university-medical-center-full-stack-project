@@ -44,8 +44,8 @@ export interface CreateDoctorRequest {
   email: string;
   password: string;
   name: string;
-  specialization: string;
-  qualification: string;
+  specialization?: string;
+  qualification?: string;
   contactNumber?: string;
 }
 

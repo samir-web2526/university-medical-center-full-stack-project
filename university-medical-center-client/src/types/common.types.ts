@@ -8,6 +8,8 @@ export type UserStatus = "ACTIVE" | "BLOCKED" | "INACTIVE";
 
 export type PrescriptionStatus = "ACTIVE" | "CANCELLED";
 
+export type Gender = "MALE" | "FEMALE" | "OTHER";
+
 export type NotificationType =
   | "MEDICINE_LOW_STOCK"
   | "MEDICINE_OUT_OF_STOCK"

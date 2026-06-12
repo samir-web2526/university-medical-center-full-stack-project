@@ -31,34 +31,19 @@ export interface Doctor {
 // ─────────────────────────────────────────────
 
 export interface UpdateDoctorProfileRequest {
-  name?: string;
-  specialization?: string;
-  qualification?: string;
-  contactNumber?: string;
+  user?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
+  specialization?: string | null;
+  qualification?: string | null;
+  contactNumber?: string | null;
 }
 
 export interface AdminUpdateDoctorRequest {
   gender?: Gender;
   status?: UserStatus;
-  qualification?: string;
-  specialization?: string;
-}
-
-// ─────────────────────────────────────────────
-// Doctor Request DTOs
-// ─────────────────────────────────────────────
-
-export interface UpdateDoctorProfileRequest {
-  user?:{
-    name?: string;
-    email?: string;
-    phone?: string;
-  }
-  specialization?: string;
-  qualification?: string;
-  
-}
-
-export interface AdminUpdateDoctorRequest extends UpdateDoctorProfileRequest {
-  status?: UserStatus;
+  qualification?: string | null;
+  specialization?: string | null;
 }

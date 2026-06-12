@@ -1,10 +1,10 @@
-import AllStudentsPage from '@/components/pages/dashboardPages/AdminDashboardPages/AllStudentsPage'
+import AllStudentPage from '@/components/pages/dashboardPages/AdminDashboardPages/AllStudentsPage'
 import React from 'react'
 
-export default function AllStudents() {
+export default function page() {
   return (
     <div>
-        <AllStudentsPage></AllStudentsPage>
+      <AllStudentPage></AllStudentPage>
     </div>
   )
 }

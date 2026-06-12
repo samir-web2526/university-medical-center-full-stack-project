@@ -44,7 +44,12 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
 
   const handleSave = async () => {
     try {
-      await updateMutation.mutateAsync({ id: doctor.id, ...form });
+      const payload = {
+        ...form,
+        specialization: form.specialization || null,
+        qualification: form.qualification || null,
+      };
+      await updateMutation.mutateAsync({ id: doctor.id, ...payload });
       toast.success("Doctor updated successfully");
       router.refresh();
     } catch (err) {

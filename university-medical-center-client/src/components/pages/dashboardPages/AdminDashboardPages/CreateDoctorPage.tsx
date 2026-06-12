@@ -10,21 +10,18 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import {
   ArrowLeft, UserPlus, Mail, User,
-  Stethoscope, GraduationCap, Phone, KeyRound, Eye, EyeOff,
+  KeyRound, Eye, EyeOff,
 } from "lucide-react";
 import Link from "next/link";
-import type { CreateDoctorRequest } from "@/types";
 import { useCreateDoctor } from "@/hooks/queries/useDoctorQueries";
 
 export default function CreateDoctorPage() {
   const router = useRouter();
-  const [form, setForm] = useState<CreateDoctorRequest>({
-    name: "", email: "", password: "", specialization: "", qualification: "", contactNumber: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [showPass, setShowPass] = useState(false);
   const createMutation = useCreateDoctor();
 
-  const set = (k: keyof CreateDoctorRequest, v: string) =>
+  const set = (k: string, v: string) =>
     setForm((prev) => ({ ...prev, [k]: v }));
 
   const handleSubmit = async () => {
@@ -32,18 +29,15 @@ export default function CreateDoctorPage() {
     try {
       await createMutation.mutateAsync(form);
       toast.success("Doctor account created!");
-      router.push("/dashboard/all-doctors");
+      router.refresh()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to create doctor");
     }
   };
 
-  const fields: { key: keyof CreateDoctorRequest; label: string; placeholder: string; icon: React.ElementType; type?: string }[] = [
+  const fields: { key: string; label: string; placeholder: string; icon: React.ElementType; type?: string }[] = [
     { key: "name", label: "Full Name", placeholder: "Dr. John Doe", icon: User },
     { key: "email", label: "Email Address", placeholder: "doctor@clinic.com", icon: Mail, type: "email" },
-    { key: "specialization", label: "Specialization", placeholder: "e.g. Cardiology", icon: Stethoscope },
-    { key: "qualification", label: "Qualification", placeholder: "e.g. MBBS, MD", icon: GraduationCap },
-    { key: "contactNumber", label: "Contact Number", placeholder: "+880 1XXX-XXXXXX", icon: Phone, type: "tel" },
   ];
 
   return (
@@ -76,7 +70,7 @@ export default function CreateDoctorPage() {
                   id={f.key}
                   type={f.type ?? "text"}
                   placeholder={f.placeholder}
-                  value={(form[f.key] as string) ?? ""}
+                  value={form[f.key as keyof typeof form] ?? ""}
                   onChange={(e) => set(f.key, e.target.value)}
                   className="h-10 border-slate-200 focus-visible:ring-blue-500"
                 />

@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap } from "lucide-react";
 import Link from "next/link";
-import { getMyProfile, updateMyProfile } from "@/services/student.service";
+import { getMyProfile, updateMyProfile } from "@/services/doctor.service";
 
 const fields: {
   key: keyof UpdateDoctorProfileRequest;
@@ -74,7 +74,13 @@ export default function UpdateMyProfile() {
 
   const handleSubmit = async () => {
     setSaving(true);
-    const { error } = await updateMyProfile(form);
+    const payload: UpdateDoctorProfileRequest = {
+      ...form,
+      specialization: form.specialization || null,
+      qualification: form.qualification || null,
+      contactNumber: form.contactNumber || null,
+    };
+    const { error } = await updateMyProfile(payload);
     setSaving(false);
 
     if (error) {

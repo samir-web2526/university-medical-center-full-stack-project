@@ -119,12 +119,10 @@ export async function getDoctorById(
 
     return { data: json?.data ?? null, error: null };
   } catch (err) {
-    return {
-      data: null,
-      error: err instanceof Error ? err.message : "Unexpected error",
-    };
+    const message = err instanceof Error ? err.message : "Unexpected error";
+    throw new Error(message);
   }
-} 
+}
 
 export async function updateDoctor(
   id: string,
@@ -145,15 +143,12 @@ export async function updateDoctor(
     const json = await res.json();
 
     if (!res.ok) {
-      return { data: null, error: json?.message || "Failed to update doctor" };
+      throw new Error(json?.message || "Failed to update doctor");
     }
 
     return { data: json?.data ?? null, error: null };
   } catch (err) {
-    return {
-      data: null,
-      error: err instanceof Error ? err.message : "Unexpected error",
-    };
+    throw new Error(err instanceof Error ? err.message : "Unexpected error");
   }
 }
 
