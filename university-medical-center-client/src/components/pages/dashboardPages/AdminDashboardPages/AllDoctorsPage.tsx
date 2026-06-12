@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 
 import {
-  Stethoscope, Search, MoreVertical, ChevronLeft, ChevronRight, UserPlus,
+  Stethoscope, Search, ChevronLeft, ChevronRight, UserPlus, Eye,
 } from "lucide-react";
 import Link from "next/link";
 import { useDoctors } from "@/hooks/queries/useDoctorQueries";
@@ -70,8 +70,8 @@ export default function AllDoctorsPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-slate-50 border-b border-slate-100 hover:bg-slate-50">
-                  {["Doctor", "Specialization", "Qualification", "Contact", "Status"].map((h, i) => (
-                    <TableHead key={h} className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 4 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
+                  {["Doctor", "Specialization", "Qualification", "Contact", "Status", "Action"].map((h, i) => (
+                    <TableHead key={h} className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 5 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
@@ -88,7 +88,7 @@ export default function AllDoctorsPage() {
                   ))
                 ) : filtered.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="py-20 text-center">
+                    <TableCell colSpan={6} className="py-20 text-center">
                       <div className="flex flex-col items-center gap-2 text-slate-400">
                         <Stethoscope className="w-8 h-8" />
                         <p className="text-sm font-medium">No doctors found</p>
@@ -99,15 +99,15 @@ export default function AllDoctorsPage() {
                   filtered.map((doc) => (
                     <TableRow key={doc.id} className="hover:bg-blue-50/40 transition-colors border-b border-slate-50">
                       <TableCell className="pl-6">
-                        <div className="flex items-center gap-3">
+                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="flex items-center gap-3 hover:bg-blue-50 rounded-lg p-1 -m-1 transition-colors">
                           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
                             <span className="text-xs font-bold text-blue-600">{(doc.user?.name ?? "").charAt(0).toUpperCase()}</span>
                           </div>
                           <div>
-                            <p className="font-medium text-slate-800 text-sm">Dr. {doc.user?.name ?? ""}</p>
+                            <p className="font-medium text-slate-800 text-sm hover:text-blue-600">Dr. {doc.user?.name ?? ""}</p>
                             <p className="text-xs text-slate-400">{doc.user?.email ?? ""}</p>
                           </div>
-                        </div>
+                        </Link>
                       </TableCell>
                       <TableCell className="text-sm text-slate-600">{doc.specialization}</TableCell>
                       <TableCell className="text-sm text-slate-600">{doc.qualification}</TableCell>
@@ -116,6 +116,11 @@ export default function AllDoctorsPage() {
                         <Badge variant="outline" className={doc.user?.status === "ACTIVE" ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-xs" : "bg-red-50 text-red-700 border-red-200 text-xs"}>
                           {doc.user?.status}
                         </Badge>
+                      </TableCell>
+                      <TableCell className="pr-6 text-right">
+                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors">
+                          <Eye className="w-4 h-4" />
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))

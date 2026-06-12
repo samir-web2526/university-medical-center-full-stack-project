@@ -1,5 +1,7 @@
+
 import DoctorDetailsPage from '@/components/pages/dashboardPages/AdminDashboardPages/DoctorDetailsPage';
-import { getDoctorById } from '@/services/doctor.service';
+import { getDoctorById} from '@/services';
+
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';

@@ -61,8 +61,8 @@ export default function AllVisitsPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-slate-50 border-b border-slate-100 hover:bg-slate-50">
-                  {["Patient", "Doctor", "Chief Complaint", "Vitals", "Visit Date", "Action"].map((h, i) => (
-                    <TableHead key={i} className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 5 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
+                  {["Patient", "Doctor", "Vitals", "Visit Date", "Action"].map((h, i) => (
+                    <TableHead key={i} className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 4 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
@@ -70,14 +70,14 @@ export default function AllVisitsPage() {
                 {isLoading ? (
                   Array.from({ length: 6 }).map((_, i) => (
                     <TableRow key={i}>
-                      {Array.from({ length: 6 }).map((_, j) => (
+                        {Array.from({ length: 5 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}><Skeleton className="h-4 w-full max-w-[120px]" /></TableCell>
                       ))}
                     </TableRow>
                   ))
                 ) : filtered.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={6} className="py-20 text-center">
+                    <TableCell colSpan={5} className="py-20 text-center">
                       <div className="flex flex-col items-center gap-2 text-slate-400">
                         <ClipboardList className="w-8 h-8" />
                         <p className="text-sm font-medium">No visits found</p>
@@ -97,14 +97,9 @@ export default function AllVisitsPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <span className="text-sm text-slate-600">Dr. {visit.doctor?.user?.name ?? "---"}</span>
+                        <span className="text-sm text-slate-600">{visit.doctor?.user?.name ?? "---"}</span>
                       </TableCell>
-                      <TableCell>
-                        <span className="text-sm text-slate-600">Dr. {visit.doctor?.name ?? "—"}</span>
-                      </TableCell>
-                      <TableCell className="max-w-[180px]">
-                        <p className="text-sm text-slate-700 truncate">{visit.chiefComplaint}</p>
-                      </TableCell>
+
                       <TableCell>
                         <div className="flex items-center gap-2 flex-wrap">
                           {visit.temperature && (
@@ -130,17 +125,13 @@ export default function AllVisitsPage() {
                       <TableCell className="text-sm text-slate-500">
                         {new Date(visit.visitDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </TableCell>
-                      <TableCell className="pr-6">
+                      <TableCell className="pr-6 text-right">
                         <Link href={`/dashboard/all-visits/${visit.id}`}>
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-blue-600 hover:bg-blue-50"
-    >
-      <Eye className="w-4 h-4" />
-    </Button>
-  </Link>
-</TableCell>
+                          <Button variant="ghost" size="icon" className="text-blue-600 hover:bg-blue-50">
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </Link>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}

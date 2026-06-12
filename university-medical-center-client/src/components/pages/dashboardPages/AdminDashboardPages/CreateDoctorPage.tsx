@@ -32,7 +32,7 @@ export default function CreateDoctorPage() {
     try {
       await createMutation.mutateAsync(form);
       toast.success("Doctor account created!");
-      router.push("/admin/doctors");
+      router.push("/dashboard/all-doctors");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to create doctor");
     }
@@ -49,7 +49,7 @@ export default function CreateDoctorPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
-        <Link href="/admin/doctors" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors">
+        <Link href="/dashboard/all-doctors" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Doctors
         </Link>
 
