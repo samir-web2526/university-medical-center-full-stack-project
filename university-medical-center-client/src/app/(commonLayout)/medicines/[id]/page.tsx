@@ -1,4 +1,4 @@
-import MedicineDetailsPage from '@/components/pages/MedicineDetailsPage';
+import MedicineDetailsPage from '@/components/pages/dashboardPages/AdminDashboardPages/MedicineDetailsPage';
 
 export default function Page() {
   return <MedicineDetailsPage />;

@@ -24,6 +24,8 @@ export interface Medicine {
 
 export interface CreateMedicineRequest {
   name: string;
+  genericName?: string;
+  description?: string;
   manufacturer?: string;
   dosageForm?: string;
   strength?: string;

@@ -58,24 +58,14 @@ const ADMIN_NAV = [
         icon: Search,
       },
       {
-        title: "Manage Students",
-        url: "/dashboard/manage-students",
-        icon: Search,
-      },
-      {
-        title: "Manage Doctors",
-        url: "/dashboard/manage-doctors",
-        icon: Search,
-      },
-      {
         title: "All Medicines",
-        url: "/dashboard/medicines",
+        url: "/dashboard/all-medicines",
         icon: Pill,
       },
-      {
-        title: "Manage Medicines",
-        url: "/dashboard/manage-medicines",
-        icon: Search,
+       {
+        title: "All Notifications",
+        url: "/dashboard/all-notifications",
+        icon: Star,
       },
       {
         title: "Create Doctor",
@@ -86,11 +76,6 @@ const ADMIN_NAV = [
         title: "Create Medicine",
         url: "/dashboard/create-medicine",
         icon: Tag,
-      },
-      {
-        title: "All Notifications",
-        url: "/dashboard/all-notifications",
-        icon: Star,
       },
       {
         title: "My Profile",
