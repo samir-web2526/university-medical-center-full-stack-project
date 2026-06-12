@@ -39,8 +39,21 @@ export default function CreateMedicinePage() {
     if (form.stockQuantity <= 0) return toast.error("Stock quantity must be greater than 0");
     if (form.minimumStock < 0) return toast.error("Minimum stock cannot be negative");
 
+    const payload: CreateMedicineRequest = {
+      name: form.name,
+      stockQuantity: form.stockQuantity,
+      minimumStock: form.minimumStock,
+      ...(form.genericName && { genericName: form.genericName }),
+      ...(form.description && { description: form.description }),
+      ...(form.manufacturer && { manufacturer: form.manufacturer }),
+      ...(form.dosageForm && { dosageForm: form.dosageForm }),
+      ...(form.strength && { strength: form.strength }),
+      ...(form.unitPrice && { unitPrice: form.unitPrice }),
+      ...(form.expiryDate && { expiryDate: new Date(form.expiryDate).toISOString() }),
+    };
+
     try {
-      await createMutation.mutateAsync(form);
+      await createMutation.mutateAsync(payload);
       toast.success("Medicine added to inventory!");
       router.push("/dashboard/all-medicines");
     } catch (err) {

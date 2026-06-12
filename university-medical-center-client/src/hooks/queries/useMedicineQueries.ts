@@ -46,7 +46,11 @@ export function useMedicineDetail(id: string) {
 export function useCreateMedicine() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createMedicine,
+    mutationFn: async (payload: any) => {
+      const result = await createMedicine(payload);
+      if (result.error) throw new Error(result.error);
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: medicineKeys.all });
     },
@@ -56,8 +60,11 @@ export function useCreateMedicine() {
 export function useUpdateMedicine() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...data }: any) =>
-      updateMedicine(id, data),
+    mutationFn: async ({ id, ...data }: any) => {
+      const result = await updateMedicine(id, data);
+      if (result.error) throw new Error(result.error);
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: medicineKeys.all });
     },
@@ -67,7 +74,11 @@ export function useUpdateMedicine() {
 export function useDeleteMedicine() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteMedicine,
+    mutationFn: async (id: string) => {
+      const result = await deleteMedicine(id);
+      if (result.error) throw new Error(result.error);
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: medicineKeys.all });
     },
@@ -77,8 +88,11 @@ export function useDeleteMedicine() {
 export function useIncreaseStock() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...payload }: any) =>
-      increaseStock(id, payload),
+    mutationFn: async ({ id, ...payload }: any) => {
+      const result = await increaseStock(id, payload);
+      if (result.error) throw new Error(result.error);
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: medicineKeys.all });
     },
@@ -88,8 +102,11 @@ export function useIncreaseStock() {
 export function useDecreaseStock() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, ...payload }: any) =>
-      decreaseStock(id, payload),
+    mutationFn: async ({ id, ...payload }: any) => {
+      const result = await decreaseStock(id, payload);
+      if (result.error) throw new Error(result.error);
+      return result.data;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: medicineKeys.all });
     },
