@@ -22,11 +22,12 @@ import { redirect } from "next/navigation";
 export default async function DashboardLayout({
   admin,
   student,
-  tutor,
+  doctor,
 }: {
   admin: React.ReactNode;
   student: React.ReactNode;
   tutor: React.ReactNode;
+  doctor: React.ReactNode;
 }) {
  
 const user = await getCurrentUser()
@@ -37,6 +38,7 @@ const user = await getCurrentUser()
     ADMIN: "Admin Panel",
     STUDENT: "My Learning",
     TUTOR: "Teaching Hub",
+    DOCTOR: "Doctor Dashboard",
   }[user.role] ?? "Dashboard";
 
   return (
@@ -70,6 +72,7 @@ const user = await getCurrentUser()
           {user.role === "ADMIN" && admin}
           {user.role === "STUDENT" && student}
           {user.role === "TUTOR" && tutor}
+          {user.role === "DOCTOR" && doctor}
         </div>
       </SidebarInset>
     </SidebarProvider>

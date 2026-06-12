@@ -67,7 +67,7 @@ export async function getVisits(
       return { data: null, error: json?.message || "Failed to fetch visits" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,

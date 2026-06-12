@@ -91,7 +91,40 @@ export async function getAllStudents(
       return { data: null, error: json?.message || "Failed to fetch students" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
+export async function getStudentById(
+  id: string
+): Promise<ServiceResponse<Student>> {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API}/api/v1/students?page=1&limit=100`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to fetch student" };
+    }
+
+    const students = json?.data ?? [];
+    const student = students.find((s: any) => s.id === id);
+
+    if (!student) {
+      return { data: null, error: "Student not found" };
+    }
+
+    return { data: student, error: null };
   } catch (err) {
     return {
       data: null,

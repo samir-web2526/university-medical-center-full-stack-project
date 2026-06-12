@@ -5,6 +5,8 @@
 export interface Medicine {
   id: string;
   name: string;
+  description: string | null;
+  genericName: string | null;
   manufacturer: string | null;
   dosageForm: string | null;
   strength: string | null;

@@ -7,14 +7,20 @@ import type { UserStatus } from "./common.types";
 export interface Doctor {
   id: string;
   userId: string;
-  name: string;
-  email: string;
   specialization: string;
   qualification: string;
   contactNumber: string | null;
-  status: UserStatus;
   createdAt: string;
   updatedAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    role?: string;
+    status?: UserStatus;
+    imageUrl?: string | null;
+  };
 }
 
 // ─────────────────────────────────────────────

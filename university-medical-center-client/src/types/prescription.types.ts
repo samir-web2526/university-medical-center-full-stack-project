@@ -2,6 +2,7 @@ import type { PrescriptionStatus } from "./common.types";
 import type { Doctor } from "./doctor.types";
 import type { Medicine } from "./medicine.types";
 import type { Student } from "./student.types";
+import type { Visit } from "./visit.types";
 
 // ─────────────────────────────────────────────
 // Prescription Medicine (Pivot)
@@ -29,9 +30,11 @@ export interface Prescription {
   doctorId: string;
   diagnosis: string;
   advice: string | null;
-  imageUrl: string | null;
+  prescriptionImage: string | null;
   status: PrescriptionStatus;
   cancelReason: string | null;
+  cancelledAt: string | null;
+  visit?: Visit;
   medicines?: PrescriptionMedicine[];
   student?: Student;
   doctor?: Doctor;
@@ -55,7 +58,7 @@ export interface CreatePrescriptionRequest {
   visitId: string;
   diagnosis: string;
   advice?: string;
-  imageUrl?: string;
+  prescriptionImage?: string;
   medicines?: PrescriptionMedicineInput[];
 }
 

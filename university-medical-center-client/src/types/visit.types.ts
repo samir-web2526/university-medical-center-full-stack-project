@@ -15,6 +15,7 @@ export interface Visit {
   weight: string | null;
   pulseRate: string | null;
   notes: string | null;
+  visitDate: string;
   student?: Student;
   doctor?: Doctor;
   prescription?: import("./prescription.types").Prescription | null;

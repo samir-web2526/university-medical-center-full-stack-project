@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { jwtDecode } from "jwt-decode";
 
-export type Role = "STUDENT" | "TUTOR" | "ADMIN";
+export type Role = "STUDENT" | "ADMIN" | "DOCTOR";
 
 export interface CurrentUser {
   name: string;

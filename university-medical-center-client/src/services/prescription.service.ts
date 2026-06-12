@@ -127,7 +127,7 @@ export async function getAllPrescriptions(
       return { data: null, error: json?.message || "Failed to fetch prescriptions" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,

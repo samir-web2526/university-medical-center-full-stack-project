@@ -36,7 +36,7 @@ export async function getMyNotifications(
       return { data: null, error: json?.message || "Failed to fetch notifications" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,
@@ -66,7 +66,7 @@ export async function getAllNotifications(
       return { data: null, error: json?.message || "Failed to fetch notifications" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,

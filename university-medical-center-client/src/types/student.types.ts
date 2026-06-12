@@ -8,8 +8,8 @@ export interface Student {
   id: string;
   userId: string;
   studentId: string;
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   department: string;
   session: string;
   bloodGroup: BloodGroup | null;
@@ -17,6 +17,14 @@ export interface Student {
   status: UserStatus;
   createdAt: string;
   updatedAt: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role?: string;
+    status?: UserStatus;
+    imageUrl?: string | null;
+  };
 }
 
 // ─────────────────────────────────────────────

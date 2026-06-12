@@ -68,7 +68,7 @@ export async function getAllMedicines(
       return { data: null, error: json?.message || "Failed to fetch medicines" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,

@@ -91,7 +91,7 @@ export async function getAllDoctors(
       return { data: null, error: json?.message || "Failed to fetch doctors" };
     }
 
-    return { data: json?.data ?? null, error: null };
+    return { data: json ?? null, error: null };
   } catch (err) {
     return {
       data: null,
@@ -124,7 +124,7 @@ export async function getDoctorById(
       error: err instanceof Error ? err.message : "Unexpected error",
     };
   }
-}
+} 
 
 export async function updateDoctor(
   id: string,
