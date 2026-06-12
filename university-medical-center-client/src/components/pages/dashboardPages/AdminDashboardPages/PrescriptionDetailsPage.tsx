@@ -7,8 +7,8 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   ArrowLeft, FileText, User, Stethoscope,
-  Calendar, AlertTriangle, Pill, Clock,
-  Thermometer, Activity, Weight, Droplets,
+  Calendar, Pill, Clock,
+  Thermometer, Activity, Weight,
   ClipboardList, Ban,
 } from "lucide-react";
 import Link from "next/link";
@@ -208,7 +208,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
               </div>
               {visit.notes && (
                 <div className="mt-4 p-3 rounded-lg bg-violet-50 border border-violet-100">
-                  <p className="text-xs text-violet-400 mb-0.5">Doctor's Notes</p>
+                  <p className="text-xs text-violet-400 mb-0.5">Doctor&apos;s Notes</p>
                   <p className="text-sm text-violet-700">{visit.notes}</p>
                 </div>
               )}

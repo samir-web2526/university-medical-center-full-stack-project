@@ -12,6 +12,7 @@ export interface Student {
   email?: string;
   department: string;
   session: string;
+  gender?: Gender;
   bloodGroup: BloodGroup | null;
   contactNumber: string | null;
   status: UserStatus;
@@ -31,6 +32,8 @@ export interface Student {
 // Student Request DTOs
 // ─────────────────────────────────────────────
 
+export type Gender = "MALE" | "FEMALE" | "OTHER";
+
 export interface UpdateStudentProfileRequest {
   name?: string;
   department?: string;
@@ -39,6 +42,11 @@ export interface UpdateStudentProfileRequest {
   contactNumber?: string;
 }
 
-export interface AdminUpdateStudentRequest extends UpdateStudentProfileRequest {
+export interface AdminUpdateStudentRequest {
+  studentId?: string;
+  department?: string;
+  session?: string;
+  gender?: Gender;
+  bloodGroup?: BloodGroup;
   status?: UserStatus;
 }
