@@ -4,13 +4,14 @@
 // Replace `useAdminProfile` with your actual auth hook or server action.
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   User, Mail, ShieldCheck, Calendar,
-  Stethoscope, Activity,
+  Stethoscope, Activity, ArrowRight,
 } from "lucide-react";
 
 interface AdminProfile {
@@ -114,11 +115,23 @@ export default function AdminProfilePage() {
           </CardHeader>
           <Separator />
           <CardContent className="pt-4 pb-5">
-            <div className="flex flex-wrap gap-2">
-              {["Manage Doctors", "Manage Students", "Manage Medicines", "View All Prescriptions", "View All Visits", "Manage Notifications"].map((p) => (
-                <span key={p} className="text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full font-medium">
-                  {p}
-                </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {[
+                { label: "Manage Doctors", href: "/dashboard/all-doctors" },
+                { label: "Manage Students", href: "/dashboard/all-students" },
+                { label: "Manage Medicines", href: "/dashboard/all-medicines" },
+                { label: "View All Prescriptions", href: "/dashboard/all-prescriptions" },
+                { label: "View All Visits", href: "/dashboard/all-visits" },
+                { label: "Manage Notifications", href: "/dashboard/all-notifications" },
+              ].map((p) => (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="flex items-center justify-between text-xs bg-blue-50 text-blue-700 border border-blue-200 px-3 py-2 rounded-lg font-medium hover:bg-blue-100 transition-colors group"
+                >
+                  <span>{p.label}</span>
+                  <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                </Link>
               ))}
             </div>
           </CardContent>
