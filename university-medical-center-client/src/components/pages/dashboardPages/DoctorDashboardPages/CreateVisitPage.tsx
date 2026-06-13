@@ -105,7 +105,6 @@ export default function CreateVisitPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Back */}
         <Link
           href="/dashboard/visits"
           className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
@@ -114,7 +113,6 @@ export default function CreateVisitPage() {
           Back to Visits
         </Link>
 
-        {/* Student & Chief Complaint */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
@@ -162,13 +160,12 @@ export default function CreateVisitPage() {
                 placeholder="e.g. Headache for 3 days, Fever and cough…"
                 value={form.chiefComplaint}
                 onChange={(e) => updateField("chiefComplaint", e.target.value)}
-                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
+                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-20"
               />
             </div>
           </CardContent>
         </Card>
 
-        {/* Vitals */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
@@ -238,7 +235,6 @@ export default function CreateVisitPage() {
           </CardContent>
         </Card>
 
-        {/* Notes */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
@@ -256,12 +252,11 @@ export default function CreateVisitPage() {
               placeholder="Additional notes, observations, or follow-up instructions…"
               value={form.notes}
               onChange={(e) => updateField("notes", e.target.value)}
-              className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[100px]"
+              className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-25"
             />
           </CardContent>
         </Card>
 
-        {/* Submit */}
         <div className="flex gap-3 pb-10">
           <Button
             variant="outline"

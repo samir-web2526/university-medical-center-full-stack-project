@@ -66,13 +66,10 @@ export default function DoctorProfilePage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Header Card */}
         <Card className="overflow-hidden border-0 shadow-md">
-          {/* Gradient Banner */}
-          <div className="h-28 bg-gradient-to-r from-blue-600 via-blue-500 to-emerald-500" />
+          <div className="h-28 bg-linear-to-r from-blue-600 via-blue-500 to-emerald-500" />
 
           <CardContent className="relative pt-0 pb-6 px-6">
-            {/* Avatar */}
             <div className="absolute -top-10 left-6">
               <div className="w-20 h-20 rounded-2xl bg-white shadow-lg border-4 border-white flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-600">
@@ -81,7 +78,6 @@ export default function DoctorProfilePage() {
               </div>
             </div>
 
-            {/* Edit Button */}
             <div className="flex justify-end pt-3">
               <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 rounded-lg gap-2">
                 <Link href="/dashboard/update-profile">
@@ -91,7 +87,6 @@ export default function DoctorProfilePage() {
               </Button>
             </div>
 
-            {/* Name + Status */}
             <div className="mt-3 space-y-1.5">
               <div className="flex items-center gap-3 flex-wrap">
                 <h1 className="text-2xl font-bold text-slate-900">{doctor.user?.name ?? "Unknown"}</h1>
@@ -105,7 +100,6 @@ export default function DoctorProfilePage() {
           </CardContent>
         </Card>
 
-        {/* Details Card */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -118,7 +112,7 @@ export default function DoctorProfilePage() {
             {fields.map((field, i) => (
               <div key={field.label}>
                 <div className="flex items-center gap-4 py-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                     <field.icon className="w-4 h-4 text-blue-600" />
                   </div>
                   <div className="min-w-0">

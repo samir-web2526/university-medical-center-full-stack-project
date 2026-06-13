@@ -157,7 +157,6 @@ export default function CreatePrescriptionPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Back */}
         <Link
           href="/dashboard/prescriptions"
           className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
@@ -166,7 +165,6 @@ export default function CreatePrescriptionPage() {
           Back to Prescriptions
         </Link>
 
-        {/* Visit ID & Diagnosis */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
@@ -220,13 +218,12 @@ export default function CreatePrescriptionPage() {
                 placeholder="Follow-up instructions or advice…"
                 value={form.advice}
                 onChange={(e) => updateField("advice", e.target.value)}
-                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
+                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-20"
               />
             </div>
           </CardContent>
         </Card>
 
-        {/* Medicines */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
@@ -355,7 +352,6 @@ export default function CreatePrescriptionPage() {
           </CardContent>
         </Card>
 
-        {/* Submit */}
         <div className="flex gap-3 pb-10">
           <Button
             variant="outline"

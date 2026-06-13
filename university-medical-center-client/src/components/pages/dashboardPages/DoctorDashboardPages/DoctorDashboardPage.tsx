@@ -8,13 +8,11 @@ import { Users, ClipboardList, FileText, BarChart3 } from "lucide-react";
 export default function DoctorDashboardPage() {
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">Welcome to your doctor dashboard</p>
       </div>
 
-      {/* Quick Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -61,7 +59,6 @@ export default function DoctorDashboardPage() {
         </Card>
       </div>
 
-      {/* Quick Actions */}
       <Card>
         <CardHeader>
           <CardTitle>Quick Actions</CardTitle>
@@ -96,7 +93,6 @@ export default function DoctorDashboardPage() {
         </CardContent>
       </Card>
 
-      {/* Help Section */}
       <Card className="bg-blue-50 border-blue-200">
         <CardHeader>
           <CardTitle className="text-blue-900">Need Help?</CardTitle>

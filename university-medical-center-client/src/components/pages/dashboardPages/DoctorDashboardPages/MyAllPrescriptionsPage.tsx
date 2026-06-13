@@ -47,20 +47,23 @@ export default function MyAllPrescriptionsPage() {
   const [page, setPage] = useState(1);
   const limit = 50;
 
-  const fetchPrescriptions = () => {
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
     setLoading(true);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
     getDoctorPrescriptions(page, limit).then((res) => {
+      if (cancelled) return;
       if (res.data) {
         setPrescriptions(res.data.data);
         setTotal(res.data.meta.total);
       }
       setLoading(false);
     });
-  };
-
-  useEffect(() => {
-    fetchPrescriptions();
-  }, [page]);
+    return () => { cancelled = true; };
+  }, [page, limit]);
 
   const filtered = prescriptions.filter((p) => {
     const q = search.toLowerCase();
@@ -117,7 +120,7 @@ export default function MyAllPrescriptionsPage() {
                 <TableRow key={i}>
                   {Array.from({ length: 5 }).map((_, j) => (
                     <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                      <Skeleton className="h-4 w-full max-w-[140px]" />
+                      <Skeleton className="h-4 w-full max-w-35" />
                     </TableCell>
                   ))}
                 </TableRow>
@@ -154,7 +157,7 @@ export default function MyAllPrescriptionsPage() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm text-slate-600 max-w-[200px] truncate">
+                  <TableCell className="text-sm text-slate-600 max-w-50 truncate">
                     {rx.diagnosis}
                   </TableCell>
                   <TableCell className="text-sm text-slate-600">
@@ -191,7 +194,6 @@ export default function MyAllPrescriptionsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -210,7 +212,6 @@ export default function MyAllPrescriptionsPage() {
           </Button>
         </div>
 
-        {/* Search */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
@@ -221,7 +222,6 @@ export default function MyAllPrescriptionsPage() {
           />
         </div>
 
-        {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="bg-white border border-slate-200">
             {tabItems.map((tab) => (
@@ -248,7 +248,6 @@ export default function MyAllPrescriptionsPage() {
           </TabsContent>
         </Tabs>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">
             Page {page} of {Math.max(1, Math.ceil(total / limit))}
@@ -257,7 +256,7 @@ export default function MyAllPrescriptionsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => handlePageChange(Math.max(1, page - 1))}
               disabled={page === 1 || loading}
               className="border-slate-200 h-8"
             >
@@ -266,7 +265,7 @@ export default function MyAllPrescriptionsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => p + 1)}
+              onClick={() => handlePageChange(page + 1)}
               disabled={page * limit >= total || loading}
               className="border-slate-200 h-8"
             >

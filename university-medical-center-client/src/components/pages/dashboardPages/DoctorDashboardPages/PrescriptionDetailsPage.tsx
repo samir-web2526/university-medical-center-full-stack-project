@@ -73,7 +73,6 @@ export default function PrescriptionDetailsPage({
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Back */}
         <Link
           href="/dashboard/prescriptions"
           className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
@@ -81,7 +80,6 @@ export default function PrescriptionDetailsPage({
           <ArrowLeft className="w-4 h-4" /> Back to Prescriptions
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
           <div className="h-20 bg-linear-to-r from-emerald-600 via-teal-500 to-cyan-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
@@ -132,7 +130,6 @@ export default function PrescriptionDetailsPage({
           </CardContent>
         </Card>
 
-        {/* Diagnosis */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -151,7 +148,6 @@ export default function PrescriptionDetailsPage({
           </CardContent>
         </Card>
 
-        {/* Medicines */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -195,7 +191,6 @@ export default function PrescriptionDetailsPage({
           </CardContent>
         </Card>
 
-        {/* Cancel Reason (if cancelled) */}
         {prescription.status === "CANCELLED" && prescription.cancelReason && (
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
@@ -222,7 +217,6 @@ export default function PrescriptionDetailsPage({
           </Card>
         )}
 
-        {/* Doctor & Patient */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
@@ -281,7 +275,6 @@ export default function PrescriptionDetailsPage({
           </Card>
         </div>
 
-        {/* Visit Link */}
         {prescription.visitId && (
           <Card className="border-0 shadow-md">
             <CardContent className="pt-5">
@@ -297,7 +290,6 @@ export default function PrescriptionDetailsPage({
         )}
       </div>
 
-      {/* Cancel Dialog */}
       <Dialog open={showCancel} onOpenChange={setShowCancel}>
         <DialogContent>
           <DialogHeader>
@@ -312,7 +304,7 @@ export default function PrescriptionDetailsPage({
               placeholder="Enter reason for cancellation…"
               value={cancelReason}
               onChange={(e) => setCancelReason(e.target.value)}
-              className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
+              className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-20"
             />
           </div>
           <DialogFooter>

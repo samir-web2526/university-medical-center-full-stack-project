@@ -26,16 +26,21 @@ export default function DoctorMedicinesListPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  const load = (p = page) => {
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
     setLoading(true);
-    getAllMedicines(p, limit).then(({ data, error }) => {
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    getAllMedicines(page, limit).then(({ data, error }) => {
+      if (cancelled) return;
       if (error) toast.error(error);
       else { setMedicines(data?.data ?? []); setTotal(data?.meta?.total ?? 0); }
       setLoading(false);
     });
-  };
-
-  useEffect(() => { load(); }, [page]);
+    return () => { cancelled = true; };
+  }, [page, limit]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const filtered = medicines.filter(
@@ -50,7 +55,6 @@ export default function DoctorMedicinesListPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
             <Pill className="w-6 h-6 text-blue-500" />
@@ -59,7 +63,6 @@ export default function DoctorMedicinesListPage() {
           <p className="text-slate-500 text-sm mt-0.5">Browse available medicines for prescriptions</p>
         </div>
 
-        {/* Search */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
@@ -70,7 +73,6 @@ export default function DoctorMedicinesListPage() {
           />
         </div>
 
-        {/* Table */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
@@ -87,7 +89,7 @@ export default function DoctorMedicinesListPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 7 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[120px]" />
+                          <Skeleton className="h-4 w-full max-w-30" />
                         </TableCell>
                       ))}
                     </TableRow>
@@ -106,7 +108,7 @@ export default function DoctorMedicinesListPage() {
                     <TableRow key={med.id} className="hover:bg-blue-50/40 transition-colors border-b border-slate-50">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                             <Pill className="w-4 h-4 text-blue-600" />
                           </div>
                           <div>
@@ -154,7 +156,6 @@ export default function DoctorMedicinesListPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-600">
@@ -165,7 +166,7 @@ export default function DoctorMedicinesListPage() {
                 variant="outline"
                 size="sm"
                 disabled={page === 1}
-                onClick={() => setPage(p => Math.max(1, p - 1))}
+                onClick={() => handlePageChange(Math.max(1, page - 1))}
               >
                 <ChevronLeft className="w-4 h-4 mr-1" /> Previous
               </Button>
@@ -173,7 +174,7 @@ export default function DoctorMedicinesListPage() {
                 variant="outline"
                 size="sm"
                 disabled={page === totalPages}
-                onClick={() => setPage(p => p + 1)}
+                onClick={() => handlePageChange(page + 1)}
               >
                 Next <ChevronRight className="w-4 h-4 ml-1" />
               </Button>

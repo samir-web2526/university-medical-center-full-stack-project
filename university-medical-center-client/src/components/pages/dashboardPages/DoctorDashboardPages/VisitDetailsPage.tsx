@@ -99,7 +99,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           <ArrowLeft className="w-4 h-4" /> Back to Visits
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
           <div className="h-20 bg-linear-to-r from-blue-600 via-indigo-500 to-violet-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
@@ -141,7 +140,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Chief Complaint */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -154,7 +152,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
               <Textarea
                 value={form.chiefComplaint}
                 onChange={(e) => updateField("chiefComplaint", e.target.value)}
-                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
+                className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-20"
               />
             ) : (
               <p className="text-sm text-slate-800">{visit.chiefComplaint}</p>
@@ -277,7 +275,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
               </div>
             )}
 
-            {/* Notes */}
             {editing ? (
               <div className="mt-4 space-y-1.5">
                 <Label className="text-xs text-slate-600 font-medium">Notes</Label>
@@ -285,7 +282,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
                   placeholder="Doctor's notes…"
                   value={form.notes}
                   onChange={(e) => updateField("notes", e.target.value)}
-                  className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
+                  className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-20"
                 />
               </div>
             ) : (
@@ -299,7 +296,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Edit Actions */}
         {editing && (
           <div className="flex gap-3">
             <Button
@@ -341,7 +337,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </div>
         )}
 
-        {/* Doctor & Patient Info */}
         {!editing && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Card className="border-0 shadow-md">
@@ -392,7 +387,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </div>
         )}
 
-        {/* Prescription */}
         {!editing && (
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">

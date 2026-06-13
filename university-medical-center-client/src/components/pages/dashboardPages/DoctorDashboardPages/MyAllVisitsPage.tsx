@@ -33,16 +33,23 @@ export default function MyAllVisitsPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  useEffect(() => {
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
     setLoading(true);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
     getVisits(page, limit).then((res) => {
+      if (cancelled) return;
       if (res.data) {
         setVisits(res.data.data);
         setTotal(res.data.meta.total);
       }
       setLoading(false);
     });
-  }, [page]);
+    return () => { cancelled = true; };
+  }, [page, limit]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
@@ -59,7 +66,6 @@ export default function MyAllVisitsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
             <CalendarDays className="w-6 h-6 text-blue-500" />
@@ -70,9 +76,8 @@ export default function MyAllVisitsPage() {
           </p>
         </div>
 
-        {/* Search */}
         <div className="flex gap-3 flex-wrap">
-          <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <div className="relative flex-1 min-w-50 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
               placeholder="Search patient or complaint..."
@@ -83,7 +88,6 @@ export default function MyAllVisitsPage() {
           </div>
         </div>
 
-        {/* Table */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
@@ -112,7 +116,7 @@ export default function MyAllVisitsPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 5 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[140px]" />
+                          <Skeleton className="h-4 w-full max-w-35" />
                         </TableCell>
                       ))}
                     </TableRow>
@@ -150,7 +154,7 @@ export default function MyAllVisitsPage() {
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600 max-w-[200px] truncate">
+                      <TableCell className="text-sm text-slate-600 max-w-50 truncate">
                         {visit.chiefComplaint}
                       </TableCell>
                       <TableCell>
@@ -194,7 +198,6 @@ export default function MyAllVisitsPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">
             Page {page} of {totalPages}
@@ -203,7 +206,7 @@ export default function MyAllVisitsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => handlePageChange(Math.max(1, page - 1))}
               disabled={page === 1 || loading}
               className="border-slate-200 h-8"
             >
@@ -212,7 +215,7 @@ export default function MyAllVisitsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
               disabled={page === totalPages || loading}
               className="border-slate-200 h-8"
             >

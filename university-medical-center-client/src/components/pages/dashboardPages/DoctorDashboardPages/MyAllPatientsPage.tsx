@@ -31,7 +31,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-// Replace with your actual patient type & action
 interface Patient {
   id: string;
   name: string;
@@ -42,12 +41,12 @@ interface Patient {
   status: "ACTIVE" | "INACTIVE";
 }
 
-// Placeholder: swap with real server action
 async function fetchMyPatients(
   page: number,
   limit: number
 ): Promise<{ data: Patient[]; total: number }> {
-  // TODO: replace with real action
+  void page;
+  void limit;
   return { data: [], total: 0 };
 }
 
@@ -59,14 +58,21 @@ export default function MyAllPatientsPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  useEffect(() => {
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
     setLoading(true);
+  };
+
+  useEffect(() => {
+    let cancelled = false;
     fetchMyPatients(page, limit).then(({ data, total }) => {
+      if (cancelled) return;
       setPatients(data);
       setTotal(total);
       setLoading(false);
     });
-  }, [page]);
+    return () => { cancelled = true; };
+  }, [page, limit]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
@@ -79,7 +85,6 @@ export default function MyAllPatientsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -92,7 +97,6 @@ export default function MyAllPatientsPage() {
           </div>
         </div>
 
-        {/* Search */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
@@ -103,7 +107,6 @@ export default function MyAllPatientsPage() {
           />
         </div>
 
-        {/* Table Card */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
@@ -135,7 +138,7 @@ export default function MyAllPatientsPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 6 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[120px]" />
+                          <Skeleton className="h-4 w-full max-w-30" />
                         </TableCell>
                       ))}
                     </TableRow>
@@ -146,7 +149,7 @@ export default function MyAllPatientsPage() {
                       <div className="flex flex-col items-center gap-2 text-slate-400">
                         <Users className="w-8 h-8" />
                         <p className="text-sm font-medium">No patients found</p>
-                        <p className="text-xs">Patients you've seen will appear here</p>
+                        <p className="text-xs">Patients you&apos;ve seen will appear here</p>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -158,7 +161,7 @@ export default function MyAllPatientsPage() {
                     >
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-blue-600">
                               {patient.name.charAt(0).toUpperCase()}
                             </span>
@@ -225,7 +228,6 @@ export default function MyAllPatientsPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">
             Page {page} of {totalPages}
@@ -234,7 +236,7 @@ export default function MyAllPatientsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              onClick={() => handlePageChange(Math.max(1, page - 1))}
               disabled={page === 1 || loading}
               className="border-slate-200 h-8"
             >
@@ -243,7 +245,7 @@ export default function MyAllPatientsPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
               disabled={page === totalPages || loading}
               className="border-slate-200 h-8"
             >
