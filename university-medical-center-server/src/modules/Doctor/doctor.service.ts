@@ -4,7 +4,7 @@ import { paginationHelper } from '../../sharedFile/paginationHelper';
 import { doctorSearchableFields } from './doctor.constant';
 import AppError from '../../errorHelpers/appError';
 import status from 'http-status';
-import { IDoctorFilters, IDoctorUpdate } from './doctor.interface';
+import { IDoctorFilters, IDoctorSelfUpdate, IAdminUpdateDoctor } from './doctor.interface';
 
 
 const getMyProfile = async (userId: string) => {
@@ -16,6 +16,7 @@ const getMyProfile = async (userId: string) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone:true,
                     role: true,
                     status: true,
                     isActive: true,
@@ -31,7 +32,7 @@ const getMyProfile = async (userId: string) => {
     return result;
 };
 
-const updateMyProfile = async (userId: string, payload: IDoctorUpdate) => {
+const updateMyProfile = async (userId: string, payload: IDoctorSelfUpdate) => {
     const doctor = await prisma.doctor.findUnique({
         where: { userId },
     });
@@ -40,21 +41,44 @@ const updateMyProfile = async (userId: string, payload: IDoctorUpdate) => {
         throw new AppError(status.NOT_FOUND, 'Doctor not found');
     }
 
-    const result = await prisma.doctor.update({
-        where: { userId },
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    name: true,
-                    email: true,
-                    role: true,
-                    status: true,
-                    isActive: true,
+    const { name, email, phone, gender, qualification, specialization, imageUrl } = payload;
+
+    const result = await prisma.$transaction(async (tx) => {
+        if (name || email || phone) {
+            await tx.user.update({
+                where: { id: userId },
+                data: {
+                    ...(name && { name }),
+                    ...(email && { email }),
+                    ...(phone && { phone }),
+                },
+            });
+        }
+
+        const updatedDoctor = await tx.doctor.update({
+            where: { userId },
+            data: {
+                ...(gender && { gender }),
+                ...(qualification && { qualification }),
+                ...(specialization && { specialization }),
+                ...(imageUrl && { imageUrl }),
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phone: true,
+                        role: true,
+                        status: true,
+                        isActive: true,
+                    }
                 }
             }
-        },
-        data: payload,
+        });
+
+        return updatedDoctor;
     });
 
     return result;
@@ -117,6 +141,7 @@ const getAllDoctors = async (
                     id: true,
                     name: true,
                     email: true,
+                    phone:true,
                     role: true,
                     status: true,
                     isActive: true,
@@ -148,6 +173,7 @@ const getSingleDoctor = async (id: string) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone:true,
                     role: true,
                     status: true,
                     isActive: true,
@@ -163,7 +189,7 @@ const getSingleDoctor = async (id: string) => {
     return result;
 };
 
-const updateDoctor = async (id: string, payload: IDoctorUpdate) => {
+const updateDoctor = async (id: string, payload: IAdminUpdateDoctor) => {
     const doctor = await prisma.doctor.findUnique({
         where: { id },
     });
@@ -172,21 +198,39 @@ const updateDoctor = async (id: string, payload: IDoctorUpdate) => {
         throw new AppError(status.NOT_FOUND, 'Doctor not found');
     }
 
-    const result = await prisma.doctor.update({
-        where: { id },
-        data: payload,
-        include: {
-            user: {
-                select: {
-                    id: true,
-                    name: true,
-                    email: true,
-                    role: true,
-                    status: true,
-                    isActive: true,
+    const { gender, status: userStatus, qualification, specialization } = payload;
+
+    const result = await prisma.$transaction(async (tx) => {
+        if (userStatus) {
+            await tx.user.update({
+                where: { id: doctor.userId },
+                data: { status: userStatus },
+            });
+        }
+
+        const updatedDoctor = await tx.doctor.update({
+            where: { id },
+            data: {
+                ...(gender && { gender }),
+                ...(qualification && { qualification }),
+                ...(specialization && { specialization }),
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phone: true,
+                        role: true,
+                        status: true,
+                        isActive: true,
+                    },
                 },
             },
-        },
+        });
+
+        return updatedDoctor;
     });
 
     return result;

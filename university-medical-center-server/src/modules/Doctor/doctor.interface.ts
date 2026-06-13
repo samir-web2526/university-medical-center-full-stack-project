@@ -1,4 +1,4 @@
-import { Gender } from '../../generated/client';
+import { Gender, UserStatus } from '../../generated/client';
 
 export interface IDoctorFilters {
     searchTerm?: string;
@@ -9,9 +9,19 @@ export interface IDoctorFilters {
     qualification?: string;
 }
 
-export interface IDoctorUpdate {
+export interface IDoctorSelfUpdate {
+    name?: string;
+    email?: string;
+    phone?: string;
     gender?: Gender;
     qualification?: string;
     specialization?: string;
     imageUrl?: string;
+}
+
+export interface IAdminUpdateDoctor {
+    gender?: Gender;
+    status?: UserStatus;
+    qualification?: string;
+    specialization?: string;
 }

@@ -1,9 +1,10 @@
 import { z } from 'zod';
+import { BloodGroup, Gender, UserStatus } from '../../generated/enums';
 
 const updateStudentValidationSchemaByOwn = z.object({
     body: z.object({
-        gender: z.enum(['MALE', 'FEMALE', 'OTHER']).optional(),
-        bloodGroup: z.enum(['A_POSITIVE', 'A_NEGATIVE', 'B_POSITIVE', 'B_NEGATIVE', 'O_POSITIVE', 'O_NEGATIVE', 'AB_POSITIVE', 'AB_NEGATIVE']).optional(),
+        gender: z.enum(Gender).optional(),
+        bloodGroup: z.enum(BloodGroup).optional(),
         imageUrl: z.string().url().optional(),
     }).strict(),
 });
@@ -16,24 +17,10 @@ const updateStudentValidationSchemaByAdmin = z.object({
 
         session: z.string().optional(),
 
-        gender: z.enum([
-            'MALE',
-            'FEMALE',
-            'OTHER',
-        ]).optional(),
+        gender: z.enum(Gender).optional(),
 
-        bloodGroup: z.enum([
-            'A_POSITIVE',
-            'A_NEGATIVE',
-            'B_POSITIVE',
-            'B_NEGATIVE',
-            'O_POSITIVE',
-            'O_NEGATIVE',
-            'AB_POSITIVE',
-            'AB_NEGATIVE',
-        ]).optional(),
-
-        imageUrl: z.string().url().optional(),
+        bloodGroup: z.enum(BloodGroup).optional(),
+        status: z.enum(UserStatus).optional(),
     }).strict(),
 });
 

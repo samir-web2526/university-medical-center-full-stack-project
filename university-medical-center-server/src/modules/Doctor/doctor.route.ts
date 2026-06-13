@@ -15,7 +15,7 @@ router.get(
 router.patch(
     '/profile',
     checkAuth('DOCTOR'),
-    validateRequest(doctorValidationSchema.updateDoctor),
+    validateRequest(doctorValidationSchema.updateMyProfile),
     DoctorController.updateMyProfile
 );
 

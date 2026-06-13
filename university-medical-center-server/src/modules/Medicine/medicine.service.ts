@@ -112,10 +112,18 @@ const updateMedicine = async (
         );
     }
 
-    return await prisma.medicine.update({
-        where: { id },
-        data: payload,
+    const result = await prisma.$transaction(async (tx) => {
+        const updated = await tx.medicine.update({
+            where: { id },
+            data: payload,
+        });
+
+        await checkLowStockAndNotify(tx, id);
+
+        return updated;
     });
+
+    return result;
 };
 
 
@@ -151,14 +159,27 @@ const checkLowStockAndNotify = async (
 
     if (medicine.stockQuantity > medicine.minimumStock) return;
 
-    const isOutOfStock = medicine.stockQuantity === 0;
-
     const admin = await tx.user.findFirst({
         where: { role: 'ADMIN' },
         select: { id: true },
     });
 
     if (!admin) return;
+
+    const isOutOfStock = medicine.stockQuantity === 0;
+    const type = isOutOfStock
+        ? NotificationType.OUT_OF_STOCK
+        : NotificationType.MEDICINE_LOW_STOCK;
+
+    const existing = await tx.notification.findFirst({
+        where: {
+            medicineId: medicine.id,
+            type,
+            isRead: false,
+        },
+    });
+
+    if (existing) return;
 
     await tx.notification.create({
         data: {
@@ -170,9 +191,7 @@ const checkLowStockAndNotify = async (
                 ? `${medicine.name} is completely out of stock.`
                 : `${medicine.name} is low in stock (${medicine.stockQuantity} remaining).`,
 
-            type: isOutOfStock
-                ? NotificationType.OUT_OF_STOCK
-                : NotificationType.MEDICINE_LOW_STOCK,
+            type,
 
             userId: admin.id,
             medicineId: medicine.id,
@@ -272,6 +291,53 @@ const validateStockAvailability = async (
     }
 };
 
+const notifyAllLowStockMedicines = async () => {
+    const allMedicines = await prisma.medicine.findMany();
+    const lowStockMedicines = allMedicines.filter(
+        (med) => med.stockQuantity <= med.minimumStock
+    );
+
+    if (lowStockMedicines.length === 0) return;
+
+    const admin = await prisma.user.findFirst({
+        where: { role: 'ADMIN' },
+        select: { id: true },
+    });
+
+    if (!admin) return;
+
+    for (const med of lowStockMedicines) {
+        const isOutOfStock = med.stockQuantity === 0;
+        const type = isOutOfStock
+            ? NotificationType.OUT_OF_STOCK
+            : NotificationType.MEDICINE_LOW_STOCK;
+
+        const existing = await prisma.notification.findFirst({
+            where: {
+                medicineId: med.id,
+                type,
+                isRead: false,
+            },
+        });
+
+        if (existing) continue;
+
+        await prisma.notification.create({
+            data: {
+                title: isOutOfStock
+                    ? 'Out of Stock Alert'
+                    : 'Low Stock Alert',
+                message: isOutOfStock
+                    ? `${med.name} is completely out of stock.`
+                    : `${med.name} is low in stock (${med.stockQuantity} remaining).`,
+                type,
+                userId: admin.id,
+                medicineId: med.id,
+            },
+        });
+    }
+};
+
 export const MedicineService = {
     createMedicine,
     getAllMedicines,
@@ -280,5 +346,6 @@ export const MedicineService = {
     deleteMedicine,
     increaseStock,
     decreaseStock,
-    validateStockAvailability
+    validateStockAvailability,
+    notifyAllLowStockMedicines,
 };

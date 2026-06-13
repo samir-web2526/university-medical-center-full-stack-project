@@ -23,13 +23,13 @@ router.get(
 
 router.patch(
     '/mark-all-as-read',
-    checkAuth(Role.STUDENT, Role.DOCTOR),
+    checkAuth(Role.STUDENT, Role.DOCTOR, Role.ADMIN),
     NotificationController.markAllAsRead
 );
 
 router.patch(
     '/mark-as-read/:id',
-    checkAuth(Role.STUDENT, Role.DOCTOR),
+    checkAuth(Role.STUDENT, Role.DOCTOR,Role.ADMIN),
     validateRequest(notificationValidationSchema.markAsReadValidation),
     NotificationController.markAsRead
 );

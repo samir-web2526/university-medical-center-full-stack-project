@@ -60,7 +60,7 @@ const markAsRead = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
     const user = (req as any).user;
 
-    const result = await NotificationService.markAsRead(id as string, user.id);
+    const result = await NotificationService.markAsRead(id as string, user.id, user.role);
 
     sendResponse(res, {
         statusCode: status.OK,
@@ -73,7 +73,7 @@ const markAsRead = catchAsync(async (req: Request, res: Response) => {
 const markAllAsRead = catchAsync(async (req: Request, res: Response) => {
     const user = (req as any).user;
 
-    const result = await NotificationService.markAllAsRead(user.id);
+    const result = await NotificationService.markAllAsRead(user.id, user.role);
 
     sendResponse(res, {
         statusCode: status.OK,

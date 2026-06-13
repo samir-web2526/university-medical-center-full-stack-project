@@ -117,12 +117,16 @@ const getAllNotifications = async (options: any, filters: any) => {
     };
 };
 
-const markAsRead = async (id: string, userId: string) => {
+const markAsRead = async (id: string, userId: string, role?: string) => {
     const notification = await prisma.notification.findUnique({
         where: { id },
     });
 
-    if (!notification || notification.userId !== userId) {
+    if (!notification) {
+        throw new AppError(status.NOT_FOUND, 'Notification not found');
+    }
+
+    if (role !== 'ADMIN' && notification.userId !== userId) {
         throw new AppError(status.NOT_FOUND, 'Notification not found');
     }
 
@@ -132,10 +136,10 @@ const markAsRead = async (id: string, userId: string) => {
     });
 };
 
-const markAllAsRead = async (userId: string) => {
+const markAllAsRead = async (userId: string, role?: string) => {
     return await prisma.notification.updateMany({
         where: {
-            userId,
+            ...(role !== 'ADMIN' && { userId }),
             isRead: false,
         },
         data: {

@@ -20,7 +20,6 @@ export const validateRequest = (schema: z.ZodTypeAny) => {
             const request = req as any;
 
             if (data.body !== undefined) request.body = data.body;
-            if (data.query !== undefined) request.query = data.query;
             if (data.params !== undefined) request.params = data.params;
             if (data.cookies !== undefined) request.cookies = data.cookies;
 
