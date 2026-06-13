@@ -37,8 +37,8 @@ const createPrescription = async (
     }
 
     const result = await prisma.$transaction(async (tx) => {
-        const existingPrescription = await tx.prescription.findUnique({
-            where: { visitId: visit.id },
+        const existingPrescription = await tx.prescription.findFirst({
+            where: { visitId: visit.id, status: 'ACTIVE' },
         });
 
         if (existingPrescription) {
@@ -46,6 +46,19 @@ const createPrescription = async (
                 status.BAD_REQUEST,
                 'Prescription already exists for this visit'
             );
+        }
+
+        const cancelledPrescription = await tx.prescription.findFirst({
+            where: { visitId: visit.id, status: 'CANCELLED' },
+        });
+
+        if (cancelledPrescription) {
+            await tx.prescriptionMedicine.deleteMany({
+                where: { prescriptionId: cancelledPrescription.id },
+            });
+            await tx.prescription.delete({
+                where: { id: cancelledPrescription.id },
+            });
         }
 
         const prescription = await tx.prescription.create({

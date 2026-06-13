@@ -216,6 +216,15 @@ const getVisitById = async (
                         }
                     }
                 }
+            },
+            prescription: {
+                include: {
+                    medicines: {
+                        include: {
+                            medicine: true,
+                        }
+                    }
+                }
             }
         }
     });
