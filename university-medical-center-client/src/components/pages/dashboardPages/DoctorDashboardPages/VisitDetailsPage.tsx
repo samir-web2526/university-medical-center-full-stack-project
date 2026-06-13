@@ -402,27 +402,61 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
             </CardHeader>
             <Separator />
             <CardContent className="pt-5 space-y-4">
-              {visit.prescription ? (
+              {visit.prescription && visit.prescription.status === "ACTIVE" ? (
                 <>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-slate-800">{visit.prescription.diagnosis}</p>
-                      {visit.prescription.advice && (
-                        <p className="text-xs text-slate-500 mt-0.5">{visit.prescription.advice}</p>
-                      )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="bg-white rounded-md p-2.5 border border-slate-100">
+                      <p className="text-[9px] text-slate-400 uppercase tracking-wide mb-0.5">Diagnosis</p>
+                      <p className="text-sm font-medium text-slate-800">{visit.prescription.diagnosis}</p>
                     </div>
+                    {visit.prescription.advice && (
+                      <div className="bg-white rounded-md p-2.5 border border-slate-100">
+                        <p className="text-[9px] text-slate-400 uppercase tracking-wide mb-0.5">Advice</p>
+                        <p className="text-sm text-slate-700">{visit.prescription.advice}</p>
+                      </div>
+                    )}
                   </div>
                   {visit.prescription.medicines && visit.prescription.medicines.length > 0 && (
                     <div className="space-y-2">
                       {visit.prescription.medicines.map((rxMed) => (
-                        <div key={rxMed.id} className="flex items-center gap-3 p-2 rounded-lg bg-slate-50 border border-slate-100">
-                          <div className="w-6 h-6 rounded bg-emerald-100 flex items-center justify-center shrink-0">
-                            <Pill className="w-3 h-3 text-emerald-600" />
+                        <div key={rxMed.id} className="p-3 rounded-lg bg-slate-50 border border-slate-100 space-y-2">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                              <Pill className="w-4 h-4 text-emerald-600" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-semibold text-slate-800">{rxMed.medicine?.name ?? "Unknown"}</p>
+                              {rxMed.medicine?.genericName && (
+                                <p className="text-[10px] text-slate-400">Generic: {rxMed.medicine.genericName}</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium text-slate-800">{rxMed.medicine?.name ?? "Unknown"}</p>
-                            <p className="text-[10px] text-slate-400">{rxMed.dosage} · {rxMed.duration} · Qty: {rxMed.quantity}</p>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div className="bg-white rounded-md p-1.5 border border-slate-100">
+                              <p className="text-[9px] text-slate-400 uppercase tracking-wide">Dosage</p>
+                              <p className="text-xs font-medium text-emerald-700">{rxMed.dosage}</p>
+                            </div>
+                            <div className="bg-white rounded-md p-1.5 border border-slate-100">
+                              <p className="text-[9px] text-slate-400 uppercase tracking-wide">Duration</p>
+                              <p className="text-xs font-medium text-blue-700">{rxMed.duration}</p>
+                            </div>
+                            <div className="bg-white rounded-md p-1.5 border border-slate-100">
+                              <p className="text-[9px] text-slate-400 uppercase tracking-wide">Quantity</p>
+                              <p className="text-xs font-medium text-violet-700">{rxMed.quantity}</p>
+                            </div>
+                            {rxMed.medicine?.strength && (
+                              <div className="bg-white rounded-md p-1.5 border border-slate-100">
+                                <p className="text-[9px] text-slate-400 uppercase tracking-wide">Strength</p>
+                                <p className="text-xs font-medium text-slate-700">{rxMed.medicine.strength}</p>
+                              </div>
+                            )}
                           </div>
+                          {rxMed.instructions && (
+                            <div className="bg-amber-50 border border-amber-100 rounded-md p-1.5">
+                              <p className="text-[9px] text-amber-500 uppercase tracking-wide">Instructions</p>
+                              <p className="text-xs text-amber-700">{rxMed.instructions}</p>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

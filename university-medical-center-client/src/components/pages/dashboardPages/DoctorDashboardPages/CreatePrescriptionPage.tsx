@@ -33,6 +33,7 @@ import type { Medicine } from "@/types";
 interface MedicineEntry {
   medicineId: string;
   dosage: string;
+  quantity: string;
   frequency: string;
   duration: string;
   instructions: string;
@@ -48,6 +49,7 @@ interface PrescriptionForm {
 const emptyMedicine = (): MedicineEntry => ({
   medicineId: "",
   dosage: "",
+  quantity: "",
   frequency: "",
   duration: "",
   instructions: "",
@@ -116,6 +118,8 @@ export default function CreatePrescriptionPage() {
     if (!form.diagnosis.trim()) return toast.error("Diagnosis is required");
     if (form.medicines.some((m) => !m.medicineId))
       return toast.error("Please select a medicine for each entry");
+    if (form.medicines.some((m) => m.medicineId && (!m.quantity || Number(m.quantity) < 1)))
+      return toast.error("Quantity is required for each medicine");
 
     setSaving(true);
     try {
@@ -129,7 +133,7 @@ export default function CreatePrescriptionPage() {
             medicineId: m.medicineId,
             dosage: m.dosage.trim(),
             duration: m.duration.trim(),
-            quantity: 1,
+            quantity: Number(m.quantity),
             ...(m.instructions.trim() && { instructions: m.instructions.trim() }),
           })),
       };
@@ -294,6 +298,17 @@ export default function CreatePrescriptionPage() {
                         placeholder="e.g. 5mg, 500ml"
                         value={med.dosage}
                         onChange={(e) => updateMedicine(index, "dosage", e.target.value)}
+                        className="h-9 border-slate-200 focus-visible:ring-blue-500 bg-white text-sm"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label className="text-xs text-slate-600 font-medium">Quantity *</Label>
+                      <Input
+                        type="number"
+                        placeholder="e.g. 10"
+                        min="1"
+                        value={med.quantity}
+                        onChange={(e) => updateMedicine(index, "quantity", e.target.value)}
                         className="h-9 border-slate-200 focus-visible:ring-blue-500 bg-white text-sm"
                       />
                     </div>
