@@ -10,7 +10,6 @@ export interface Doctor {
   gender?: Gender;
   specialization: string;
   qualification: string;
-  contactNumber: string | null;
   imageUrl?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -31,14 +30,13 @@ export interface Doctor {
 // ─────────────────────────────────────────────
 
 export interface UpdateDoctorProfileRequest {
-  user?: {
-    name?: string;
-    email?: string;
-    phone?: string;
-  };
-  specialization?: string | null;
+  name?: string;
+  email?: string;
+  phone?: string;
+  gender?: Gender;
   qualification?: string | null;
-  contactNumber?: string | null;
+  specialization?: string | null;
+  imageUrl?: string;
 }
 
 export interface AdminUpdateDoctorRequest {

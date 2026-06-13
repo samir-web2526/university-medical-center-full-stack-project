@@ -18,7 +18,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Link from "next/link";
-import { getMyProfile } from "@/services/student.service";
+import { getMyProfile } from "@/services/doctor.service";
 
 export default function DoctorProfilePage() {
   const [doctor, setDoctor] = useState<Doctor | null>(null);
@@ -43,13 +43,13 @@ export default function DoctorProfilePage() {
   if (!doctor) return null;
 
   const statusColor =
-    doctor.status === "ACTIVE"
+    doctor.user?.status === "ACTIVE"
       ? "bg-emerald-50 text-emerald-700 border-emerald-200"
       : "bg-red-50 text-red-700 border-red-200";
 
   const fields = [
-    { icon: Mail, label: "Email", value: doctor.email },
-    { icon: Phone, label: "Phone", value: doctor.contactNumber ?? "Not provided" },
+    { icon: Mail, label: "Email", value: doctor.user?.email ?? "—" },
+    { icon: Phone, label: "Phone", value: doctor.user?.phone ?? "Not provided" },
     { icon: Stethoscope, label: "Specialization", value: doctor.specialization },
     { icon: GraduationCap, label: "Qualification", value: doctor.qualification },
     {
@@ -76,7 +76,7 @@ export default function DoctorProfilePage() {
             <div className="absolute -top-10 left-6">
               <div className="w-20 h-20 rounded-2xl bg-white shadow-lg border-4 border-white flex items-center justify-center">
                 <span className="text-3xl font-bold text-blue-600">
-                  {doctor.name.charAt(0).toUpperCase()}
+                  {(doctor.user?.name ?? "D").charAt(0).toUpperCase()}
                 </span>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function DoctorProfilePage() {
             {/* Edit Button */}
             <div className="flex justify-end pt-3">
               <Button asChild size="sm" className="bg-blue-600 hover:bg-blue-700 rounded-lg gap-2">
-                <Link href="/doctor/profile/update">
+                <Link href="/dashboard/update-profile">
                   <Edit className="w-3.5 h-3.5" />
                   Edit Profile
                 </Link>
@@ -94,10 +94,10 @@ export default function DoctorProfilePage() {
             {/* Name + Status */}
             <div className="mt-3 space-y-1.5">
               <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="text-2xl font-bold text-slate-900">Dr. {doctor.name}</h1>
+                <h1 className="text-2xl font-bold text-slate-900">{doctor.user?.name ?? "Unknown"}</h1>
                 <Badge className={`text-xs font-medium border ${statusColor}`} variant="outline">
                   <ShieldCheck className="w-3 h-3 mr-1" />
-                  {doctor.status}
+                  {doctor.user?.status ?? "UNKNOWN"}
                 </Badge>
               </div>
               <p className="text-slate-500 text-sm">{doctor.specialization}</p>
