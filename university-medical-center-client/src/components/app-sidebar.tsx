@@ -160,7 +160,17 @@ const DOCTOR_NAV = [
         icon: Search,
       },
       {
-        title: "Create Visits",
+        title: "My Visits",
+        url: "/dashboard/visits",
+        icon: CalendarDays,
+      },
+      {
+        title: "Notifications",
+        url: "/dashboard/notifications",
+        icon: Star,
+      },
+       {
+        title: "Create Visit",
         url: "/dashboard/create-visit",
         icon: CalendarDays,
       },
