@@ -141,7 +141,7 @@ export default function DoctorMedicinesListPage() {
                       </TableCell>
                       <TableCell className="pr-6 text-right">
                         <Button asChild size="sm" variant="ghost" className="h-8 gap-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50">
-                          <Link href={`/medicines/${med.id}`}>
+                          <Link href={`/dashboard/medicines/${med.id}`}>
                             <Eye className="w-4 h-4" /> View
                           </Link>
                         </Button>

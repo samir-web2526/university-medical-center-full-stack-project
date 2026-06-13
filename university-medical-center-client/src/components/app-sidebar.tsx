@@ -150,7 +150,7 @@ const DOCTOR_NAV = [
         icon: UserCircle,
       },
       {
-        title: "Medicines",
+        title: "All Medicines",
         url: "/dashboard/medicines",
         icon: Pill,
       },
@@ -163,11 +163,6 @@ const DOCTOR_NAV = [
         title: "My Visits",
         url: "/dashboard/visits",
         icon: CalendarDays,
-      },
-      {
-        title: "Notifications",
-        url: "/dashboard/notifications",
-        icon: Star,
       },
        {
         title: "Create Visit",

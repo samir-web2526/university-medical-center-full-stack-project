@@ -1,6 +1,6 @@
 import { getMedicineById} from "@/services";
 import { notFound } from "next/navigation";
-import MedicineDetailsPage from "@/components/pages/dashboardPages/AdminDashboardPages/MedicineDetailsPage";
+import DoctorMedicineDetailsPage from "@/components/pages/dashboardPages/DoctorDashboardPages/DoctorMedicineDetailsPage";
 
 export const dynamic = "force-dynamic";
 
@@ -15,5 +15,5 @@ export default async function MedicineDetails({
     return notFound();
   }
 
-  return <MedicineDetailsPage medicine={result.data} />;
+  return <DoctorMedicineDetailsPage medicine={result.data} />;
 }
