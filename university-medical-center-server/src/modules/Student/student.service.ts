@@ -14,6 +14,7 @@ const getMyProfile = async (userId: string) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone: true,
                     role: true,
                     status: true,
                     isActive: true,
@@ -38,6 +39,16 @@ const updateMyProfile = async (userId: string, payload: any) => {
         throw new Error('Student not found');
     }
 
+    const { name, email, phone, ...studentData } = payload;
+
+    if (name || email || phone) {
+        const userPayload: Record<string, any> = {};
+        if (name) userPayload.name = name;
+        if (email) userPayload.email = email;
+        if (phone) userPayload.phone = phone;
+        await prisma.user.update({ where: { id: userId }, data: userPayload });
+    }
+
     const result = await prisma.student.update({
         where: { userId },
         include: {
@@ -46,13 +57,14 @@ const updateMyProfile = async (userId: string, payload: any) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone: true,
                     role: true,
                     status: true,
                     isActive: true,
                 }
             }
         },
-        data: payload,
+        data: studentData,
     });
 
     return result;
@@ -101,6 +113,7 @@ const getAllStudents = async (filters: any, options: any) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone: true,
                     role: true,
                     status: true,
                     isActive: true,
@@ -164,6 +177,7 @@ const updateStudent = async (id: string, payload: any) => {
                     id: true,
                     name: true,
                     email: true,
+                    phone: true,
                     role: true,
                     status: true,
                     isActive: true,
