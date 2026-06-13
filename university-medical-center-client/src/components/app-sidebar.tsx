@@ -114,11 +114,6 @@ const STUDENT_NAV = [
         icon: Search,
       },
       {
-        title: "Medicines",
-        url: "/dashboard/medicines",
-        icon: Pill,
-      },
-      {
         title: "Update Profile",
         url: "/dashboard/update-profile",
         icon: Tag,
