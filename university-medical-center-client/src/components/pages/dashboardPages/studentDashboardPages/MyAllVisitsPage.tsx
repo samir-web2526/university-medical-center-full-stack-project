@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -91,7 +90,7 @@ export default function MyAllVisitsPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 4 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[120px]" />
+                          <Skeleton className="h-4 w-full max-w-30" />
                         </TableCell>
                       ))}
                     </TableRow>

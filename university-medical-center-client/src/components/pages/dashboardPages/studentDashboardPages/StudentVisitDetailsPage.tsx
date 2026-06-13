@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   ArrowLeft, ClipboardList, Stethoscope, Calendar, Thermometer,
-  Heart, Activity, Weight, FileText, Pill, User,
+  Heart, Activity, Weight, FileText, Pill,
 } from "lucide-react";
 import Link from "next/link";
 

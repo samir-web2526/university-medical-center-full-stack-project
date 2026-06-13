@@ -97,7 +97,7 @@ export default function MyPrescriptionsPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 5 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[120px]" />
+                          <Skeleton className="h-4 w-full max-w-30" />
                         </TableCell>
                       ))}
                     </TableRow>

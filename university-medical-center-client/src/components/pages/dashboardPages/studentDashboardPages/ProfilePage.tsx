@@ -46,10 +46,12 @@ export default function ProfilePage() {
 
   const fields = [
     { icon: Mail, label: "Email", value: userEmail },
+    { icon: Phone, label: "Phone", value: student.user?.phone ?? "Not provided" },
     { icon: GraduationCap, label: "Student ID", value: student.studentId },
     { icon: User, label: "Department", value: student.department },
     { icon: Calendar, label: "Session", value: student.session },
-    { icon: Droplets, label: "Blood Group", value: student.bloodGroup ?? "Not provided" },
+    { icon: User, label: "Gender", value: student.gender ? student.gender.charAt(0) + student.gender.slice(1).toLowerCase() : "Not provided" },
+    { icon: Droplets, label: "Blood Group", value: student.bloodGroup?.replace("_", " ") ?? "Not provided" },
     {
       icon: Calendar,
       label: "Member Since",
@@ -63,7 +65,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
         <Card className="overflow-hidden border-0 shadow-md">
-          <div className="h-28 bg-gradient-to-r from-violet-600 via-violet-500 to-purple-500" />
+          <div className="h-28 bg-linear-to-r from-violet-600 via-violet-500 to-purple-500" />
           <CardContent className="relative pt-0 pb-6 px-6">
             <div className="absolute -top-10 left-6">
               <div className="w-20 h-20 rounded-2xl bg-white shadow-lg border-4 border-white flex items-center justify-center">
@@ -88,7 +90,7 @@ export default function ProfilePage() {
                   {userStatus}
                 </Badge>
               </div>
-              <p className="text-slate-500 text-sm">{student.department} · {student.session}</p>
+              <p className="text-slate-500 text-sm">ID: {student.userId}</p>
             </div>
           </CardContent>
         </Card>
@@ -105,7 +107,7 @@ export default function ProfilePage() {
             {fields.map((field, i) => (
               <div key={field.label}>
                 <div className="flex items-center gap-4 py-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0">
                     <field.icon className="w-4 h-4 text-violet-600" />
                   </div>
                   <div className="min-w-0">

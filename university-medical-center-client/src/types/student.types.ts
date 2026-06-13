@@ -8,20 +8,17 @@ export interface Student {
   id: string;
   userId: string;
   studentId: string;
-  name?: string;
-  email?: string;
   department: string;
   session: string;
   gender?: Gender;
   bloodGroup: BloodGroup | null;
-  contactNumber: string | null;
-  status: UserStatus;
   createdAt: string;
   updatedAt: string;
   user?: {
     id: string;
     name: string;
     email: string;
+    phone?: string | null;
     role?: string;
     status?: UserStatus;
     imageUrl?: string | null;
@@ -35,12 +32,16 @@ export interface Student {
 export type Gender = "MALE" | "FEMALE" | "OTHER";
 
 export interface UpdateStudentProfileRequest {
-  name?: string;
-  department?: string;
-  session?: string;
+  gender?: Gender;
   bloodGroup?: BloodGroup;
-  contactNumber?: string;
+  imageUrl?: string | null;
+  user?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
 }
+
 
 export interface AdminUpdateStudentRequest {
   studentId?: string;

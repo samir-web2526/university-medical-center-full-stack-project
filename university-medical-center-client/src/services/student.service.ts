@@ -46,13 +46,21 @@ export async function updateMyProfile(
   try {
     const token = await getToken();
 
+    const flatPayload: Record<string, any> = { ...payload };
+    if (payload.user) {
+      if (payload.user.name) flatPayload.name = payload.user.name;
+      if (payload.user.email) flatPayload.email = payload.user.email;
+      if (payload.user.phone) flatPayload.phone = payload.user.phone;
+      delete flatPayload.user;
+    }
+
     const res = await fetch(`${API}/api/v1/students/profile`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(flatPayload),
     });
 
     const json = await res.json();

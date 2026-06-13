@@ -14,18 +14,19 @@ export default function AllNotificationsPage() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const load = () => {
-    setLoading(true);
-    getMyNotifications(1, 50).then((res) => {
-      setNotifications(res.data?.data ?? []);
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      getMyNotifications(1, 50),
+      getUnreadCount(),
+    ]).then(([notifRes, countRes]) => {
+      if (cancelled) return;
+      setNotifications(notifRes.data?.data ?? []);
+      setUnreadCount(countRes.data?.count ?? 0);
       setLoading(false);
     });
-    getUnreadCount().then((res) => {
-      setUnreadCount(res.data?.count ?? 0);
-    });
-  };
-
-  useEffect(() => { load(); }, []);
+    return () => { cancelled = true; };
+  }, []);
 
   const handleMarkAllRead = async () => {
     const { error } = await markAllAsRead();
