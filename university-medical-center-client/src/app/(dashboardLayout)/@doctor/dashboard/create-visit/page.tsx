@@ -1,7 +1,5 @@
-import React from 'react'
+import CreateVisitPage from "@/components/pages/dashboardPages/DoctorDashboardPages/CreateVisitPage";
 
 export default function VisitCreate() {
-  return (
-    <div>VisitCreate</div>
-  )
+  return <CreateVisitPage />;
 }

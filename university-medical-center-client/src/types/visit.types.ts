@@ -31,17 +31,18 @@ export interface CreateVisitRequest {
   studentId: string;
   chiefComplaint: string;
   bloodPressure?: string;
-  temperature?: string;
-  weight?: string;
-  pulseRate?: string;
+  temperature?: number;
+  weight?: number;
+  pulseRate?: number;
   notes?: string;
+  visitDate?: string;
 }
 
 export interface UpdateVisitRequest {
   chiefComplaint?: string;
   bloodPressure?: string;
-  temperature?: string;
-  weight?: string;
-  pulseRate?: string;
+  temperature?: number;
+  weight?: number;
+  pulseRate?: number;
   notes?: string;
 }

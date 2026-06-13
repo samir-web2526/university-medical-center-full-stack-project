@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -22,14 +22,16 @@ import {
   Trash2,
   Pill,
   ClipboardList,
-  User,
   Save,
   Stethoscope,
 } from "lucide-react";
 import Link from "next/link";
+import { createPrescription } from "@/services/prescription.service";
+import { getAllMedicines } from "@/services/medicine.service";
+import type { Medicine } from "@/types";
 
-interface Medicine {
-  name: string;
+interface MedicineEntry {
+  medicineId: string;
   dosage: string;
   frequency: string;
   duration: string;
@@ -37,14 +39,14 @@ interface Medicine {
 }
 
 interface PrescriptionForm {
-  patientId: string;
+  visitId: string;
   diagnosis: string;
-  notes: string;
-  medicines: Medicine[];
+  advice: string;
+  medicines: MedicineEntry[];
 }
 
-const emptyMedicine = (): Medicine => ({
-  name: "",
+const emptyMedicine = (): MedicineEntry => ({
+  medicineId: "",
   dosage: "",
   frequency: "",
   duration: "",
@@ -66,22 +68,33 @@ const FREQUENCIES = [
 export default function CreatePrescriptionPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const prefillPatient = searchParams.get("patientId") ?? "";
+  const prefillVisitId = searchParams.get("visitId") ?? "";
 
   const [form, setForm] = useState<PrescriptionForm>({
-    patientId: prefillPatient,
+    visitId: prefillVisitId,
     diagnosis: "",
-    notes: "",
+    advice: "",
     medicines: [emptyMedicine()],
   });
   const [saving, setSaving] = useState(false);
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
+  const [medicinesLoading, setMedicinesLoading] = useState(true);
+
+  useEffect(() => {
+    getAllMedicines(1, 200).then((res) => {
+      if (res.data) {
+        setMedicines(res.data.data);
+      }
+      setMedicinesLoading(false);
+    });
+  }, []);
 
   const updateField = <K extends keyof PrescriptionForm>(
     key: K,
     value: PrescriptionForm[K]
   ) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  const updateMedicine = (index: number, field: keyof Medicine, value: string) => {
+  const updateMedicine = (index: number, field: keyof MedicineEntry, value: string) => {
     setForm((prev) => {
       const medicines = [...prev.medicines];
       medicines[index] = { ...medicines[index], [field]: value };
@@ -99,16 +112,37 @@ export default function CreatePrescriptionPage() {
     }));
 
   const handleSubmit = async () => {
-    if (!form.patientId) return toast.error("Please enter a patient ID");
-    if (!form.diagnosis) return toast.error("Diagnosis is required");
-    if (form.medicines.some((m) => !m.name)) return toast.error("All medicine names are required");
+    if (!form.visitId.trim()) return toast.error("Visit ID is required");
+    if (!form.diagnosis.trim()) return toast.error("Diagnosis is required");
+    if (form.medicines.some((m) => !m.medicineId))
+      return toast.error("Please select a medicine for each entry");
 
     setSaving(true);
     try {
-      // TODO: replace with real server action
-      await new Promise((res) => setTimeout(res, 1000));
+      const payload = {
+        visitId: form.visitId.trim(),
+        diagnosis: form.diagnosis.trim(),
+        ...(form.advice.trim() && { advice: form.advice.trim() }),
+        medicines: form.medicines
+          .filter((m) => m.medicineId)
+          .map((m) => ({
+            medicineId: m.medicineId,
+            dosage: m.dosage.trim(),
+            duration: m.duration.trim(),
+            quantity: 1,
+            ...(m.instructions.trim() && { instructions: m.instructions.trim() }),
+          })),
+      };
+
+      const { error } = await createPrescription(payload);
+
+      if (error) {
+        toast.error(error);
+        return;
+      }
+
       toast.success("Prescription created successfully!");
-      router.push("/doctor/prescriptions");
+      router.push("/dashboard/prescriptions");
     } catch {
       toast.error("Failed to create prescription");
     } finally {
@@ -121,14 +155,14 @@ export default function CreatePrescriptionPage() {
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Back */}
         <Link
-          href="/doctor/prescriptions"
+          href="/dashboard/prescriptions"
           className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Prescriptions
         </Link>
 
-        {/* Patient & Diagnosis */}
+        {/* Visit ID & Diagnosis */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg text-slate-900 flex items-center gap-2">
@@ -136,22 +170,31 @@ export default function CreatePrescriptionPage() {
               Prescription Details
             </CardTitle>
             <CardDescription className="text-slate-500 text-sm">
-              Fill in the patient information and diagnosis
+              Fill in the diagnosis and advice
             </CardDescription>
           </CardHeader>
           <Separator />
           <CardContent className="pt-5 space-y-4">
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-blue-500" />
-                Patient ID
+                <ClipboardList className="w-3.5 h-3.5 text-blue-500" />
+                Visit ID
               </Label>
               <Input
-                placeholder="Enter patient ID"
-                value={form.patientId}
-                onChange={(e) => updateField("patientId", e.target.value)}
+                placeholder="Enter visit ID"
+                value={form.visitId}
+                onChange={(e) => updateField("visitId", e.target.value)}
                 className="h-10 border-slate-200 focus-visible:ring-blue-500"
               />
+              {!prefillVisitId && (
+                <p className="text-xs text-slate-400">
+                  Go to{" "}
+                  <Link href="/dashboard/visits" className="text-blue-500 hover:underline">
+                    My Visits
+                  </Link>{" "}
+                  to find a visit ID, or create a visit first.
+                </p>
+              )}
             </div>
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
@@ -167,12 +210,12 @@ export default function CreatePrescriptionPage() {
             </div>
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700">
-                Notes <span className="text-slate-400 font-normal">(optional)</span>
+                Advice <span className="text-slate-400 font-normal">(optional)</span>
               </Label>
               <Textarea
-                placeholder="Additional notes or follow-up instructions…"
-                value={form.notes}
-                onChange={(e) => updateField("notes", e.target.value)}
+                placeholder="Follow-up instructions or advice…"
+                value={form.advice}
+                onChange={(e) => updateField("advice", e.target.value)}
                 className="resize-none border-slate-200 focus-visible:ring-blue-500 min-h-[80px]"
               />
             </div>
@@ -222,13 +265,28 @@ export default function CreatePrescriptionPage() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div className="col-span-2 space-y-1.5">
-                      <Label className="text-xs text-slate-600 font-medium">Medicine Name *</Label>
-                      <Input
-                        placeholder="e.g. Amlodipine"
-                        value={med.name}
-                        onChange={(e) => updateMedicine(index, "name", e.target.value)}
-                        className="h-9 border-slate-200 focus-visible:ring-blue-500 bg-white text-sm"
-                      />
+                      <Label className="text-xs text-slate-600 font-medium">Medicine *</Label>
+                      <Select
+                        value={med.medicineId}
+                        onValueChange={(v) => updateMedicine(index, "medicineId", v)}
+                        disabled={medicinesLoading}
+                      >
+                        <SelectTrigger className="h-9 border-slate-200 focus:ring-blue-500 bg-white text-sm">
+                          <SelectValue
+                            placeholder={
+                              medicinesLoading ? "Loading medicines…" : "Select medicine"
+                            }
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {medicines.map((m) => (
+                            <SelectItem key={m.id} value={m.id} className="text-sm">
+                              {m.name}
+                              {m.strength ? ` (${m.strength})` : ""}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-xs text-slate-600 font-medium">Dosage</Label>

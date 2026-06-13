@@ -22,13 +22,20 @@ export async function createVisit(
   try {
     const token = await getToken();
 
+    const body = {
+      ...payload,
+      temperature: payload.temperature != null ? Number(payload.temperature) : undefined,
+      weight: payload.weight != null ? Number(payload.weight) : undefined,
+      pulseRate: payload.pulseRate != null ? Number(payload.pulseRate) : undefined,
+    };
+
     const res = await fetch(`${API}/api/v1/visits`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     });
 
     const json = await res.json();
@@ -109,13 +116,21 @@ export async function updateVisit(
   try {
     const token = await getToken();
 
+    const body: Record<string, unknown> = {};
+    if (payload.chiefComplaint != null) body.chiefComplaint = payload.chiefComplaint;
+    if (payload.bloodPressure != null) body.bloodPressure = payload.bloodPressure;
+    if (payload.temperature != null) body.temperature = Number(payload.temperature);
+    if (payload.weight != null) body.weight = Number(payload.weight);
+    if (payload.pulseRate != null) body.pulseRate = Number(payload.pulseRate);
+    if (payload.notes != null) body.notes = payload.notes;
+
     const res = await fetch(`${API}/api/v1/visits/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     });
 
     const json = await res.json();

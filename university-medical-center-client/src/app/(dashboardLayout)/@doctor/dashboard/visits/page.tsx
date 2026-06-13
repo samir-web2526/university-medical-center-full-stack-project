@@ -1,5 +1,5 @@
-import DoctorMyVisitsPage from "@/components/pages/dashboardPages/DoctorDashboardPages/DoctorMyVisitsPage";
+import MyAllVisitsPage from "@/components/pages/dashboardPages/DoctorDashboardPages/MyAllVisitsPage";
 
 export default function DoctorVisits() {
-  return <DoctorMyVisitsPage />;
+  return <MyAllVisitsPage />;
 }

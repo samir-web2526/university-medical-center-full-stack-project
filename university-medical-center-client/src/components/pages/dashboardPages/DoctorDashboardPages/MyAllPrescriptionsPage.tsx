@@ -15,55 +15,28 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "sonner";
 import {
   FileText,
   Search,
-  MoreVertical,
   Eye,
-  Printer,
   Plus,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
+import { getDoctorPrescriptions } from "@/services/prescription.service";
+import type { Prescription } from "@/types";
 
-// Replace with your actual prescription type and action
-interface Prescription {
-  id: string;
-  patientName: string;
-  patientEmail: string;
-  diagnosis: string;
-  createdAt: string;
-  status: "ACTIVE" | "COMPLETED" | "CANCELLED";
-}
-
-async function fetchMyPrescriptions(
-  page: number,
-  limit: number
-): Promise<{ data: Prescription[]; total: number }> {
-  // TODO: replace with real server action
-  return { data: [], total: 0 };
-}
-
-const statusStyles: Record<
-  Prescription["status"],
-  string
-> = {
+const statusStyles: Record<string, string> = {
   ACTIVE: "bg-blue-50 text-blue-700 border-blue-200",
-  COMPLETED: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  CANCELLED: "bg-slate-100 text-slate-500 border-slate-200",
+  CANCELLED: "bg-red-50 text-red-700 border-red-200",
 };
 
 export default function MyAllPrescriptionsPage() {
@@ -75,21 +48,29 @@ export default function MyAllPrescriptionsPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
 
-  useEffect(() => {
+  const fetchPrescriptions = () => {
     setLoading(true);
-    fetchMyPrescriptions(page, limit).then(({ data, total }) => {
-      setPrescriptions(data);
-      setTotal(total);
+    getDoctorPrescriptions(page, limit).then((res) => {
+      if (res.data) {
+        setPrescriptions(res.data.data);
+        setTotal(res.data.meta.total);
+      }
       setLoading(false);
     });
+  };
+
+  useEffect(() => {
+    fetchPrescriptions();
   }, [page]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
   const filtered = prescriptions.filter((p) => {
+    const q = search.toLowerCase();
+    const studentName = p.student?.user?.name?.toLowerCase() ?? "";
     const matchSearch =
-      p.patientName.toLowerCase().includes(search.toLowerCase()) ||
-      p.diagnosis.toLowerCase().includes(search.toLowerCase());
+      studentName.includes(q) ||
+      p.diagnosis.toLowerCase().includes(q);
     const matchStatus = statusFilter === "ALL" || p.status === statusFilter;
     return matchSearch && matchStatus;
   });
@@ -109,7 +90,7 @@ export default function MyAllPrescriptionsPage() {
             </p>
           </div>
           <Button asChild className="bg-blue-600 hover:bg-blue-700 gap-2 h-9">
-            <Link href="/doctor/prescriptions/create">
+            <Link href="/dashboard/create-prescription">
               <Plus className="w-4 h-4" />
               New Prescription
             </Link>
@@ -134,7 +115,6 @@ export default function MyAllPrescriptionsPage() {
             <SelectContent>
               <SelectItem value="ALL">All Status</SelectItem>
               <SelectItem value="ACTIVE">Active</SelectItem>
-              <SelectItem value="COMPLETED">Completed</SelectItem>
               <SelectItem value="CANCELLED">Cancelled</SelectItem>
             </SelectContent>
           </Select>
@@ -182,7 +162,7 @@ export default function MyAllPrescriptionsPage() {
                         <p className="text-sm font-medium">No prescriptions yet</p>
                         <p className="text-xs">Create your first prescription to get started</p>
                         <Button asChild size="sm" className="mt-2 bg-blue-600 hover:bg-blue-700 gap-1.5">
-                          <Link href="/doctor/prescriptions/create">
+                          <Link href="/dashboard/create-prescription">
                             <Plus className="w-3.5 h-3.5" />
                             New Prescription
                           </Link>
@@ -198,14 +178,18 @@ export default function MyAllPrescriptionsPage() {
                     >
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-emerald-600">
-                              {rx.patientName.charAt(0).toUpperCase()}
+                              {rx.student?.user?.name?.charAt(0)?.toUpperCase() ?? "S"}
                             </span>
                           </div>
                           <div>
-                            <p className="font-medium text-slate-800 text-sm">{rx.patientName}</p>
-                            <p className="text-xs text-slate-400">{rx.patientEmail}</p>
+                            <p className="font-medium text-slate-800 text-sm">
+                              {rx.student?.user?.name ?? "Unknown"}
+                            </p>
+                            <p className="text-xs text-slate-400">
+                              {rx.student?.studentId ?? ""}
+                            </p>
                           </div>
                         </div>
                       </TableCell>
@@ -222,34 +206,17 @@ export default function MyAllPrescriptionsPage() {
                       <TableCell>
                         <Badge
                           variant="outline"
-                          className={`text-xs ${statusStyles[rx.status]}`}
+                          className={`text-xs ${statusStyles[rx.status] ?? ""}`}
                         >
                           {rx.status}
                         </Badge>
                       </TableCell>
                       <TableCell className="pr-6 text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500">
-                              <MoreVertical className="w-4 h-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-40">
-                            <DropdownMenuItem asChild>
-                              <Link
-                                href={`/doctor/prescriptions/${rx.id}`}
-                                className="flex items-center gap-2 cursor-pointer"
-                              >
-                                <Eye className="w-3.5 h-3.5" />
-                                View
-                              </Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="flex items-center gap-2 cursor-pointer">
-                              <Printer className="w-3.5 h-3.5" />
-                              Print
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500" asChild>
+                          <Link href={`/dashboard/prescriptions/${rx.id}`}>
+                            <Eye className="w-4 h-4" />
+                          </Link>
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))
