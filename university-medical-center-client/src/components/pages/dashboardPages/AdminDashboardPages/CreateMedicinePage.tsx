@@ -82,7 +82,6 @@ export default function CreateMedicinePage() {
           </CardHeader>
           <Separator />
           <CardContent className="pt-6 space-y-6">
-            {/* Basic Info */}
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Basic Information</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -119,7 +118,6 @@ export default function CreateMedicinePage() {
 
             <Separator />
 
-            {/* Price & Expiry */}
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Price & Expiry</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -140,7 +138,6 @@ export default function CreateMedicinePage() {
 
             <Separator />
 
-            {/* Stock */}
             <div className="space-y-4">
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Stock Management</p>
               <div className="grid grid-cols-2 gap-4">
@@ -160,7 +157,6 @@ export default function CreateMedicinePage() {
               </div>
             </div>
 
-            {/* Actions */}
             <div className="flex gap-3 pt-2">
               <Button variant="outline" className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50" onClick={() => router.back()} disabled={createMutation.isPending}>Cancel</Button>
               <Button className="flex-1 bg-emerald-600 hover:bg-emerald-700 gap-2" onClick={handleSubmit} disabled={createMutation.isPending}>

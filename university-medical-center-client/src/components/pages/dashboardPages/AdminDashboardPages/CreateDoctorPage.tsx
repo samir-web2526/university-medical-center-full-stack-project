@@ -77,7 +77,6 @@ export default function CreateDoctorPage() {
               </div>
             ))}
 
-            {/* Password */}
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                 <KeyRound className="w-3.5 h-3.5 text-blue-500" />
@@ -103,12 +102,10 @@ export default function CreateDoctorPage() {
               </div>
             </div>
 
-            {/* Info banner */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-sm text-blue-700">
               The doctor will be prompted to update their password and complete their profile on first login.
             </div>
 
-            {/* Actions */}
             <div className="flex gap-3 pt-2">
               <Button variant="outline" className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50" onClick={() => router.back()} disabled={createMutation.isPending}>
                 Cancel

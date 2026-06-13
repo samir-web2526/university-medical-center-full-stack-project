@@ -26,9 +26,8 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           <ArrowLeft className="w-4 h-4" /> Back to Visits
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500" />
+          <div className="h-20 bg-linear-to-r from-blue-600 via-indigo-500 to-violet-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white shadow-md border-4 border-white flex items-center justify-center">
               <ClipboardList className="w-7 h-7 text-blue-600" />
@@ -49,7 +48,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Chief Complaint */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -62,7 +60,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Vitals */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -74,7 +71,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {visit.temperature != null && (
                 <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
                     <Thermometer className="w-4 h-4 text-orange-600" />
                   </div>
                   <div>
@@ -85,7 +82,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
               )}
               {visit.bloodPressure && (
                 <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
                     <Heart className="w-4 h-4 text-red-600" />
                   </div>
                   <div>
@@ -96,7 +93,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
               )}
               {visit.pulseRate != null && (
                 <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center shrink-0">
                     <Activity className="w-4 h-4 text-pink-600" />
                   </div>
                   <div>
@@ -107,7 +104,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
               )}
               {visit.weight != null && (
                 <div className="flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                     <Weight className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
@@ -129,9 +126,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Doctor & Patient Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Doctor */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -141,7 +136,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
             <Separator />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-blue-600">{doctorName.charAt(0).toUpperCase()}</span>
                 </div>
                 <div>
@@ -155,7 +150,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
             </CardContent>
           </Card>
 
-          {/* Student */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -165,7 +159,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
             <Separator />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-violet-600">{studentName.charAt(0).toUpperCase()}</span>
                 </div>
                 <div>
@@ -180,7 +174,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </Card>
         </div>
 
-        {/* Prescription */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -206,7 +199,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
                   <div className="space-y-2">
                     {visit.prescription.medicines.map((rxMed) => (
                       <div key={rxMed.id} className="flex items-center gap-3 p-2 rounded-lg bg-slate-50 border border-slate-100">
-                        <div className="w-6 h-6 rounded bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 rounded bg-emerald-100 flex items-center justify-center shrink-0">
                           <Pill className="w-3 h-3 text-emerald-600" />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -232,7 +225,6 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
           </CardContent>
         </Card>
 
-        {/* Actions */}
         <div className="flex gap-3">
           <Button asChild variant="outline" className="flex-1 border-slate-200">
             <Link href="/dashboard/all-visits">Back to List</Link>

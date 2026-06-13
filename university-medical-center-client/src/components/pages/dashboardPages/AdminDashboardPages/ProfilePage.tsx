@@ -1,8 +1,5 @@
 "use client";
 
-// Admin profile page — displays logged-in admin's info pulled from JWT/session context.
-// Replace `useAdminProfile` with your actual auth hook or server action.
-
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -23,7 +20,6 @@ interface AdminProfile {
   createdAt: string;
 }
 
-// TODO: replace with your actual action/hook
 async function fetchAdminProfile(): Promise<AdminProfile | null> {
   return null;
 }
@@ -41,7 +37,6 @@ export default function AdminProfilePage() {
 
   if (loading) return <AdminProfileSkeleton />;
 
-  // Fallback display if profile is null (replace with real data)
   const name = profile?.name ?? "Administrator";
   const email = profile?.email ?? "admin@clinic.com";
   const status = profile?.status ?? "ACTIVE";
@@ -57,12 +52,11 @@ export default function AdminProfilePage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className="h-24 bg-gradient-to-r from-slate-800 via-slate-700 to-blue-700" />
+          <div className="h-24 bg-linear-to-r from-slate-800 via-slate-700 to-blue-700" />
           <CardContent className="relative pb-6 px-6 pt-0">
             <div className="absolute -top-9 left-6 w-18 h-18">
-              <div className="w-[72px] h-[72px] rounded-2xl bg-white shadow-lg border-4 border-white flex items-center justify-center">
+              <div className="w-18 h-18 rounded-2xl bg-white shadow-lg border-4 border-white flex items-center justify-center">
                 <span className="text-3xl font-bold text-slate-700">{name.charAt(0).toUpperCase()}</span>
               </div>
             </div>
@@ -80,7 +74,6 @@ export default function AdminProfilePage() {
           </CardContent>
         </Card>
 
-        {/* Details */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -92,7 +85,7 @@ export default function AdminProfilePage() {
             {stats.map((s, i) => (
               <div key={s.label}>
                 <div className="flex items-center gap-4 py-3.5">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${s.bg}`}>
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${s.bg}`}>
                     <s.icon className={`w-4 h-4 ${s.color}`} />
                   </div>
                   <div>
@@ -106,7 +99,6 @@ export default function AdminProfilePage() {
           </CardContent>
         </Card>
 
-        {/* Permissions */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">

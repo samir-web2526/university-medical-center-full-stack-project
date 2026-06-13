@@ -43,7 +43,6 @@ export default function AllStudentsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -54,7 +53,6 @@ export default function AllStudentsPage() {
           </div>
         </div>
 
-        {/* Search */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
@@ -65,7 +63,6 @@ export default function AllStudentsPage() {
           />
         </div>
 
-        {/* Table */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
@@ -89,7 +86,7 @@ export default function AllStudentsPage() {
                     <TableRow key={i}>
                       {Array.from({ length: 7 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-[110px]" />
+                          <Skeleton className="h-4 w-full max-w-27.5" />
                         </TableCell>
                       ))}
                     </TableRow>
@@ -108,7 +105,7 @@ export default function AllStudentsPage() {
                     <TableRow key={stu.id} className="hover:bg-blue-50/40 transition-colors border-b border-slate-50">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-violet-600">{(stu.user?.name ?? "?").charAt(0).toUpperCase()}</span>
                           </div>
                           <div>
@@ -149,7 +146,6 @@ export default function AllStudentsPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">Page {page} of {totalPages}</p>
           <div className="flex gap-2">

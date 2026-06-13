@@ -93,7 +93,6 @@ export default function NotificationsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -101,7 +100,7 @@ export default function NotificationsPage() {
               Notifications
             </h1>
             {unreadCount > 0 && (
-              <Badge className="bg-blue-600 hover:bg-blue-600 text-white text-xs h-5 min-w-[20px] flex items-center justify-center rounded-full px-1.5">
+              <Badge className="bg-blue-600 hover:bg-blue-600 text-white text-xs h-5 min-w-5 flex items-center justify-center rounded-full px-1.5">
                 {unreadCount}
               </Badge>
             )}
@@ -120,17 +119,16 @@ export default function NotificationsPage() {
           )}
         </div>
 
-        {/* Notifications List */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             {isLoading ? (
               <div className="divide-y divide-slate-50">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div key={i} className="flex items-start gap-3 p-4">
-                    <Skeleton className="w-8 h-8 rounded-lg flex-shrink-0" />
+                    <Skeleton className="w-8 h-8 rounded-lg shrink-0" />
                     <div className="flex-1 space-y-2">
                       <Skeleton className="h-3.5 w-40" />
-                      <Skeleton className="h-3 w-full max-w-[260px]" />
+                      <Skeleton className="h-3 w-full max-w-65" />
                       <Skeleton className="h-3 w-16" />
                     </div>
                   </div>
@@ -142,11 +140,11 @@ export default function NotificationsPage() {
                   <BellOff className="w-6 h-6" />
                 </div>
                 <p className="text-sm font-medium">No notifications yet</p>
-                <p className="text-xs">You're all caught up!</p>
+                <p className="text-xs">You&apos;re all caught up!</p>
               </div>
             ) : (
               <div className="divide-y divide-slate-50">
-                {notifications.map((notif, i) => {
+                {notifications.map((notif) => {
                   const cfg = getTypeConfig(notif.type);
                   const Icon = cfg.icon;
                   return (
@@ -157,12 +155,10 @@ export default function NotificationsPage() {
                         notif.isRead ? "bg-white hover:bg-slate-50" : "bg-blue-50/60 hover:bg-blue-50"
                       )}
                     >
-                      {/* Icon */}
-                      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5", cfg.bg)}>
+                      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5", cfg.bg)}>
                         <Icon className={cn("w-4 h-4", cfg.color)} />
                       </div>
 
-                      {/* Content */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <p className={cn("text-sm font-medium leading-snug", notif.isRead ? "text-slate-700" : "text-slate-900")}>
@@ -171,8 +167,8 @@ export default function NotificationsPage() {
                               <span className="ml-2 inline-block w-1.5 h-1.5 rounded-full bg-blue-500 align-middle" />
                             )}
                           </p>
-                          {/* Actions — visible on hover */}
-                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+
+                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                             {!notif.isRead && (
                               <button
                                 onClick={() => handleMarkOne(notif.id)}
@@ -202,7 +198,6 @@ export default function NotificationsPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-500">Page {page} of {totalPages}</p>

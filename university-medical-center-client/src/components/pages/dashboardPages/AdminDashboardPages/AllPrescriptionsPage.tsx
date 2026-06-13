@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import type { Prescription } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,7 +51,6 @@ export default function AllPrescriptionsPage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
             <FileText className="w-6 h-6 text-blue-500" /> All Prescriptions
@@ -60,9 +58,8 @@ export default function AllPrescriptionsPage() {
           <p className="text-slate-500 text-sm mt-0.5">{total} prescription{total !== 1 ? "s" : ""} total</p>
         </div>
 
-        {/* Filters */}
         <div className="flex gap-3 flex-wrap">
-          <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <div className="relative flex-1 min-w-50 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input placeholder="Search patient, doctor, diagnosis…" className="pl-9 h-10 border-slate-200 bg-white focus-visible:ring-blue-500" value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
@@ -78,22 +75,21 @@ export default function AllPrescriptionsPage() {
           </Select>
         </div>
 
-        {/* Table */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
               <TableHeader>
                 <TableRow className="bg-slate-50 border-b border-slate-100 hover:bg-slate-50">
                  {["Patient", "Doctor", "Diagnosis", "Medicines", "Date", "Status", "Action"].map((h, i) => (
-  <TableHead
-    key={i}
-    className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${
-      i === 0 ? "pl-6" : ""
-    } ${i === 6 ? "pr-6 text-center" : ""}`}
-  >
-    {h}
-  </TableHead>
-))}
+                  <TableHead
+                    key={i}
+                    className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${
+                    i === 0 ? "pl-6" : ""
+                    } ${i === 6 ? "pr-6 text-center" : ""}`}
+                  >
+                  {h}
+                  </TableHead>
+                 ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -101,7 +97,7 @@ export default function AllPrescriptionsPage() {
                   Array.from({ length: 7 }).map((_, i) => (
                     <TableRow key={i}>
                       {Array.from({ length: 7 }).map((_, j) => (
-                        <TableCell key={j} className={j === 0 ? "pl-6" : ""}><Skeleton className="h-4 w-full max-w-[120px]" /></TableCell>
+                        <TableCell key={j} className={j === 0 ? "pl-6" : ""}><Skeleton className="h-4 w-full max-w-30" /></TableCell>
                       ))}
                     </TableRow>
                   ))
@@ -119,7 +115,7 @@ export default function AllPrescriptionsPage() {
                     <TableRow key={rx.id} className="hover:bg-blue-50/40 transition-colors border-b border-slate-50">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-violet-600">{(rx.student?.user?.name ?? "?").charAt(0).toUpperCase()}</span>
                           </div>
                           <span className="text-sm font-medium text-slate-800">{rx.student?.user?.name ?? "—"}</span>
@@ -127,13 +123,13 @@ export default function AllPrescriptionsPage() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-blue-600">{(rx.doctor?.user?.name ?? "?").charAt(0).toUpperCase()}</span>
                           </div>
                           <span className="text-sm text-slate-600">{rx.doctor?.user?.name ?? "—"}</span>
                         </div>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600 max-w-[160px] truncate">{rx.diagnosis}</TableCell>
+                      <TableCell className="text-sm text-slate-600 max-w-40 truncate">{rx.diagnosis}</TableCell>
                       <TableCell>
                         <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium">
                           {rx.medicines?.length ?? 0} item{(rx.medicines?.length ?? 0) !== 1 ? "s" : ""}
@@ -146,16 +142,16 @@ export default function AllPrescriptionsPage() {
                         <Badge variant="outline" className={`text-xs ${statusStyles[rx.status] ?? "bg-slate-100 text-slate-500"}`}>{rx.status}</Badge>
                       </TableCell>
                       <TableCell className="pr-6 text-center">
-  <Link href={`/dashboard/all-prescriptions/${rx.id}`}>
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-blue-600 hover:bg-blue-50"
-    >
-      <Eye className="w-4 h-4" />
-    </Button>
-  </Link>
-</TableCell>
+                        <Link href={`/dashboard/all-prescriptions/${rx.id}`}>
+                          <Button
+                           variant="ghost"
+                           size="icon"
+                           className="text-blue-600 hover:bg-blue-50"
+                          >
+                           <Eye className="w-4 h-4" />
+                          </Button>
+                        </Link>
+                      </TableCell>
                     </TableRow>
                   ))
                 )}
@@ -164,7 +160,6 @@ export default function AllPrescriptionsPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">Page {page} of {totalPages}</p>
           <div className="flex gap-2">

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -78,7 +79,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Back */}
         <Link
           href="/dashboard/all-medicines"
           className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
@@ -86,9 +86,8 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
           <ArrowLeft className="w-4 h-4" /> Back to Medicines
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500" />
+          <div className="h-20 bg-linear-to-r from-emerald-500 via-teal-500 to-green-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white shadow-md border-4 border-white flex items-center justify-center">
               <Pill className="w-7 h-7 text-emerald-600" />
@@ -111,7 +110,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
           </CardContent>
         </Card>
 
-        {/* Stock Management */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -153,16 +151,14 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
 
             {isLowStock && !isOut && (
               <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200">
-                <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
                 <p className="text-xs text-amber-700">Stock is below minimum threshold ({med.minimumStock} units)</p>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Basic Information */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">Basic Information</CardTitle>
@@ -199,7 +195,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
             </CardContent>
           </Card>
 
-          {/* Price & Dates */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg">Price & Dates</CardTitle>
@@ -245,7 +240,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
           </Card>
         </div>
 
-        {/* Danger Zone */}
         <Card className="border-0 shadow-md border-l-4 border-l-red-500">
           <CardContent className="py-5 px-6">
             <div className="flex items-center justify-between">
@@ -286,7 +280,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
           </CardContent>
         </Card>
 
-        {/* Actions */}
         <div className="flex gap-3">
           <Button asChild variant="outline" className="flex-1 border-slate-200">
             <Link href="/dashboard/all-medicines">Back to List</Link>
@@ -294,7 +287,6 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
         </div>
       </div>
 
-      {/* Stock Adjust Dialog */}
       <Dialog open={!!stockAction} onOpenChange={(o) => !o && setStockAction(null)}>
         <DialogContent className="max-w-sm">
           <DialogHeader>

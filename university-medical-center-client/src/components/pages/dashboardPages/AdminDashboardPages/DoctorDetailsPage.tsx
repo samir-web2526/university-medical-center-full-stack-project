@@ -75,9 +75,8 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
           <ArrowLeft className="w-4 h-4" /> Back to Doctors
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500" />
+          <div className="h-20 bg-linear-to-r from-blue-600 via-blue-500 to-indigo-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white shadow-md border-4 border-white flex items-center justify-center">
               <span className="text-2xl font-bold text-blue-600">{name.charAt(0).toUpperCase()}</span>
@@ -98,7 +97,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
           </CardContent>
         </Card>
 
-        {/* Info Card */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700">Doctor Information</h2>
@@ -107,7 +105,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
           <CardContent className="pt-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
                   <User className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
@@ -116,7 +114,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
                   <Mail className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
@@ -125,7 +123,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
                   <Stethoscope className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
@@ -134,7 +132,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0 mt-0.5">
                   <GraduationCap className="w-4 h-4 text-blue-600" />
                 </div>
                 <div>
@@ -146,14 +144,12 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
           </CardContent>
         </Card>
 
-        {/* Admin Edit Card — only allowed fields */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700">Edit Doctor (Admin)</h2>
           </CardHeader>
           <Separator />
           <CardContent className="pt-5 space-y-4">
-            {/* Gender */}
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-blue-500" />Gender
@@ -170,7 +166,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
               </Select>
             </div>
 
-            {/* Status */}
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-blue-500" />Account Status
@@ -187,7 +182,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
               </Select>
             </div>
 
-            {/* Specialization */}
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                 <Stethoscope className="w-3.5 h-3.5 text-blue-500" />Specialization
@@ -201,7 +195,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
               />
             </div>
 
-            {/* Qualification */}
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                 <GraduationCap className="w-3.5 h-3.5 text-blue-500" />Qualification
@@ -215,7 +208,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
               />
             </div>
 
-            {/* Actions */}
             <div className="flex gap-3 pt-2">
               <Button variant="outline" className="flex-1 border-slate-200" onClick={() => router.back()} disabled={updateMutation.isPending}>Cancel</Button>
               <Button className="flex-1 bg-blue-600 hover:bg-blue-700 gap-2" onClick={handleSave} disabled={updateMutation.isPending}>
@@ -225,7 +217,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
           </CardContent>
         </Card>
 
-        {/* Delete Card */}
         <Card className="border-0 shadow-md border-red-100">
           <CardContent className="pt-5">
             <div className="flex items-center justify-between">

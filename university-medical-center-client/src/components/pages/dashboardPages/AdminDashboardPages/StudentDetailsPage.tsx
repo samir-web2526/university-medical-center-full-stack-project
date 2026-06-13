@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Student, AdminUpdateStudentRequest, BloodGroup, Gender } from "@/types";
+import type { Student, AdminUpdateStudentRequest, BloodGroup } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -98,9 +98,8 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
           <ArrowLeft className="w-4 h-4" /> Back to Students
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-violet-500 via-purple-500 to-blue-500" />
+          <div className="h-20 bg-linear-to-r from-violet-500 via-purple-500 to-blue-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white shadow-md border-4 border-white flex items-center justify-center">
               <span className="text-2xl font-bold text-violet-600">{name.charAt(0).toUpperCase()}</span>
@@ -130,7 +129,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
           </CardContent>
         </Card>
 
-        {/* Details / Edit Card */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
@@ -148,7 +146,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
           <CardContent className="pt-5">
             {isEditing ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Student ID */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <Hash className="w-3.5 h-3.5 text-violet-500" />Student ID
@@ -161,7 +158,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   />
                 </div>
 
-                {/* Department */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <BookOpen className="w-3.5 h-3.5 text-violet-500" />Department
@@ -174,7 +170,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   />
                 </div>
 
-                {/* Session */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-violet-500" />Session
@@ -187,7 +182,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   />
                 </div>
 
-                {/* Gender */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <Users className="w-3.5 h-3.5 text-violet-500" />Gender
@@ -207,7 +201,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </Select>
                 </div>
 
-                {/* Blood Group */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <Droplets className="w-3.5 h-3.5 text-red-500" />Blood Group
@@ -227,7 +220,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </Select>
                 </div>
 
-                {/* Status */}
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-violet-500" />Account Status
@@ -247,7 +239,6 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </Select>
                 </div>
 
-                {/* Actions */}
                 <div className="sm:col-span-2 space-y-2 pt-2">
                   {studentIdRequired && (
                     <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-1.5">
@@ -267,7 +258,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <User className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -276,7 +267,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Hash className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -285,7 +276,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Mail className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -294,7 +285,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Phone className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -303,7 +294,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <BookOpen className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -312,7 +303,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Calendar className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -321,7 +312,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Users className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>
@@ -330,7 +321,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0 mt-0.5">
                     <Droplets className="w-4 h-4 text-red-600" />
                   </div>
                   <div>
@@ -339,7 +330,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center shrink-0 mt-0.5">
                     <ShieldCheck className="w-4 h-4 text-violet-600" />
                   </div>
                   <div>

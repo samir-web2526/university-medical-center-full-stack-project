@@ -34,9 +34,8 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           <ArrowLeft className="w-4 h-4" /> Back to Prescriptions
         </Link>
 
-        {/* Header Card */}
         <Card className="border-0 shadow-md overflow-hidden">
-          <div className={`h-20 bg-gradient-to-r ${prescription.status === "CANCELLED" ? "from-red-500 via-red-400 to-orange-400" : "from-emerald-500 via-teal-500 to-blue-500"}`} />
+          <div className={`h-20 bg-linear-to-r ${prescription.status === "CANCELLED" ? "from-red-500 via-red-400 to-orange-400" : "from-emerald-500 via-teal-500 to-blue-500"}`} />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white shadow-md border-4 border-white flex items-center justify-center">
               <FileText className={`w-7 h-7 ${prescription.status === "CANCELLED" ? "text-red-500" : "text-emerald-600"}`} />
@@ -62,12 +61,11 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </CardContent>
         </Card>
 
-        {/* Cancel Reason */}
         {prescription.status === "CANCELLED" && prescription.cancelReason && (
           <Card className="border-0 shadow-md border-l-4 border-l-red-500">
             <CardContent className="py-4 px-5">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0 mt-0.5">
                   <Ban className="w-4 h-4 text-red-600" />
                 </div>
                 <div>
@@ -79,7 +77,6 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </Card>
         )}
 
-        {/* Diagnosis & Advice */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -101,7 +98,6 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </CardContent>
         </Card>
 
-        {/* Medicines */}
         <Card className="border-0 shadow-md">
           <CardHeader className="pb-3">
             <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -116,7 +112,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
               <div className="space-y-3">
                 {medicines.map((rxMed, idx) => (
                   <div key={rxMed.id} className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 border border-slate-100">
-                    <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
                       <span className="text-xs font-bold text-blue-600">{idx + 1}</span>
                     </div>
                     <div className="flex-1 min-w-0">
@@ -146,7 +142,6 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </CardContent>
         </Card>
 
-        {/* Visit Details */}
         {visit && (
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
@@ -163,7 +158,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {visit.temperature != null && (
                   <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-orange-50 flex items-center justify-center shrink-0">
                       <Thermometer className="w-3.5 h-3.5 text-orange-600" />
                     </div>
                     <div>
@@ -174,7 +169,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
                 )}
                 {visit.bloodPressure && (
                   <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
                       <Activity className="w-3.5 h-3.5 text-red-600" />
                     </div>
                     <div>
@@ -185,7 +180,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
                 )}
                 {visit.pulseRate != null && (
                   <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-pink-50 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-pink-50 flex items-center justify-center shrink-0">
                       <Activity className="w-3.5 h-3.5 text-pink-600" />
                     </div>
                     <div>
@@ -196,7 +191,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
                 )}
                 {visit.weight != null && (
                   <div className="flex items-start gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                       <Weight className="w-3.5 h-3.5 text-blue-600" />
                     </div>
                     <div>
@@ -216,9 +211,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </Card>
         )}
 
-        {/* Doctor & Patient Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Doctor */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -228,7 +221,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
             <Separator />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-blue-600">{doctorName.charAt(0).toUpperCase()}</span>
                 </div>
                 <div>
@@ -242,7 +235,6 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
             </CardContent>
           </Card>
 
-          {/* Student */}
           <Card className="border-0 shadow-md">
             <CardHeader className="pb-3">
               <h2 className="text-base font-semibold text-slate-700 flex items-center gap-2">
@@ -252,7 +244,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
             <Separator />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-violet-600">{studentName.charAt(0).toUpperCase()}</span>
                 </div>
                 <div>
@@ -267,7 +259,6 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
           </Card>
         </div>
 
-        {/* Actions */}
         <div className="flex gap-3">
           <Button asChild variant="outline" className="flex-1 border-slate-200">
             <Link href="/dashboard/all-prescriptions">Back to List</Link>

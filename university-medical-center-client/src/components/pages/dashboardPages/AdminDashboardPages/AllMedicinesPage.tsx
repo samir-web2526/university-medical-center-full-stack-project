@@ -46,7 +46,6 @@ export default function AllMedicinePage() {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -56,13 +55,11 @@ export default function AllMedicinePage() {
           </div>
         </div>
 
-        {/* Search */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input placeholder="Search medicines..." className="pl-9 h-10 border-slate-200 bg-white focus-visible:ring-emerald-500" value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
 
-        {/* Table */}
         <Card className="border-0 shadow-md overflow-hidden">
           <CardContent className="p-0">
             <Table>
@@ -78,7 +75,7 @@ export default function AllMedicinePage() {
                   Array.from({ length: 6 }).map((_, i) => (
                     <TableRow key={i}>
                       {Array.from({ length: 8 }).map((_, j) => (
-                        <TableCell key={j} className={j === 0 ? "pl-6" : ""}><Skeleton className="h-4 w-full max-w-[100px]" /></TableCell>
+                        <TableCell key={j} className={j === 0 ? "pl-6" : ""}><Skeleton className="h-4 w-full max-w-25" /></TableCell>
                       ))}
                     </TableRow>
                   ))
@@ -99,7 +96,7 @@ export default function AllMedicinePage() {
                     <TableRow key={med.id} className="hover:bg-emerald-50/30 transition-colors border-b border-slate-50">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                          <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
                             <Pill className="w-3.5 h-3.5 text-emerald-600" />
                           </div>
                           <span className="font-medium text-slate-800 text-sm">{med.name}</span>
@@ -139,7 +136,6 @@ export default function AllMedicinePage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         <div className="flex items-center justify-between">
           <p className="text-sm text-slate-500">Page {page} of {totalPages}</p>
           <div className="flex gap-2">
