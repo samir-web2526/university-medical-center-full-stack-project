@@ -80,6 +80,11 @@ export default function DoctorDashboardPage() {
   const monthLabels = getLast6Months();
   const chartData = aggregateByMonth(visits, prescriptions, monthLabels);
   const activePrescriptions = prescriptions.filter((p) => p.status === "ACTIVE").length;
+  const thisMonthPrescriptions = prescriptions.filter((p) => {
+    const d = new Date(p.createdAt);
+    const now = new Date();
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
   const uniquePatients = new Set(visits.map((v) => v.studentId)).size;
   const recentVisits = [...visits].sort((a, b) => new Date(b.visitDate).getTime() - new Date(a.visitDate).getTime()).slice(0, 5);
 
@@ -87,8 +92,7 @@ export default function DoctorDashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* Hero Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-600 via-teal-600 to-green-600 p-8 text-white shadow-xl shadow-emerald-500/20">
+      <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-emerald-600 via-teal-600 to-green-600 p-8 text-white shadow-xl shadow-emerald-500/20">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -left-10 -bottom-10 h-48 w-48 rounded-full bg-green-400/20 blur-2xl" />
         <div className="relative z-10 flex items-center justify-between">
@@ -110,14 +114,13 @@ export default function DoctorDashboardPage() {
             </Link>
             <Link href="/dashboard/create-prescription">
               <Button className="bg-white/20 hover:bg-white/30 text-white border-white/20 backdrop-blur-sm rounded-xl gap-2">
-                <FileText className="w-4 h-4" /> New Rx
+                <FileText className="w-4 h-4" /> New Prescription
               </Button>
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total Patients"
@@ -147,17 +150,16 @@ export default function DoctorDashboardPage() {
           trend={`${activePrescriptions} active`}
         />
         <StatsCard
-          title="Active Prescriptions"
-          value={activePrescriptions}
+          title="This Month"
+          value={thisMonthPrescriptions}
           icon={<Activity className="h-5 w-5" />}
           gradient="from-amber-500 to-orange-600"
           shadowColor="shadow-amber-500/25"
           href="/dashboard/prescriptions"
-          trend={`${activePrescriptions} active`}
+          trend="prescriptions"
         />
       </div>
 
-      {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
           <CardHeader className="pb-2 border-b border-slate-100 dark:border-slate-800">
@@ -226,9 +228,7 @@ export default function DoctorDashboardPage() {
         </Card>
       </div>
 
-      {/* Recent Visits & Quick Actions */}
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Recent Visits */}
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden lg:col-span-2">
           <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
             <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
@@ -255,7 +255,7 @@ export default function DoctorDashboardPage() {
                     className={`flex items-center justify-between px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group ${idx === 0 ? "bg-emerald-50/30 dark:bg-emerald-900/5" : ""}`}
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+                      <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
                         <Stethoscope className="w-4.5 h-4.5 text-white" />
                       </div>
                       <div className="min-w-0">
@@ -285,7 +285,6 @@ export default function DoctorDashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
           <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
             <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
@@ -297,8 +296,8 @@ export default function DoctorDashboardPage() {
           </CardHeader>
           <CardContent className="pt-4 space-y-3">
             <Link href="/dashboard/create-visit" className="block">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50/50 dark:from-emerald-900/15 dark:to-teal-900/10 border border-emerald-100 dark:border-emerald-800/30 hover:shadow-md transition-all cursor-pointer group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md shadow-emerald-500/20">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-linear-to-r from-emerald-50 to-teal-50/50 dark:from-emerald-900/15 dark:to-teal-900/10 border border-emerald-100 dark:border-emerald-800/30 hover:shadow-md transition-all cursor-pointer group">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-md shadow-emerald-500/20">
                   <CalendarDays className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
@@ -309,8 +308,8 @@ export default function DoctorDashboardPage() {
               </div>
             </Link>
             <Link href="/dashboard/create-prescription" className="block">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-violet-50 to-purple-50/50 dark:from-violet-900/15 dark:to-purple-900/10 border border-violet-100 dark:border-violet-800/30 hover:shadow-md transition-all cursor-pointer group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md shadow-violet-500/20">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-linear-to-r from-violet-50 to-purple-50/50 dark:from-violet-900/15 dark:to-purple-900/10 border border-violet-100 dark:border-violet-800/30 hover:shadow-md transition-all cursor-pointer group">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md shadow-violet-500/20">
                   <FileText className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
@@ -321,8 +320,8 @@ export default function DoctorDashboardPage() {
               </div>
             </Link>
             <Link href="/dashboard/patients" className="block">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50/50 dark:from-blue-900/15 dark:to-cyan-900/10 border border-blue-100 dark:border-blue-800/30 hover:shadow-md transition-all cursor-pointer group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md shadow-blue-500/20">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-linear-to-r from-blue-50 to-cyan-50/50 dark:from-blue-900/15 dark:to-cyan-900/10 border border-blue-100 dark:border-blue-800/30 hover:shadow-md transition-all cursor-pointer group">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-md shadow-blue-500/20">
                   <Users className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
@@ -333,8 +332,8 @@ export default function DoctorDashboardPage() {
               </div>
             </Link>
             <Link href="/dashboard/medicines" className="block">
-              <div className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50/50 dark:from-amber-900/15 dark:to-orange-900/10 border border-amber-100 dark:border-amber-800/30 hover:shadow-md transition-all cursor-pointer group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md shadow-amber-500/20">
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-linear-to-r from-amber-50 to-orange-50/50 dark:from-amber-900/15 dark:to-orange-900/10 border border-amber-100 dark:border-amber-800/30 hover:shadow-md transition-all cursor-pointer group">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-md shadow-amber-500/20">
                   <Pill className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1">
@@ -371,7 +370,7 @@ function StatsCard({
   return (
     <Link href={href} className="group">
       <Card className={`border-0 shadow-md ${shadowColor} hover:shadow-xl transition-all duration-300 cursor-pointer dark:bg-slate-900 dark:border-slate-800 group-hover:-translate-y-1 overflow-hidden relative`}>
-        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-5 rounded-bl-[80px]`} />
+        <div className={`absolute top-0 right-0 w-32 h-32 bg-linear-to-br ${gradient} opacity-5 rounded-bl-[80px]`} />
         <CardContent className="p-5 relative">
           <div className="flex items-start justify-between">
             <div>
@@ -382,7 +381,7 @@ function StatsCard({
                 {trend}
               </p>
             </div>
-            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg ${shadowColor}`}>
+            <div className={`w-12 h-12 rounded-2xl bg-linear-to-br ${gradient} flex items-center justify-center text-white shadow-lg ${shadowColor}`}>
               {icon}
             </div>
           </div>

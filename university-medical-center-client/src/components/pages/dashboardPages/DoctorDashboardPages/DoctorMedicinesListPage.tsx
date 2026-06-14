@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import {
   Pill, Search, Eye, ChevronLeft, ChevronRight,
-  Sparkles, Package, AlertTriangle,
+  Sparkles, Package
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -56,8 +56,7 @@ export default function DoctorMedicinesListPage() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 transition-colors">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 p-6 shadow-lg">
+        <div className="relative overflow-hidden rounded-2xl bg-linear-to-r from-emerald-600 via-teal-600 to-green-600 p-6 shadow-lg">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhIMjR2Mmgxem0tNC00aDJ2MmgtMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-40" />
           <div className="relative flex items-center gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
@@ -75,7 +74,6 @@ export default function DoctorMedicinesListPage() {
           </div>
         </div>
 
-        {/* Search Bar */}
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
@@ -86,7 +84,6 @@ export default function DoctorMedicinesListPage() {
           />
         </div>
 
-        {/* Table Card */}
         <Card className="border-0 shadow-md overflow-hidden dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardContent className="p-0">
             <Table>
@@ -112,7 +109,7 @@ export default function DoctorMedicinesListPage() {
                   <TableRow>
                     <TableCell colSpan={7} className="py-20 text-center">
                       <div className="flex flex-col items-center gap-3">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 to-teal-500 shadow-lg">
                           <Pill className="w-8 h-8 text-white" />
                         </div>
                         <div>
@@ -175,7 +172,6 @@ export default function DoctorMedicinesListPage() {
           </CardContent>
         </Card>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-600 dark:text-slate-400">

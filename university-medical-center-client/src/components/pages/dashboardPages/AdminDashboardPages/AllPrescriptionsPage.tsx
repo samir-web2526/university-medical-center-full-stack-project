@@ -52,7 +52,7 @@ export default function AllPrescriptionsPage() {
       <div className="max-w-7xl mx-auto space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
+            <div className="w-9 h-9 rounded-xl bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-violet-500/20">
               <FileText className="w-5 h-5 text-white" />
             </div>
             All Prescriptions
@@ -120,7 +120,7 @@ export default function AllPrescriptionsPage() {
                     <TableRow key={rx.id} className="hover:bg-blue-50/40 dark:hover:bg-blue-950/20 transition-colors border-b border-slate-50 dark:border-slate-800">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shrink-0 shadow-md shadow-violet-500/20">
+                          <div className="w-7 h-7 rounded-full bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center shrink-0 shadow-md shadow-violet-500/20">
                             <span className="text-xs font-bold text-white">{(rx.student?.user?.name ?? "?").charAt(0).toUpperCase()}</span>
                           </div>
                           <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{rx.student?.user?.name ?? "—"}</span>
@@ -128,7 +128,7 @@ export default function AllPrescriptionsPage() {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+                          <div className="w-7 h-7 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
                             <span className="text-xs font-bold text-white">{(rx.doctor?.user?.name ?? "?").charAt(0).toUpperCase()}</span>
                           </div>
                           <span className="text-sm text-slate-600 dark:text-slate-300">{rx.doctor?.user?.name ?? "—"}</span>

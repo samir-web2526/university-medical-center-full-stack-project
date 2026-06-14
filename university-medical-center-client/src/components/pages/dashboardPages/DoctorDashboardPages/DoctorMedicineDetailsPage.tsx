@@ -7,8 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   Pill, ArrowLeft, Calendar, Building2, FlaskConical,
-  DollarSign, Package, AlertTriangle, Sparkles,
-  ShoppingCart, Info,
+  DollarSign, Package, AlertTriangle, Sparkles, Info,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -29,13 +28,12 @@ export default function DoctorMedicineDetailsPage({ medicine: initial }: { medic
           <ArrowLeft className="w-4 h-4" /> Back to Medicines
         </Link>
 
-        {/* Hero Card */}
         <Card className="border-0 shadow-md overflow-hidden dark:bg-slate-900 dark:border dark:border-slate-800">
-          <div className="h-24 bg-gradient-to-r from-emerald-600 via-teal-600 to-green-600 relative">
+          <div className="h-24 bg-linear-to-r from-emerald-600 via-teal-600 to-green-600 relative">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhIMjR2Mmgxem0tNC00aDJ2MmgtMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
           </div>
           <CardContent className="relative pb-5 px-6 pt-0">
-            <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg flex items-center justify-center">
+            <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-500 shadow-lg flex items-center justify-center">
               <Pill className="w-7 h-7 text-white" />
             </div>
             <div className="pt-10 flex items-center justify-between flex-wrap gap-2">
@@ -65,7 +63,6 @@ export default function DoctorMedicineDetailsPage({ medicine: initial }: { medic
           </CardContent>
         </Card>
 
-        {/* Stock Info Card */}
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardHeader className="pb-3">
             <CardTitle className="text-lg flex items-center gap-2 text-slate-900 dark:text-slate-100">
@@ -98,7 +95,6 @@ export default function DoctorMedicineDetailsPage({ medicine: initial }: { medic
           </CardContent>
         </Card>
 
-        {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
             <CardHeader className="pb-3">
@@ -175,7 +171,6 @@ export default function DoctorMedicineDetailsPage({ medicine: initial }: { medic
           </Card>
         </div>
 
-        {/* Back Button */}
         <div className="flex gap-3 pb-10">
           <Link
             href="/dashboard/medicines"

@@ -131,7 +131,7 @@ export default function MyAllPrescriptionsPage() {
               <TableRow>
                 <TableCell colSpan={5} className="py-16 text-center">
                   <div className="flex flex-col items-center gap-3 text-slate-400 dark:text-slate-500">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-900 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-900 flex items-center justify-center">
                       <FileText className="w-8 h-8 text-emerald-500 dark:text-emerald-400" />
                     </div>
                     <p className="text-sm font-medium">{emptyMessage}</p>
@@ -146,7 +146,7 @@ export default function MyAllPrescriptionsPage() {
                 >
                   <TableCell className="pl-6">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
                         <span className="text-xs font-bold text-white">
                           {rx.student?.user?.name?.charAt(0)?.toUpperCase() ?? "S"}
                         </span>
@@ -201,7 +201,7 @@ export default function MyAllPrescriptionsPage() {
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
                 <Pill className="w-5 h-5 text-white" />
               </div>
               Prescriptions

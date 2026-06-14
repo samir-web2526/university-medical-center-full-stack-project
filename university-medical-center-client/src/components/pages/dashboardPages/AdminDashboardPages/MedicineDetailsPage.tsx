@@ -82,7 +82,7 @@ export default function MedicineDetailsPage({ medicine: initial }: { medicine: M
         </Link>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500" />
+          <div className="h-20 bg-linear-to-r from-emerald-500 via-teal-500 to-green-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-md border-4 border-white dark:border-slate-800 flex items-center justify-center">
               <Pill className="w-7 h-7 text-emerald-600 dark:text-emerald-400" />

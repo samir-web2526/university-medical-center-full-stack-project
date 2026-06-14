@@ -15,7 +15,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  CalendarDays,
   Search,
   Eye,
   ChevronLeft,
@@ -68,7 +67,7 @@ export default function MyAllVisitsPage() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 transition-colors">
       <div className="max-w-6xl mx-auto space-y-6">
-        <div className="rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
+        <div className="rounded-2xl bg-linear-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
@@ -129,7 +128,7 @@ export default function MyAllVisitsPage() {
                   <TableRow>
                     <TableCell colSpan={5} className="py-20 text-center">
                       <div className="flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center">
                           <ClipboardList className="w-8 h-8 text-emerald-400 dark:text-emerald-500" />
                         </div>
                         <div>
@@ -147,7 +146,7 @@ export default function MyAllVisitsPage() {
                     >
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center shrink-0">
                             <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                               {visit.student?.user?.name?.charAt(0)?.toUpperCase() ?? "S"}
                             </span>

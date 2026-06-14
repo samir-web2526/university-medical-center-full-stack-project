@@ -118,7 +118,7 @@ export default function UpdateMyProfile() {
           Back to Profile
         </Link>
 
-        <div className="rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
+        <div className="rounded-2xl bg-linear-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
               <Sparkles className="w-5 h-5 text-white" />
@@ -131,7 +131,7 @@ export default function UpdateMyProfile() {
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardHeader className="pb-4">
             <CardTitle className="text-xl text-slate-900 dark:text-white flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                 <Pencil className="w-4 h-4 text-white" />
               </div>
               Personal Information
@@ -170,7 +170,7 @@ export default function UpdateMyProfile() {
                 Cancel
               </Button>
               <Button
-                className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white gap-2 rounded-xl h-11 shadow-md shadow-emerald-500/20 transition-all duration-200"
+                className="flex-1 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white gap-2 rounded-xl h-11 shadow-md shadow-emerald-500/20 transition-all duration-200"
                 onClick={handleSubmit}
                 disabled={saving}
               >

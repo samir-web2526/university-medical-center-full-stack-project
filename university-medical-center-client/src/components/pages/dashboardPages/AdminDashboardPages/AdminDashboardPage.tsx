@@ -173,8 +173,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6 lg:space-y-8">
-      {/* Hero Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-600 p-6 sm:p-8 text-white shadow-xl shadow-blue-500/20">
+      <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-600 via-indigo-600 to-violet-600 p-6 sm:p-8 text-white shadow-xl shadow-blue-500/20">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -left-10 -bottom-10 h-48 w-48 rounded-full bg-violet-400/20 blur-2xl" />
         <div className="absolute right-1/3 top-1/2 h-32 w-32 rounded-full bg-cyan-400/10 blur-2xl" />
@@ -204,7 +203,6 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-4 sm:gap-5 grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
         <StatsCard
           title="Doctors"
@@ -262,7 +260,6 @@ export default function AdminDashboardPage() {
         />
       </div>
 
-      {/* Charts Row 1: Visits & Prescriptions */}
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartCard
           title="Visits per Month"
@@ -315,7 +312,6 @@ export default function AdminDashboardPage() {
         </ChartCard>
       </div>
 
-      {/* Charts Row 2: New Registrations & Medicine Stock */}
       <div className="grid gap-5 lg:grid-cols-2">
         <ChartCard
           title="New Registrations"
@@ -378,9 +374,7 @@ export default function AdminDashboardPage() {
         </ChartCard>
       </div>
 
-      {/* Bottom Section: Recent Activity + Quick Actions + Alerts */}
       <div className="grid gap-5 lg:grid-cols-3">
-        {/* Recent Visits */}
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden lg:col-span-2">
           <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
             <CardTitle className="text-base font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
@@ -400,14 +394,14 @@ export default function AdminDashboardPage() {
               </div>
             ) : (
               <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                {recentVisits.map((visit, idx) => (
+                {recentVisits.map((visit) => (
                   <Link
                     key={visit.id}
                     href={`/dashboard/all-visits/${visit.id}`}
                     className="flex items-center justify-between px-5 sm:px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group"
                   >
                     <div className="flex items-center gap-4 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
+                      <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/20">
                         <Stethoscope className="w-5 h-5 text-white" />
                       </div>
                       <div className="min-w-0">
@@ -437,7 +431,6 @@ export default function AdminDashboardPage() {
           </CardContent>
         </Card>
 
-        {/* Quick Actions + Alerts */}
         <div className="space-y-5">
           <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
             <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -499,7 +492,6 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Recent Notifications */}
       {recentNotifications.length > 0 && (
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
           <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -555,7 +547,7 @@ function StatsCard({
   return (
     <Link href={href} className="group">
       <Card className={`border-0 shadow-md ${shadowColor} hover:shadow-xl transition-all duration-300 cursor-pointer dark:bg-slate-900 dark:border-slate-800 group-hover:-translate-y-1 overflow-hidden relative`}>
-        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-5 rounded-bl-[80px]`} />
+        <div className={`absolute top-0 right-0 w-32 h-32 bg-linear-to-br ${gradient} opacity-5 rounded-bl-[80px]`} />
         <CardContent className="p-4 sm:p-5 relative">
           <div className="flex items-start justify-between">
             <div>
@@ -566,7 +558,7 @@ function StatsCard({
                 {trend}
               </p>
             </div>
-            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg ${shadowColor}`}>
+            <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-linear-to-br ${gradient} flex items-center justify-center text-white shadow-lg ${shadowColor}`}>
               {icon}
             </div>
           </div>
@@ -605,8 +597,8 @@ function QuickAction({
 }) {
   return (
     <Link href={href} className="block">
-      <div className={`flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r ${bgFrom} ${bgTo} ${darkBgFrom} ${darkBgTo} ${border} border hover:shadow-md transition-all cursor-pointer group`}>
-        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-md ${shadow}`}>
+      <div className={`flex items-center gap-3 p-3 rounded-xl bg-linear-to-r ${bgFrom} ${bgTo} ${darkBgFrom} ${darkBgTo} ${border} border hover:shadow-md transition-all cursor-pointer group`}>
+        <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${gradient} flex items-center justify-center shadow-md ${shadow}`}>
           {icon}
         </div>
         <div className="flex-1 min-w-0">

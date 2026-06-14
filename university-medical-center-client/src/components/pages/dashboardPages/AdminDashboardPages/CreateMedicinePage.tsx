@@ -73,7 +73,7 @@ export default function CreateMedicinePage() {
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800">
           <CardHeader className="pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                 <Pill className="w-5 h-5 text-white" />
               </div>
               <div>

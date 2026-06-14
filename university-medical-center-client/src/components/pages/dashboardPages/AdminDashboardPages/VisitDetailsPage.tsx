@@ -24,7 +24,7 @@ export default function VisitDetailsPage({ visit }: { visit: Visit }) {
         </Link>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500" />
+          <div className="h-20 bg-linear-to-r from-blue-600 via-indigo-500 to-violet-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-md border-4 border-white dark:border-slate-800 flex items-center justify-center">
               <ClipboardList className="w-7 h-7 text-blue-600 dark:text-blue-400" />
@@ -198,7 +198,7 @@ function PersonCard({ icon, title, name, sub, detail, gradient }: {
       <Separator className="dark:bg-slate-800" />
       <CardContent className="pt-5 space-y-3">
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0 shadow-md`}>
+          <div className={`w-10 h-10 rounded-full bg-linear-to-br ${gradient} flex items-center justify-center shrink-0 shadow-md`}>
             <span className="text-sm font-bold text-white">{name.charAt(0).toUpperCase()}</span>
           </div>
           <div>

@@ -35,6 +35,7 @@ import Link from "next/link";
 import { createPrescription } from "@/services/prescription.service";
 import { getAllMedicines } from "@/services/medicine.service";
 import { uploadImage, isValidImageType, formatFileSize } from "@/lib/upload";
+import { extractPrescription, type OcrMedicine } from "@/services/ocr.service";
 import type { Medicine } from "@/types";
 
 interface MedicineEntry {
@@ -96,6 +97,8 @@ export default function CreatePrescriptionPage() {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  const [ocrLoading, setOcrLoading] = useState(false);
+  const [ocrError, setOcrError] = useState<string | null>(null);
 
   useEffect(() => {
     getAllMedicines(1, 200).then((res) => {
@@ -141,17 +144,55 @@ export default function CreatePrescriptionPage() {
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
     setUploading(true);
+    setOcrError(null);
 
     try {
       const result = await uploadImage(file, `prescription-${Date.now()}`);
       setUploadedImageUrl(result.url);
       toast.success("Image uploaded successfully");
+
+      setOcrLoading(true);
+      toast.info("Extracting prescription data...");
+      const ocrResult = await extractPrescription(result.url);
+
+      if (ocrResult.error) {
+        setOcrError(ocrResult.error);
+        toast.error("OCR failed: " + ocrResult.error);
+      } else if (ocrResult.data) {
+        const { diagnosis, advice, medicines: ocrMeds } = ocrResult.data;
+
+        const matchedMeds = (ocrMeds || []).map((ocr: OcrMedicine) => {
+          const matched = medicines.find(
+            (m) =>
+              m.name.toLowerCase().includes(ocr.name.toLowerCase()) ||
+              ocr.name.toLowerCase().includes(m.name.toLowerCase())
+          );
+          return {
+            medicineId: matched?.id ?? "",
+            dosage: ocr.dosage || "",
+            quantity: String(ocr.quantity || ""),
+            frequency: ocr.frequency || "",
+            duration: ocr.duration || "",
+            instructions: ocr.instructions || "",
+          };
+        });
+
+        setForm((prev) => ({
+          ...prev,
+          diagnosis: diagnosis || prev.diagnosis,
+          advice: advice || prev.advice,
+          medicines: matchedMeds.length > 0 ? matchedMeds : prev.medicines,
+        }));
+
+        toast.success("Prescription data extracted and filled!");
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to upload image");
       setImageFile(null);
       setImagePreview(null);
     } finally {
       setUploading(false);
+      setOcrLoading(false);
     }
   };
 
@@ -182,6 +223,8 @@ export default function CreatePrescriptionPage() {
     setImagePreview(null);
     setUploadedImageUrl(null);
     setUploading(false);
+    setOcrLoading(false);
+    setOcrError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -350,7 +393,7 @@ export default function CreatePrescriptionPage() {
                   onChange={handleFileInputChange}
                   className="hidden"
                 />
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/40 dark:to-teal-900/40 flex items-center justify-center">
                   <Upload className="w-6 h-6 text-emerald-500 dark:text-emerald-400" />
                 </div>
                 <div className="text-center">
@@ -371,20 +414,20 @@ export default function CreatePrescriptionPage() {
                     alt="Prescription preview"
                     className="w-full max-h-80 object-contain bg-slate-100 dark:bg-slate-800"
                   />
-                  {uploading && (
+                  {(uploading || ocrLoading) && (
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <div className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-xl px-4 py-2 shadow-lg">
                         <Loader2 className="w-4 h-4 text-emerald-500 animate-spin" />
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                          Uploading…
+                          {uploading ? "Uploading…" : "Extracting prescription data…"}
                         </span>
                       </div>
                     </div>
                   )}
-                  {uploadedImageUrl && !uploading && (
+                  {uploadedImageUrl && !uploading && !ocrLoading && (
                     <div className="absolute top-3 right-3">
-                      <div className="bg-emerald-500 text-white text-xs font-medium px-2.5 py-1 rounded-lg shadow-md">
-                        Uploaded ✓
+                      <div className={`text-white text-xs font-medium px-2.5 py-1 rounded-lg shadow-md ${ocrError ? "bg-amber-500" : "bg-emerald-500"}`}>
+                        {ocrError ? "Uploaded (OCR failed)" : "Extracted ✓"}
                       </div>
                     </div>
                   )}
@@ -553,7 +596,7 @@ export default function CreatePrescriptionPage() {
           <Button
             className="flex-1 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white gap-2 rounded-xl shadow-md hover:shadow-lg transition-all"
             onClick={handleSubmit}
-            disabled={saving || uploading}
+            disabled={saving || uploading || ocrLoading}
           >
             {saving ? (
               <>

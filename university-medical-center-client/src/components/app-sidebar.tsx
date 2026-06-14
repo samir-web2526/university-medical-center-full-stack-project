@@ -140,11 +140,6 @@ const DOCTOR_NAV = [
         icon: LayoutDashboard,
       },
       {
-        title: "My Patients",
-        url: "/dashboard/patients",
-        icon: UserCircle,
-      },
-      {
         title: "All Medicines",
         url: "/dashboard/medicines",
         icon: Pill,

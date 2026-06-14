@@ -76,7 +76,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
         </Link>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500" />
+          <div className="h-20 bg-linear-to-r from-blue-600 via-blue-500 to-indigo-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-md border-4 border-white dark:border-slate-800 flex items-center justify-center">
               <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">{name.charAt(0).toUpperCase()}</span>

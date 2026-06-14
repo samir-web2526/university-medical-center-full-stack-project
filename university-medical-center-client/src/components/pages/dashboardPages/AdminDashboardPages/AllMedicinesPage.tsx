@@ -49,7 +49,7 @@ export default function AllMedicinePage() {
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <div className="w-9 h-9 rounded-xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                 <Pill className="w-5 h-5 text-white" />
               </div>
               Medicine Inventory
@@ -109,7 +109,7 @@ export default function AllMedicinePage() {
                     <TableRow key={med.id} className="hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20 transition-colors border-b border-slate-50 dark:border-slate-800">
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/20">
+                          <div className="w-7 h-7 rounded-lg bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/20">
                             <Pill className="w-3.5 h-3.5 text-white" />
                           </div>
                           <span className="font-medium text-slate-800 dark:text-slate-100 text-sm">{med.name}</span>

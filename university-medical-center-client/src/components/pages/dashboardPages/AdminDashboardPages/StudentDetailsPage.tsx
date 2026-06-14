@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Student, AdminUpdateStudentRequest, BloodGroup } from "@/types";
+import type { Student, AdminUpdateStudentRequest, BloodGroup} from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -41,9 +41,9 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
   const [isEditing, setIsEditing] = useState(false);
   const [edits, setEdits] = useState<Partial<AdminUpdateStudentRequest>>({});
 
-  const name = student.user?.name ?? student.name ?? "Unknown";
-  const email = student.user?.email ?? student.email ?? "—";
-  const status = student.user?.status ?? student.status;
+  const name = student.user?.name ?? "Unknown";
+  const email = student.user?.email ?? "—";
+  const status: string = student.user?.status ?? "UNKNOWN";
 
   const updateMutation = useUpdateStudent();
 
@@ -86,7 +86,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
         </Link>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
-          <div className="h-20 bg-gradient-to-r from-violet-500 via-purple-500 to-blue-500" />
+          <div className="h-20 bg-linear-to-r from-violet-500 via-purple-500 to-blue-500" />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-md border-4 border-white dark:border-slate-800 flex items-center justify-center">
               <span className="text-2xl font-bold text-violet-600 dark:text-violet-400">{name.charAt(0).toUpperCase()}</span>
@@ -217,7 +217,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                 <InfoItem icon={<User className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Full Name" value={name} />
                 <InfoItem icon={<Hash className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Student ID" value={student.studentId} mono />
                 <InfoItem icon={<Mail className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Email" value={email} />
-                <InfoItem icon={<Phone className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Contact" value={student.contactNumber ?? "—"} />
+                <InfoItem icon={<Phone className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Contact" value={student.user?.phone ?? "—"} />
                 <InfoItem icon={<BookOpen className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Department" value={student.department} />
                 <InfoItem icon={<Calendar className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Session" value={student.session} />
                 <InfoItem icon={<Users className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Gender" value={student.gender ? (GENDER_LABEL[student.gender] ?? student.gender) : "—"} />

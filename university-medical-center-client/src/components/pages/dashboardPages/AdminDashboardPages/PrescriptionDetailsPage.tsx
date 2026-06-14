@@ -32,7 +32,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
         </Link>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
-          <div className={`h-20 bg-gradient-to-r ${prescription.status === "CANCELLED" ? "from-red-500 via-red-400 to-orange-400" : "from-emerald-500 via-teal-500 to-blue-500"}`} />
+          <div className={`h-20 bg-linear-to-r ${prescription.status === "CANCELLED" ? "from-red-500 via-red-400 to-orange-400" : "from-emerald-500 via-teal-500 to-blue-500"}`} />
           <CardContent className="relative pb-5 px-6 pt-0">
             <div className="absolute -top-8 left-6 w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 shadow-md border-4 border-white dark:border-slate-800 flex items-center justify-center">
               <FileText className={`w-7 h-7 ${prescription.status === "CANCELLED" ? "text-red-500 dark:text-red-400" : "text-emerald-600 dark:text-emerald-400"}`} />
@@ -109,7 +109,7 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
               <div className="space-y-3">
                 {medicines.map((rxMed, idx) => (
                   <div key={rxMed.id} className="flex items-start gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20">
+                    <div className="w-8 h-8 rounded-lg bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 mt-0.5 shadow-md shadow-blue-500/20">
                       <span className="text-xs font-bold text-white">{idx + 1}</span>
                     </div>
                     <div className="flex-1 min-w-0">
@@ -232,7 +232,7 @@ function PersonCard({ icon, title, name, sub, detail, gradient }: {
       <Separator className="dark:bg-slate-800" />
       <CardContent className="pt-5 space-y-3">
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0 shadow-md`}>
+          <div className={`w-10 h-10 rounded-full bg-linear-to-br ${gradient} flex items-center justify-center shrink-0 shadow-md`}>
             <span className="text-sm font-bold text-white">{name.charAt(0).toUpperCase()}</span>
           </div>
           <div>

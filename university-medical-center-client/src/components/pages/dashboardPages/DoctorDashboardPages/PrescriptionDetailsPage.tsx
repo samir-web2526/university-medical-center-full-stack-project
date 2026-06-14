@@ -84,7 +84,7 @@ export default function PrescriptionDetailsPage({
         </Link>
 
         <Card className="border-0 dark:border-slate-800 shadow-md dark:shadow-slate-900/50 overflow-hidden dark:bg-slate-900">
-          <div className="h-24 bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 relative">
+          <div className="h-24 bg-linear-to-r from-emerald-600 via-teal-500 to-cyan-500 relative">
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
           </div>
           <CardContent className="relative pb-6 px-6 pt-0">
@@ -170,7 +170,7 @@ export default function PrescriptionDetailsPage({
                   key={rxMed.id}
                   className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 hover:border-emerald-200 dark:hover:border-emerald-800 transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
                     <Pill className="w-4 h-4 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -192,7 +192,7 @@ export default function PrescriptionDetailsPage({
               ))
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-900 flex items-center justify-center mx-auto mb-3">
+                <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-emerald-100 to-teal-100 dark:from-emerald-900 dark:to-teal-900 flex items-center justify-center mx-auto mb-3">
                   <Pill className="w-8 h-8 text-emerald-500 dark:text-emerald-400" />
                 </div>
                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">No medicines prescribed</p>
@@ -271,7 +271,7 @@ export default function PrescriptionDetailsPage({
             <Separator className="dark:bg-slate-800" />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-emerald-500 to-teal-500 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-white">
                     {doctorName.charAt(0).toUpperCase()}
                   </span>
@@ -298,7 +298,7 @@ export default function PrescriptionDetailsPage({
             <Separator className="dark:bg-slate-800" />
             <CardContent className="pt-5 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-teal-500 to-cyan-500 flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-white">
                     {studentName.charAt(0).toUpperCase()}
                   </span>
