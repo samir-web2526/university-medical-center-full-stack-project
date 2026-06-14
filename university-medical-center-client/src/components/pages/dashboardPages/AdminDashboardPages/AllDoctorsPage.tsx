@@ -10,7 +10,6 @@ import {
   Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
 } from "@/components/ui/table";
-
 import {
   Stethoscope, Search, ChevronLeft, ChevronRight, UserPlus, Eye,
 } from "lucide-react";
@@ -35,17 +34,19 @@ export default function AllDoctorsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 sm:py-10 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Stethoscope className="w-6 h-6 text-blue-500" />
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <Stethoscope className="w-5 h-5 text-white" />
+              </div>
               All Doctors
             </h1>
-            <p className="text-slate-500 text-sm mt-0.5">{total} doctor{total !== 1 ? "s" : ""} registered</p>
+            <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 ml-11">{total} doctor{total !== 1 ? "s" : ""} registered</p>
           </div>
-          <Button asChild className="bg-blue-600 hover:bg-blue-700 gap-2 h-9">
+          <Button asChild className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 gap-2 h-9 shadow-md shadow-blue-500/20">
             <Link href="/dashboard/create-doctor">
               <UserPlus className="w-4 h-4" /> Add Doctor
             </Link>
@@ -53,22 +54,22 @@ export default function AllDoctorsPage() {
         </div>
 
         <div className="relative max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
           <Input
             placeholder="Search by name, email or specialization…"
-            className="pl-9 h-10 border-slate-200 focus-visible:ring-blue-500 bg-white"
+            className="pl-9 h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-blue-500 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
-        <Card className="border-0 shadow-md overflow-hidden">
+        <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
           <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-50 border-b border-slate-100 hover:bg-slate-50">
+                <TableRow className="bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800">
                   {["Doctor", "Specialization", "Qualification", "Contact", "Status", "Action"].map((h, i) => (
-                    <TableHead key={h} className={`text-xs uppercase tracking-wider text-slate-500 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 5 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
+                    <TableHead key={h} className={`text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold ${i === 0 ? "pl-6" : ""} ${i === 5 ? "pr-6 text-right" : ""}`}>{h}</TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
@@ -86,7 +87,7 @@ export default function AllDoctorsPage() {
                 ) : filtered.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="py-20 text-center">
-                      <div className="flex flex-col items-center gap-2 text-slate-400">
+                      <div className="flex flex-col items-center gap-2 text-slate-400 dark:text-slate-500">
                         <Stethoscope className="w-8 h-8" />
                         <p className="text-sm font-medium">No doctors found</p>
                       </div>
@@ -94,28 +95,28 @@ export default function AllDoctorsPage() {
                   </TableRow>
                 ) : (
                   filtered.map((doc) => (
-                    <TableRow key={doc.id} className="hover:bg-blue-50/40 transition-colors border-b border-slate-50">
+                    <TableRow key={doc.id} className="hover:bg-blue-50/40 dark:hover:bg-blue-950/20 transition-colors border-b border-slate-50 dark:border-slate-800">
                       <TableCell className="pl-6">
-                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="flex items-center gap-3 hover:bg-blue-50 rounded-lg p-1 -m-1 transition-colors">
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                            <span className="text-xs font-bold text-blue-600">{(doc.user?.name ?? "").charAt(0).toUpperCase()}</span>
+                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="flex items-center gap-3 hover:bg-blue-50 dark:hover:bg-blue-950/20 rounded-lg p-1 -m-1 transition-colors">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">
+                            <span className="text-xs font-bold text-white">{(doc.user?.name ?? "").charAt(0).toUpperCase()}</span>
                           </div>
                           <div>
-                            <p className="font-medium text-slate-800 text-sm hover:text-blue-600">Dr. {doc.user?.name ?? ""}</p>
-                            <p className="text-xs text-slate-400">{doc.user?.email ?? ""}</p>
+                            <p className="font-medium text-slate-800 dark:text-slate-100 text-sm hover:text-blue-600 dark:hover:text-blue-400">Dr. {doc.user?.name ?? ""}</p>
+                            <p className="text-xs text-slate-400 dark:text-slate-500">{doc.user?.email ?? ""}</p>
                           </div>
                         </Link>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600">{doc.specialization}</TableCell>
-                      <TableCell className="text-sm text-slate-600">{doc.qualification}</TableCell>
-                      <TableCell className="text-sm text-slate-600">{doc.user?.phone ?? "—"}</TableCell>
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-300">{doc.specialization}</TableCell>
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-300">{doc.qualification}</TableCell>
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-300">{doc.user?.phone ?? "—"}</TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={doc.user?.status === "ACTIVE" ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-xs" : "bg-red-50 text-red-700 border-red-200 text-xs"}>
+                        <Badge variant="outline" className={doc.user?.status === "ACTIVE" ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 text-xs" : "bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800 text-xs"}>
                           {doc.user?.status}
                         </Badge>
                       </TableCell>
                       <TableCell className="pr-6 text-right">
-                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-blue-50 text-slate-400 hover:text-blue-600 transition-colors">
+                        <Link href={`/dashboard/all-doctors/${doc.id}`} className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-950/20 text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                           <Eye className="w-4 h-4" />
                         </Link>
                       </TableCell>
@@ -128,12 +129,12 @@ export default function AllDoctorsPage() {
         </Card>
 
         <div className="flex items-center justify-between">
-          <p className="text-sm text-slate-500">Page {page} of {totalPages}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Page {page} of {totalPages}</p>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1 || isLoading} className="border-slate-200 h-8">
+            <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1 || isLoading} className="border-slate-200 dark:border-slate-700 h-8">
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages || isLoading} className="border-slate-200 h-8">
+            <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages || isLoading} className="border-slate-200 dark:border-slate-700 h-8">
               <ChevronRight className="w-4 h-4" />
             </Button>
           </div>

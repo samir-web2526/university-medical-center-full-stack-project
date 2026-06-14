@@ -1,10 +1,9 @@
-// import AdminDashboard from '@/components/pages/dashboardPages/adminPages/AdminDashboardPage'
-import React from 'react'
+import AdminDashboard from '@/components/pages/dashboardPages/AdminDashboardPages/AdminDashboardPage'
 
 export default function DashboardPage() {
   return (
     <div>
-      {/* <AdminDashboard></AdminDashboard> */}
+      <AdminDashboard />
     </div>
   )
 }

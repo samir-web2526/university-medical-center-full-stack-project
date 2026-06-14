@@ -19,18 +19,18 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Notification, PaginatedResponse } from "@/types";
 
-const TYPE_CONFIG: Record<string, { icon: React.ElementType; color: string; bg: string }> = {
-  MEDICINE_LOW_STOCK:     { icon: Pill,          color: "text-orange-600", bg: "bg-orange-50" },
-  OUT_OF_STOCK:           { icon: AlertTriangle,  color: "text-red-600",    bg: "bg-red-50" },
-  MEDICINE_OUT_OF_STOCK:  { icon: AlertTriangle,  color: "text-red-600",    bg: "bg-red-50" },
-  PRESCRIPTION_CREATED:   { icon: FileText,       color: "text-blue-600",   bg: "bg-blue-50" },
-  PRESCRIPTION_CANCELLED: { icon: BellOff,        color: "text-slate-500",  bg: "bg-slate-100" },
-  VISIT_CREATED:          { icon: Bell,           color: "text-emerald-600",bg: "bg-emerald-50" },
-  SYSTEM_ALERT:           { icon: ShieldAlert,    color: "text-violet-600", bg: "bg-violet-50" },
+const TYPE_CONFIG: Record<string, { icon: React.ElementType; color: string; bg: string; darkColor: string; darkBg: string }> = {
+  MEDICINE_LOW_STOCK:     { icon: Pill,          color: "text-orange-600", bg: "bg-orange-50", darkColor: "dark:text-orange-400", darkBg: "dark:bg-orange-950/30" },
+  OUT_OF_STOCK:           { icon: AlertTriangle,  color: "text-red-600",    bg: "bg-red-50",    darkColor: "dark:text-red-400",    darkBg: "dark:bg-red-950/30" },
+  MEDICINE_OUT_OF_STOCK:  { icon: AlertTriangle,  color: "text-red-600",    bg: "bg-red-50",    darkColor: "dark:text-red-400",    darkBg: "dark:bg-red-950/30" },
+  PRESCRIPTION_CREATED:   { icon: FileText,       color: "text-blue-600",   bg: "bg-blue-50",   darkColor: "dark:text-blue-400",   darkBg: "dark:bg-blue-950/30" },
+  PRESCRIPTION_CANCELLED: { icon: BellOff,        color: "text-slate-500",  bg: "bg-slate-100", darkColor: "dark:text-slate-400",  darkBg: "dark:bg-slate-800" },
+  VISIT_CREATED:          { icon: Bell,           color: "text-emerald-600",bg: "bg-emerald-50", darkColor: "dark:text-emerald-400", darkBg: "dark:bg-emerald-950/30" },
+  SYSTEM_ALERT:           { icon: ShieldAlert,    color: "text-violet-600", bg: "bg-violet-50", darkColor: "dark:text-violet-400", darkBg: "dark:bg-violet-950/30" },
 };
 
 function getTypeConfig(type: string) {
-  return TYPE_CONFIG[type] ?? { icon: Info, color: "text-slate-500", bg: "bg-slate-100" };
+  return TYPE_CONFIG[type] ?? { icon: Info, color: "text-slate-500", bg: "bg-slate-100", darkColor: "dark:text-slate-400", darkBg: "dark:bg-slate-800" };
 }
 
 function timeAgo(dateStr: string): string {
@@ -113,23 +113,25 @@ export default function NotificationsClient({
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-red-500 text-sm">{error}</p>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+        <p className="text-red-500 dark:text-red-400 text-sm">{error}</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 sm:py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Bell className="w-6 h-6 text-blue-500" />
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                <Bell className="w-5 h-5 text-white" />
+              </div>
               Notifications
             </h1>
             {unreadCount > 0 && (
-              <Badge className="bg-blue-600 hover:bg-blue-600 text-white text-xs h-5 min-w-5 flex items-center justify-center rounded-full px-1.5">
+              <Badge className="bg-cyan-600 hover:bg-cyan-600 text-white text-xs h-5 min-w-5 flex items-center justify-center rounded-full px-1.5">
                 {unreadCount}
               </Badge>
             )}
@@ -138,7 +140,7 @@ export default function NotificationsClient({
             <Button
               variant="outline"
               size="sm"
-              className="border-slate-200 text-slate-600 hover:bg-slate-50 gap-1.5 h-8 text-xs"
+              className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 gap-1.5 h-8 text-xs"
               onClick={handleMarkAll}
               disabled={isPending}
             >
@@ -151,31 +153,31 @@ export default function NotificationsClient({
           )}
         </div>
 
-        <Card className="border-0 shadow-md overflow-hidden">
+        <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
           <CardContent className="p-0">
             {isPending ? (
-              <div className="divide-y divide-slate-50">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div key={i} className="flex items-start gap-3 p-4 animate-pulse">
-                    <div className="w-8 h-8 rounded-lg bg-slate-200 shrink-0" />
+                    <div className="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-700 shrink-0" />
                     <div className="flex-1 space-y-2">
-                      <div className="h-3.5 w-40 bg-slate-200 rounded" />
-                      <div className="h-3 w-full max-w-65 bg-slate-200 rounded" />
-                      <div className="h-3 w-16 bg-slate-200 rounded" />
+                      <div className="h-3.5 w-40 bg-slate-200 dark:bg-slate-700 rounded" />
+                      <div className="h-3 w-full max-w-65 bg-slate-200 dark:bg-slate-700 rounded" />
+                      <div className="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded" />
                     </div>
                   </div>
                 ))}
               </div>
             ) : notifications.length === 0 ? (
-              <div className="py-20 flex flex-col items-center gap-3 text-slate-400">
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+              <div className="py-20 flex flex-col items-center gap-3 text-slate-400 dark:text-slate-500">
+                <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                   <BellOff className="w-6 h-6" />
                 </div>
                 <p className="text-sm font-medium">No notifications yet</p>
                 <p className="text-xs">You&apos;re all caught up!</p>
               </div>
             ) : (
-              <div className="divide-y divide-slate-50">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {notifications.map((notif) => {
                   const cfg = getTypeConfig(notif.type);
                   const Icon = cfg.icon;
@@ -185,26 +187,26 @@ export default function NotificationsClient({
                     <div
                       key={notif.id}
                       className={cn(
-                        "flex items-start gap-3 px-4 py-3.5 group transition-colors",
+                        "flex items-start gap-3 px-4 sm:px-6 py-3.5 group transition-colors",
                         isThisLoading && "opacity-50",
                         notif.isRead
-                          ? "bg-white hover:bg-slate-50"
-                          : "bg-blue-50/60 hover:bg-blue-50"
+                          ? "bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                          : "bg-cyan-50/50 dark:bg-cyan-950/20 hover:bg-cyan-50 dark:hover:bg-cyan-950/30"
                       )}
                     >
-                      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5", cfg.bg)}>
-                        <Icon className={cn("w-4 h-4", cfg.color)} />
+                      <div className={cn("w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5", cfg.bg, cfg.darkBg)}>
+                        <Icon className={cn("w-4 h-4", cfg.color, cfg.darkColor)} />
                       </div>
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <p className={cn(
                             "text-sm font-medium leading-snug",
-                            notif.isRead ? "text-slate-700" : "text-slate-900"
+                            notif.isRead ? "text-slate-600 dark:text-slate-400" : "text-slate-900 dark:text-slate-100"
                           )}>
                             {notif.title}
                             {!notif.isRead && (
-                              <span className="ml-2 inline-block w-1.5 h-1.5 rounded-full bg-blue-500 align-middle" />
+                              <span className="ml-2 inline-block w-1.5 h-1.5 rounded-full bg-cyan-500 align-middle" />
                             )}
                           </p>
 
@@ -213,7 +215,7 @@ export default function NotificationsClient({
                               <button
                                 onClick={() => handleMarkOne(notif.id)}
                                 disabled={isThisLoading}
-                                className="p-1 rounded text-slate-400 hover:text-blue-600 hover:bg-blue-100 transition-colors"
+                                className="p-1 rounded text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-100 dark:hover:bg-cyan-950/30 transition-colors"
                                 title="Mark as read"
                               >
                                 <CheckCheck className="w-3.5 h-3.5" />
@@ -222,15 +224,15 @@ export default function NotificationsClient({
                             <button
                               onClick={() => handleDelete(notif.id)}
                               disabled={isThisLoading}
-                              className="p-1 rounded text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                              className="p-1 rounded text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
                               title="Delete"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         </div>
-                        <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{notif.message}</p>
-                        <p className="text-xs text-slate-400 mt-1">{timeAgo(notif.createdAt)}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{notif.message}</p>
+                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{timeAgo(notif.createdAt)}</p>
                       </div>
                     </div>
                   );
@@ -242,7 +244,7 @@ export default function NotificationsClient({
 
         {totalPages > 1 && (
           <div className="flex items-center justify-between">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Page {initialPage} of {totalPages}
             </p>
             <div className="flex gap-2">
@@ -251,7 +253,7 @@ export default function NotificationsClient({
                 size="sm"
                 onClick={() => handlePageChange(initialPage - 1)}
                 disabled={initialPage === 1 || isPending}
-                className="border-slate-200 h-8"
+                className="border-slate-200 dark:border-slate-700 h-8"
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
@@ -260,7 +262,7 @@ export default function NotificationsClient({
                 size="sm"
                 onClick={() => handlePageChange(initialPage + 1)}
                 disabled={initialPage === totalPages || isPending}
-                className="border-slate-200 h-8"
+                className="border-slate-200 dark:border-slate-700 h-8"
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>

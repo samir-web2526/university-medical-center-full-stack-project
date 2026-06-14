@@ -61,105 +61,107 @@ export default function CreateMedicinePage() {
     }
   };
 
+  const inputClass = "h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100";
+
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 sm:py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
-        <Link href="/dashboard/all-medicines" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors">
+        <Link href="/dashboard/all-medicines" className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Medicines
         </Link>
 
-        <Card className="border-0 shadow-md">
+        <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800">
           <CardHeader className="pb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                <Pill className="w-5 h-5 text-emerald-600" />
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <Pill className="w-5 h-5 text-white" />
               </div>
               <div>
-                <CardTitle className="text-xl text-slate-900">Add Medicine</CardTitle>
-                <CardDescription className="text-slate-500 text-sm">Add a new medicine to the clinic inventory.</CardDescription>
+                <CardTitle className="text-xl text-slate-900 dark:text-slate-50">Add Medicine</CardTitle>
+                <CardDescription className="text-slate-500 dark:text-slate-400 text-sm">Add a new medicine to the clinic inventory.</CardDescription>
               </div>
             </div>
           </CardHeader>
-          <Separator />
+          <Separator className="dark:bg-slate-800" />
           <CardContent className="pt-6 space-y-6">
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Basic Information</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Basic Information</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2 space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Pill className="w-3.5 h-3.5 text-emerald-500" /> Medicine Name *
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Pill className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Medicine Name *
                   </Label>
-                  <Input placeholder="e.g. Seclo" value={form.name} onChange={(e) => set("name", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input placeholder="e.g. Seclo" value={form.name} onChange={(e) => set("name", e.target.value)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700">Generic Name</Label>
-                  <Input placeholder="e.g. Omeprazole" value={form.genericName ?? ""} onChange={(e) => set("genericName", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Generic Name</Label>
+                  <Input placeholder="e.g. Omeprazole" value={form.genericName ?? ""} onChange={(e) => set("genericName", e.target.value)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Building2 className="w-3.5 h-3.5 text-emerald-500" /> Manufacturer
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Building2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Manufacturer
                   </Label>
-                  <Input placeholder="e.g. Square Pharmaceuticals" value={form.manufacturer ?? ""} onChange={(e) => set("manufacturer", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input placeholder="e.g. Square Pharmaceuticals" value={form.manufacturer ?? ""} onChange={(e) => set("manufacturer", e.target.value)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500" /> Dosage Form
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Dosage Form
                   </Label>
-                  <Input placeholder="e.g. Capsule, Tablet, Syrup" value={form.dosageForm ?? ""} onChange={(e) => set("dosageForm", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input placeholder="e.g. Capsule, Tablet, Syrup" value={form.dosageForm ?? ""} onChange={(e) => set("dosageForm", e.target.value)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500" /> Strength
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Strength
                   </Label>
-                  <Input placeholder="e.g. 20mg, 500mg" value={form.strength ?? ""} onChange={(e) => set("strength", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input placeholder="e.g. 20mg, 500mg" value={form.strength ?? ""} onChange={(e) => set("strength", e.target.value)} className={inputClass} />
                 </div>
               </div>
             </div>
 
-            <Separator />
+            <Separator className="dark:bg-slate-800" />
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Price & Expiry</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Price & Expiry</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <DollarSign className="w-3.5 h-3.5 text-emerald-500" /> Unit Price (৳)
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <DollarSign className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Unit Price (৳)
                   </Label>
-                  <Input type="number" min={0} step="0.01" placeholder="e.g. 8" value={form.unitPrice ?? ""} onChange={(e) => set("unitPrice", parseFloat(e.target.value) || 0)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input type="number" min={0} step="0.01" placeholder="e.g. 8" value={form.unitPrice ?? ""} onChange={(e) => set("unitPrice", parseFloat(e.target.value) || 0)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-emerald-500" /> Expiry Date
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Expiry Date
                   </Label>
-                  <Input type="date" value={form.expiryDate ?? ""} onChange={(e) => set("expiryDate", e.target.value)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input type="date" value={form.expiryDate ?? ""} onChange={(e) => set("expiryDate", e.target.value)} className={inputClass} />
                 </div>
               </div>
             </div>
 
-            <Separator />
+            <Separator className="dark:bg-slate-800" />
 
             <div className="space-y-4">
-              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Stock Management</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Stock Management</p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Package className="w-3.5 h-3.5 text-emerald-500" /> Initial Stock *
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Package className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Initial Stock *
                   </Label>
-                  <Input type="number" min={1} placeholder="e.g. 300" value={form.stockQuantity || ""} onChange={(e) => set("stockQuantity", parseInt(e.target.value) || 0)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
+                  <Input type="number" min={1} placeholder="e.g. 300" value={form.stockQuantity || ""} onChange={(e) => set("stockQuantity", parseInt(e.target.value) || 0)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Package className="w-3.5 h-3.5 text-orange-500" /> Minimum Stock *
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Package className="w-3.5 h-3.5 text-orange-500 dark:text-orange-400" /> Minimum Stock *
                   </Label>
-                  <Input type="number" min={0} placeholder="e.g. 50" value={form.minimumStock || ""} onChange={(e) => set("minimumStock", parseInt(e.target.value) || 0)} className="h-10 border-slate-200 focus-visible:ring-emerald-500" />
-                  <p className="text-xs text-slate-400">Low-stock alert triggers at this level.</p>
+                  <Input type="number" min={0} placeholder="e.g. 50" value={form.minimumStock || ""} onChange={(e) => set("minimumStock", parseInt(e.target.value) || 0)} className={inputClass} />
+                  <p className="text-xs text-slate-400 dark:text-slate-500">Low-stock alert triggers at this level.</p>
                 </div>
               </div>
             </div>
 
             <div className="flex gap-3 pt-2">
-              <Button variant="outline" className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50" onClick={() => router.back()} disabled={createMutation.isPending}>Cancel</Button>
-              <Button className="flex-1 bg-emerald-600 hover:bg-emerald-700 gap-2" onClick={handleSubmit} disabled={createMutation.isPending}>
+              <Button variant="outline" className="flex-1 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800" onClick={() => router.back()} disabled={createMutation.isPending}>Cancel</Button>
+              <Button className="flex-1 bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-700 gap-2 shadow-md shadow-emerald-500/20" onClick={handleSubmit} disabled={createMutation.isPending}>
                 {createMutation.isPending ? (
                   <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />Adding...</>
                 ) : (
