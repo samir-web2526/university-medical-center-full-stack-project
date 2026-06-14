@@ -1,10 +1,5 @@
-// import AdminDashboard from '@/components/pages/dashboardPages/adminPages/AdminDashboardPage'
-import React from 'react'
+import StudentDashboard from '@/components/pages/dashboardPages/studentDashboardPages/StudentDashboardPage'
 
 export default function DashboardPage() {
-  return (
-    <div>
-      {/* <AdminDashboard></AdminDashboard> */}
-    </div>
-  )
+  return <StudentDashboard />
 }
