@@ -6,6 +6,7 @@ import { PrescriptionRoutes } from "../modules/Prescription/prescription.route";
 import { VisitRoutes } from "../modules/Visit/visit.route";
 import { MedicineRoutes } from "../modules/Medicine/medicine.route";
 import { notificationRoutes } from "../modules/Notification/notification.route";
+import { ocrRoutes } from "../modules/Ocr/ocr.route";
 
 const router = Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
     {
         path: "/notifications",
         routes: notificationRoutes,
+    },
+    {
+        path: "/ocr",
+        routes: ocrRoutes,
     }
 ];
 
