@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -12,7 +12,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { ArrowLeft, Save, Droplets, User, Mail, Phone } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { ArrowLeft, Save, Droplets, User, Mail, Phone, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { getMyProfile, updateMyProfile } from "@/services/student.service";
 import type { UpdateStudentProfileRequest } from "@/types";
@@ -84,35 +85,46 @@ export default function UpdateProfilePage() {
   const genders = ["MALE", "FEMALE", "OTHER"];
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
         <Link
           href="/dashboard/me"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors group"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to Profile
         </Link>
 
-        <Card className="border-0 shadow-md">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl text-slate-900">Update Profile</CardTitle>
-            <CardDescription className="text-slate-500">
-              Update your personal and academic information.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pt-6 space-y-5">
-            {/* Personal Information */}
+        <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-violet-600 via-purple-600 to-indigo-600 p-8 text-white shadow-xl shadow-violet-500/20">
+          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
+          <div className="absolute -left-8 -bottom-8 h-32 w-32 rounded-full bg-purple-300/20 blur-xl" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-purple-200" />
+              <span className="text-sm font-medium text-violet-200">Edit Mode</span>
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight">Update Profile</h1>
+            <p className="text-violet-200 text-sm mt-1">Keep your personal information up to date</p>
+          </div>
+        </div>
+
+        <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
+          <CardContent className="p-6 space-y-6">
             <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-slate-800 uppercase tracking-wide">Personal Information</h3>
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                <div className="w-1 h-4 rounded-full bg-violet-500" />
+                Personal Information
+              </h3>
 
               <div className="space-y-1.5">
-                <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-violet-500" />
+                <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center">
+                    <User className="w-3 h-3 text-violet-600 dark:text-violet-400" />
+                  </div>
                   Full Name
                 </Label>
                 <Input
-                  className="h-10 border-slate-200 focus:ring-violet-500"
+                  className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
                   value={form.name}
                   onChange={(e) => handleChange("name", e.target.value)}
                   placeholder="Enter your name"
@@ -121,25 +133,29 @@ export default function UpdateProfilePage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Mail className="w-3.5 h-3.5 text-violet-500" />
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+                      <Mail className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                    </div>
                     Email
                   </Label>
                   <Input
                     type="email"
-                    className="h-10 border-slate-200 focus:ring-violet-500"
+                    className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
                     value={form.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     placeholder="Enter email"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-violet-500" />
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-lg bg-green-100 dark:bg-green-900/40 flex items-center justify-center">
+                      <Phone className="w-3 h-3 text-green-600 dark:text-green-400" />
+                    </div>
                     Phone
                   </Label>
                   <Input
-                    className="h-10 border-slate-200 focus:ring-violet-500"
+                    className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
                     value={form.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                     placeholder="Enter phone"
@@ -149,17 +165,19 @@ export default function UpdateProfilePage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-violet-500" />
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-lg bg-pink-100 dark:bg-pink-900/40 flex items-center justify-center">
+                      <User className="w-3 h-3 text-pink-600 dark:text-pink-400" />
+                    </div>
                     Gender
                   </Label>
                   <Select value={form.gender} onValueChange={(v) => handleChange("gender", v)}>
-                    <SelectTrigger className="h-10 border-slate-200 focus:ring-violet-500">
+                    <SelectTrigger className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl">
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="dark:bg-slate-800 dark:border-slate-700 rounded-xl">
                       {genders.map((g) => (
-                        <SelectItem key={g} value={g}>
+                        <SelectItem key={g} value={g} className="dark:text-slate-200 dark:focus:bg-slate-700 rounded-lg">
                           {g.charAt(0) + g.slice(1).toLowerCase()}
                         </SelectItem>
                       ))}
@@ -167,17 +185,19 @@ export default function UpdateProfilePage() {
                   </Select>
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                    <Droplets className="w-3.5 h-3.5 text-violet-500" />
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <div className="w-6 h-6 rounded-lg bg-red-100 dark:bg-red-900/40 flex items-center justify-center">
+                      <Droplets className="w-3 h-3 text-red-600 dark:text-red-400" />
+                    </div>
                     Blood Group
                   </Label>
                   <Select value={form.bloodGroup} onValueChange={(v) => handleChange("bloodGroup", v)}>
-                    <SelectTrigger className="h-10 border-slate-200 focus:ring-violet-500">
+                    <SelectTrigger className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl">
                       <SelectValue placeholder="Select blood group" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="dark:bg-slate-800 dark:border-slate-700 rounded-xl">
                       {bloodGroups.map((bg) => (
-                        <SelectItem key={bg} value={bg}>
+                        <SelectItem key={bg} value={bg} className="dark:text-slate-200 dark:focus:bg-slate-700 rounded-lg">
                           {bg.replace("_", " ")}
                         </SelectItem>
                       ))}
@@ -187,17 +207,19 @@ export default function UpdateProfilePage() {
               </div>
             </div>
 
+            <Separator className="dark:bg-slate-800" />
+
             <div className="flex gap-3 pt-2">
               <Button
                 variant="outline"
-                className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50"
+                className="flex-1 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 h-11 rounded-xl"
                 onClick={() => router.back()}
                 disabled={saving}
               >
                 Cancel
               </Button>
               <Button
-                className="flex-1 bg-violet-600 hover:bg-violet-700 gap-2"
+                className="flex-1 bg-linear-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 gap-2 h-11 rounded-xl shadow-lg shadow-violet-500/25"
                 onClick={handleSubmit}
                 disabled={saving}
               >
@@ -223,18 +245,19 @@ export default function UpdateProfilePage() {
 
 function FormSkeleton() {
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
         <Skeleton className="h-4 w-28" />
-        <Card className="border-0 shadow-md">
+        <Skeleton className="h-40 w-full rounded-2xl" />
+        <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800">
           <CardContent className="pt-6 space-y-5">
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className="space-y-2">
                 <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-11 w-full rounded-xl" />
               </div>
             ))}
-            <Skeleton className="h-10 w-full mt-4" />
+            <Skeleton className="h-11 w-full rounded-xl mt-4" />
           </CardContent>
         </Card>
       </div>

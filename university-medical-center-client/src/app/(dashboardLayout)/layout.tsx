@@ -34,13 +34,6 @@ const user = await getCurrentUser()
 
   if (!user) redirect("/login");
 
-  const roleLabel = {
-    ADMIN: "Admin Panel",
-    STUDENT: "My Learning",
-    TUTOR: "Teaching Hub",
-    DOCTOR: "Doctor Dashboard",
-  }[user.role] ?? "Dashboard";
-
   return (
     <SidebarProvider>
       <AppSidebar userRole={user.role} userName={user.name} userEmail={user.email} />
@@ -58,9 +51,6 @@ const user = await getCurrentUser()
                   <BreadcrumbLink href="/">Home</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>{roleLabel}</BreadcrumbPage>
-                </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>

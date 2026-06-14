@@ -204,18 +204,22 @@ export function AppSidebar({
     navItem = STUDENT_NAV;
   }
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" data-role={userRole} {...props}>
 
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className={`flex aspect-square size-8 items-center justify-center rounded-lg text-white ${
+                  userRole === "ADMIN" ? "bg-linear-to-br from-blue-600 to-indigo-600" :
+                  userRole === "DOCTOR" ? "bg-linear-to-br from-emerald-600 to-teal-600" :
+                  "bg-linear-to-br from-violet-600 to-purple-600"
+                }`}>
                   <BookOpen className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-bold">SkillBridge</span>
+                  <span className="truncate font-bold">UMC, JSTU</span>
                   <span className="truncate text-xs text-muted-foreground capitalize">
                     {userRole} Dashboard
                   </span>

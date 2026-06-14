@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Skill Bridge",
-  description: "Find the perfect tutor",
+  title: "UMC, JSTU",
+  description: "University Medical Center - Health & Wellness Portal",
 };
 
 export default function RootLayout({
