@@ -4,7 +4,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
@@ -26,7 +25,6 @@ export default async function DashboardLayout({
 }: {
   admin: React.ReactNode;
   student: React.ReactNode;
-  tutor: React.ReactNode;
   doctor: React.ReactNode;
 }) {
  
@@ -61,7 +59,6 @@ const user = await getCurrentUser()
         <div className="flex flex-1 flex-col gap-4 p-4 pt-4">
           {user.role === "ADMIN" && admin}
           {user.role === "STUDENT" && student}
-          {user.role === "TUTOR" && tutor}
           {user.role === "DOCTOR" && doctor}
         </div>
       </SidebarInset>

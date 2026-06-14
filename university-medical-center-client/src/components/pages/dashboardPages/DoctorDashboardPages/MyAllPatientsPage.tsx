@@ -28,6 +28,8 @@ import {
   Eye,
   ChevronLeft,
   ChevronRight,
+  Sparkles,
+  UserRoundX,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -83,51 +85,55 @@ export default function MyAllPatientsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 transition-colors">
       <div className="max-w-6xl mx-auto space-y-6">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Users className="w-6 h-6 text-blue-500" />
-              My Patients
-            </h1>
-            <p className="text-slate-500 text-sm mt-0.5">
-              {total} patient{total !== 1 ? "s" : ""} under your care
-            </p>
+        <div className="rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <div className="flex items-center gap-3 mb-1">
+                <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <h1 className="text-2xl font-bold text-white">My Patients</h1>
+              </div>
+              <p className="text-emerald-100 text-sm ml-13">
+                {total} patient{total !== 1 ? "s" : ""} under your care
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="relative max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
           <Input
             placeholder="Search by name or email…"
-            className="pl-9 h-10 border-slate-200 focus-visible:ring-blue-500 bg-white"
+            className="pl-9 h-11 border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 focus-visible:ring-emerald-500 bg-white rounded-xl"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
-        <Card className="border-0 shadow-md overflow-hidden">
+        <Card className="border-0 shadow-md overflow-hidden dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardContent className="p-0">
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-50 border-b border-slate-100 hover:bg-slate-50">
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold pl-6">
+                <TableRow className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold pl-6">
                     Patient
                   </TableHead>
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                     Contact
                   </TableHead>
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                     Age
                   </TableHead>
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                     Last Visit
                   </TableHead>
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                     Status
                   </TableHead>
-                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 font-semibold pr-6 text-right">
+                  <TableHead className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold pr-6 text-right">
                     Actions
                   </TableHead>
                 </TableRow>
@@ -135,10 +141,10 @@ export default function MyAllPatientsPage() {
               <TableBody>
                 {loading ? (
                   Array.from({ length: 6 }).map((_, i) => (
-                    <TableRow key={i}>
+                    <TableRow key={i} className="dark:border-slate-800">
                       {Array.from({ length: 6 }).map((_, j) => (
                         <TableCell key={j} className={j === 0 ? "pl-6" : ""}>
-                          <Skeleton className="h-4 w-full max-w-30" />
+                          <Skeleton className="h-4 w-full max-w-30 dark:bg-slate-800" />
                         </TableCell>
                       ))}
                     </TableRow>
@@ -146,10 +152,14 @@ export default function MyAllPatientsPage() {
                 ) : filtered.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="py-20 text-center">
-                      <div className="flex flex-col items-center gap-2 text-slate-400">
-                        <Users className="w-8 h-8" />
-                        <p className="text-sm font-medium">No patients found</p>
-                        <p className="text-xs">Patients you&apos;ve seen will appear here</p>
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center">
+                          <UserRoundX className="w-8 h-8 text-emerald-400 dark:text-emerald-500" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">No patients found</p>
+                          <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Patients you&apos;ve seen will appear here</p>
+                        </div>
                       </div>
                     </TableCell>
                   </TableRow>
@@ -157,26 +167,26 @@ export default function MyAllPatientsPage() {
                   filtered.map((patient) => (
                     <TableRow
                       key={patient.id}
-                      className="hover:bg-blue-50/40 transition-colors border-b border-slate-50"
+                      className="hover:bg-emerald-50/40 dark:hover:bg-emerald-500/5 transition-colors border-b border-slate-50 dark:border-slate-800"
                     >
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
-                            <span className="text-xs font-bold text-blue-600">
+                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-500/10 dark:to-teal-500/10 flex items-center justify-center shrink-0">
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">
                               {patient.name.charAt(0).toUpperCase()}
                             </span>
                           </div>
                           <div>
-                            <p className="font-medium text-slate-800 text-sm">{patient.name}</p>
-                            <p className="text-xs text-slate-400">{patient.email}</p>
+                            <p className="font-medium text-slate-800 dark:text-slate-200 text-sm">{patient.name}</p>
+                            <p className="text-xs text-slate-400 dark:text-slate-500">{patient.email}</p>
                           </div>
                         </div>
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600">
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-400">
                         {patient.contactNumber ?? "—"}
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600">{patient.age}</TableCell>
-                      <TableCell className="text-sm text-slate-600">
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-400">{patient.age}</TableCell>
+                      <TableCell className="text-sm text-slate-600 dark:text-slate-400">
                         {new Date(patient.lastVisit).toLocaleDateString()}
                       </TableCell>
                       <TableCell>
@@ -184,8 +194,8 @@ export default function MyAllPatientsPage() {
                           variant="outline"
                           className={
                             patient.status === "ACTIVE"
-                              ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-xs"
-                              : "bg-red-50 text-red-700 border-red-200 text-xs"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 text-xs"
+                              : "bg-red-50 text-red-700 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20 text-xs"
                           }
                         >
                           {patient.status}
@@ -194,24 +204,24 @@ export default function MyAllPatientsPage() {
                       <TableCell className="pr-6 text-right">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500">
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-xl">
                               <MoreVertical className="w-4 h-4" />
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-40">
-                            <DropdownMenuItem asChild>
+                          <DropdownMenuContent align="end" className="w-40 dark:bg-slate-900 dark:border-slate-800">
+                            <DropdownMenuItem asChild className="dark:focus:bg-slate-800 rounded-lg">
                               <Link
                                 href={`/doctor/patients/${patient.id}`}
-                                className="flex items-center gap-2 cursor-pointer"
+                                className="flex items-center gap-2 cursor-pointer dark:text-slate-300"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                                 View Profile
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem asChild className="dark:focus:bg-slate-800 rounded-lg">
                               <Link
                                 href={`/doctor/prescriptions/create?patientId=${patient.id}`}
-                                className="flex items-center gap-2 cursor-pointer"
+                                className="flex items-center gap-2 cursor-pointer dark:text-slate-300"
                               >
                                 <FileText className="w-3.5 h-3.5" />
                                 Prescribe
@@ -229,7 +239,7 @@ export default function MyAllPatientsPage() {
         </Card>
 
         <div className="flex items-center justify-between">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Page {page} of {totalPages}
           </p>
           <div className="flex gap-2">
@@ -238,7 +248,7 @@ export default function MyAllPatientsPage() {
               size="sm"
               onClick={() => handlePageChange(Math.max(1, page - 1))}
               disabled={page === 1 || loading}
-              className="border-slate-200 h-8"
+              className="border-slate-200 dark:border-slate-700 h-9 rounded-xl dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
@@ -247,7 +257,7 @@ export default function MyAllPatientsPage() {
               size="sm"
               onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
               disabled={page === totalPages || loading}
-              className="border-slate-200 h-8"
+              className="border-slate-200 dark:border-slate-700 h-9 rounded-xl dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
             >
               <ChevronRight className="w-4 h-4" />
             </Button>

@@ -3,7 +3,7 @@
 import type { Prescription } from "@/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Pill, User, Stethoscope, Calendar} from "lucide-react";
+import { ArrowLeft, Pill, User, Stethoscope, Calendar, Image as ImageIcon, ZoomIn} from "lucide-react";
 import Link from "next/link";
 
 export default function StudentPrescriptionDetailsPage({ prescription }: { prescription: Prescription }) {
@@ -174,6 +174,42 @@ export default function StudentPrescriptionDetailsPage({ prescription }: { presc
                   )}
                 </div>
               ))}
+            </CardContent>
+          </Card>
+        )}
+
+        {prescription.prescriptionImage && (
+          <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
+            <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
+              <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center">
+                  <ImageIcon className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                Prescription Image
+              </h2>
+            </CardHeader>
+            <CardContent className="pt-5">
+              <a
+                href={prescription.prescriptionImage}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block group"
+              >
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 group-hover:border-emerald-300 dark:group-hover:border-emerald-700 transition-colors">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={prescription.prescriptionImage}
+                    alt="Prescription"
+                    className="w-full max-h-96 object-contain bg-slate-100 dark:bg-slate-800"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 dark:bg-slate-900/90 rounded-xl px-3 py-1.5 flex items-center gap-1.5 shadow-lg">
+                      <ZoomIn className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">View full size</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </CardContent>
           </Card>
         )}

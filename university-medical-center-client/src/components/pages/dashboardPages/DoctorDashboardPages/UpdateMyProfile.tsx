@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap } from "lucide-react";
+import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap, Sparkles, Pencil } from "lucide-react";
 import Link from "next/link";
 import { getMyProfile, updateMyProfile } from "@/services/doctor.service";
 
@@ -108,30 +108,45 @@ export default function UpdateMyProfile() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4 transition-colors">
       <div className="max-w-2xl mx-auto space-y-6">
         <Link
           href="/dashboard/me"
-          className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
           Back to Profile
         </Link>
 
-        <Card className="border-0 shadow-md">
+        <div className="rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 p-6 shadow-lg shadow-emerald-500/20">
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-white">Update Profile</h1>
+          </div>
+          <p className="text-emerald-100 text-sm ml-13">Keep your information accurate so patients can find you easily</p>
+        </div>
+
+        <Card className="border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardHeader className="pb-4">
-            <CardTitle className="text-xl text-slate-900">Update Profile</CardTitle>
-            <CardDescription className="text-slate-500">
-              Keep your information accurate so patients can find you easily.
+            <CardTitle className="text-xl text-slate-900 dark:text-white flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+                <Pencil className="w-4 h-4 text-white" />
+              </div>
+              Personal Information
+            </CardTitle>
+            <CardDescription className="text-slate-500 dark:text-slate-400">
+              Update your professional details below
             </CardDescription>
           </CardHeader>
-          <Separator />
+          <Separator className="dark:bg-slate-800" />
 
           <CardContent className="pt-6 space-y-5">
             {fields.map((field) => (
               <div key={field.key} className="space-y-1.5">
-                <Label htmlFor={field.key} className="text-sm font-medium text-slate-700 flex items-center gap-1.5">
-                  <field.icon className="w-3.5 h-3.5 text-blue-500" />
+                <Label htmlFor={field.key} className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <field.icon className="w-3.5 h-3.5 text-emerald-500" />
                   {field.label}
                 </Label>
                 <Input
@@ -140,33 +155,33 @@ export default function UpdateMyProfile() {
                   placeholder={field.placeholder}
                   value={form[field.key]}
                   onChange={(e) => handleChange(field.key, e.target.value)}
-                  className="h-10 border-slate-200 focus-visible:ring-blue-500 focus-visible:border-blue-400"
+                  className="h-11 border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 focus-visible:ring-emerald-500 focus-visible:border-emerald-400 rounded-xl transition-colors"
                 />
               </div>
             ))}
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-3">
               <Button
                 variant="outline"
-                className="flex-1 border-slate-200 text-slate-700 hover:bg-slate-50"
+                className="flex-1 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl h-11 transition-colors"
                 onClick={() => router.back()}
                 disabled={saving}
               >
                 Cancel
               </Button>
               <Button
-                className="flex-1 bg-blue-600 hover:bg-blue-700 gap-2"
+                className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white gap-2 rounded-xl h-11 shadow-md shadow-emerald-500/20 transition-all duration-200"
                 onClick={handleSubmit}
                 disabled={saving}
               >
                 {saving ? (
                   <>
-                    <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     Saving...
                   </>
                 ) : (
                   <>
-                    <Save className="w-3.5 h-3.5" />
+                    <Save className="w-4 h-4" />
                     Save Changes
                   </>
                 )}
@@ -181,18 +196,19 @@ export default function UpdateMyProfile() {
 
 function FormSkeleton() {
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
-        <Skeleton className="h-4 w-28" />
-        <Card className="border-0 shadow-md">
+        <Skeleton className="h-4 w-28 dark:bg-slate-800" />
+        <Skeleton className="h-20 w-full rounded-2xl dark:bg-slate-800" />
+        <Card className="border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
           <CardContent className="pt-6 space-y-5">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="space-y-2">
-                <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-10 w-full" />
+                <Skeleton className="h-4 w-32 dark:bg-slate-800" />
+                <Skeleton className="h-11 w-full rounded-xl dark:bg-slate-800" />
               </div>
             ))}
-            <Skeleton className="h-10 w-full mt-4" />
+            <Skeleton className="h-11 w-full rounded-xl mt-4 dark:bg-slate-800" />
           </CardContent>
         </Card>
       </div>
