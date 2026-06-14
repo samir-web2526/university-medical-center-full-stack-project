@@ -20,7 +20,7 @@ import { getAllStudents } from "@/services/student.service";
 import { getVisits } from "@/services/visit.service";
 import { getAllPrescriptions } from "@/services/prescription.service";
 import { getAllMedicines } from "@/services/medicine.service";
-import { getAllNotifications, getUnreadCount } from "@/services/notification.service";
+import { getAllNotifications } from "@/services/notification.service";
 import type { Doctor, Student, Visit, Prescription, Medicine, Notification } from "@/types";
 
 interface MonthData {
@@ -125,7 +125,6 @@ export default function AdminDashboardPage() {
   const [prescriptions, setPrescriptions] = useState<Prescription[]>([]);
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -137,8 +136,7 @@ export default function AdminDashboardPage() {
       getAllPrescriptions(1, 100),
       getAllMedicines(1, 100),
       getAllNotifications(1, 20),
-      getUnreadCount(),
-    ]).then(([docRes, stuRes, visitRes, rxRes, medRes, notifRes, unreadRes]) => {
+    ]).then(([docRes, stuRes, visitRes, rxRes, medRes, notifRes]) => {
       if (cancelled) return;
       setDoctors(docRes.data?.data ?? []);
       setStudents(stuRes.data?.data ?? []);
@@ -146,7 +144,6 @@ export default function AdminDashboardPage() {
       setPrescriptions(rxRes.data?.data ?? []);
       setMedicines(medRes.data?.data ?? []);
       setNotifications(notifRes.data?.data ?? []);
-      setUnreadCount(unreadRes.data?.count ?? 0);
       setLoading(false);
     }).catch(() => {
       if (!cancelled) setLoading(false);
@@ -170,6 +167,7 @@ export default function AdminDashboardPage() {
     .slice(0, 5);
 
   const recentNotifications = notifications.slice(0, 5);
+  const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   if (loading) return <DashboardSkeleton />;
 
@@ -255,12 +253,12 @@ export default function AdminDashboardPage() {
         />
         <StatsCard
           title="Notifications"
-          value={unreadCount}
+          value={notifications.length}
           icon={<Bell className="h-5 w-5" />}
           gradient="from-cyan-500 to-sky-600"
           shadowColor="shadow-cyan-500/25"
           href="/dashboard/all-notifications"
-          trend="unread"
+          trend={unreadCount > 0 ? `${unreadCount} unread` : "all read"}
         />
       </div>
 
