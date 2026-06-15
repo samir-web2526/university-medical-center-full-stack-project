@@ -13,6 +13,7 @@ export {
   changePassword,
   createDoctor,
   updateDoctorProfile,
+  updateUserStatus,
 } from "./auth.service";
 
 // ── Student ─────────────────────────────────────────────────────────────────

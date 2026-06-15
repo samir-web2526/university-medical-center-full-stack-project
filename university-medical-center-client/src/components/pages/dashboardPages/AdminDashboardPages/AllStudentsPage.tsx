@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,9 +10,15 @@ import {
   TableHeader, TableRow,
 } from "@/components/ui/table";
 import {
+  Select, SelectContent, SelectItem,
+  SelectTrigger, SelectValue,
+} from "@/components/ui/select";
+import {
   GraduationCap, Search, Eye, ChevronLeft, ChevronRight,
 } from "lucide-react";
-import { useStudents } from "@/hooks/queries/useStudentQueries";
+import { useStudents, useUpdateUserStatus } from "@/hooks/queries/useStudentQueries";
+import { toast } from "sonner";
+import type { UserStatus } from "@/types";
 import Link from "next/link";
 
 const BLOOD_LABEL: Record<string, string> = {
@@ -27,6 +32,7 @@ export default function AllStudentsPage() {
   const limit = 10;
 
   const { data, isLoading } = useStudents(page, limit);
+  const updateStatusMutation = useUpdateUserStatus();
 
   const students = data?.data ?? [];
   const total = data?.meta?.total ?? 0;
@@ -39,6 +45,15 @@ export default function AllStudentsPage() {
       s.studentId.toLowerCase().includes(search.toLowerCase()) ||
       s.department.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleStatusChange = async (userId: string, newStatus: UserStatus) => {
+    try {
+      await updateStatusMutation.mutateAsync({ userId, status: newStatus });
+      toast.success("Student status updated successfully");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update status");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-8 sm:py-10 px-4">
@@ -127,9 +142,26 @@ export default function AllStudentsPage() {
                         ) : <span className="text-slate-400 dark:text-slate-500 text-xs">—</span>}
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className={stu?.user?.status === "ACTIVE" ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800 text-xs" : "bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800 text-xs"}>
-                          {stu.user?.status}
-                        </Badge>
+                        <Select
+                          value={stu.user?.status ?? "INACTIVE"}
+                          onValueChange={(v) => handleStatusChange(stu.userId, v as UserStatus)}
+                          disabled={updateStatusMutation.isPending}
+                        >
+                          <SelectTrigger className={`h-8 w-28 text-xs font-semibold ${
+                            stu.user?.status === "ACTIVE"
+                              ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800"
+                              : stu.user?.status === "BLOCKED"
+                              ? "bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"
+                              : "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800"
+                          }`}>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="dark:bg-slate-900 dark:border-slate-700">
+                            <SelectItem value="ACTIVE">Active</SelectItem>
+                            <SelectItem value="INACTIVE">Inactive</SelectItem>
+                            <SelectItem value="BLOCKED">Blocked</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </TableCell>
                       <TableCell>
                         <Link href={`/dashboard/all-students/${stu.id}`}>

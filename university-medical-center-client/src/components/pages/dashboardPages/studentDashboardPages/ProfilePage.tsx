@@ -52,6 +52,9 @@ export default function ProfilePage() {
     { icon: Calendar, label: "Session", value: student.session, color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-900/30" },
     { icon: User, label: "Gender", value: student.gender ? student.gender.charAt(0) + student.gender.slice(1).toLowerCase() : "Not provided", color: "text-pink-600 dark:text-pink-400", bg: "bg-pink-50 dark:bg-pink-900/30" },
     { icon: Droplets, label: "Blood Group", value: student.bloodGroup?.replace("_", " ") ?? "Not provided", color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-900/30" },
+    { icon: User, label: "Present Address", value: student.presentAddress ?? "Not provided", color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-900/30" },
+    { icon: User, label: "Permanent Address", value: student.permanentAddress ?? "Not provided", color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-900/30" },
+    { icon: Phone, label: "Guardian Number", value: student.guardianNumber ?? "Not provided", color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-50 dark:bg-orange-900/30" },
     {
       icon: Calendar,
       label: "Member Since",

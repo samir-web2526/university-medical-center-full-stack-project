@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -19,7 +20,7 @@ import {
   Edit, Save, X, Users,
 } from "lucide-react";
 import Link from "next/link";
-import { useUpdateStudent } from "@/hooks/queries/useStudentQueries";
+import { useUpdateStudent, useUpdateUserStatus } from "@/hooks/queries/useStudentQueries";
 import { useRouter } from "next/navigation";
 
 const BLOOD_GROUPS: BloodGroup[] = [
@@ -46,6 +47,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
   const status: string = student.user?.status ?? "UNKNOWN";
 
   const updateMutation = useUpdateStudent();
+  const updateStatusMutation = useUpdateUserStatus();
 
   const set = (k: keyof AdminUpdateStudentRequest, v: string) =>
     setEdits((prev) => ({ ...prev, [k]: v }));
@@ -60,7 +62,17 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
       return;
     }
     try {
-      await updateMutation.mutateAsync({ id: student.id, ...edits });
+      const { status: newStatus, ...studentData } = edits;
+
+      if (newStatus && student.userId) {
+        await updateStatusMutation.mutateAsync({ userId: student.userId, status: newStatus as any });
+      }
+
+      const hasStudentChanges = Object.keys(studentData).length > 0;
+      if (hasStudentChanges) {
+        await updateMutation.mutateAsync({ id: student.id, ...studentData });
+      }
+
       toast.success("Student updated successfully");
       setIsEditing(false);
       setEdits({});
@@ -206,7 +218,7 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                     <Button variant="outline" className="flex-1 border-slate-200 dark:border-slate-700" onClick={handleCancel} disabled={updateMutation.isPending}>
                       <X className="w-4 h-4 mr-1" /> Cancel
                     </Button>
-                    <Button className="flex-1 bg-violet-600 hover:bg-violet-700 dark:bg-violet-600 dark:hover:bg-violet-700 gap-2 shadow-md shadow-violet-500/20" onClick={handleSave} disabled={updateMutation.isPending || !hasChanges || studentIdRequired}>
+                    <Button className="flex-1 bg-violet-600 hover:bg-violet-700 dark:bg-violet-600 dark:hover:bg-violet-700 gap-2 shadow-md shadow-violet-500/20" onClick={handleSave} disabled={updateMutation.isPending || updateStatusMutation.isPending || !hasChanges || studentIdRequired}>
                       {updateMutation.isPending ? <><span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />Saving…</> : <><Save className="w-3.5 h-3.5" />Save Changes</>}
                     </Button>
                   </div>
@@ -230,6 +242,9 @@ export default function StudentDetailsPage({ student }: { student: Student }) {
                     <p className="text-sm font-medium text-slate-800 dark:text-slate-200">{student.bloodGroup ? (BLOOD_LABEL[student.bloodGroup] ?? student.bloodGroup) : "—"}</p>
                   </div>
                 </div>
+                <InfoItem icon={<User className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Present Address" value={student.presentAddress ?? "—"} />
+                <InfoItem icon={<User className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Permanent Address" value={student.permanentAddress ?? "—"} />
+                <InfoItem icon={<Phone className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Guardian Number" value={student.guardianNumber ?? "—"} />
                 <InfoItem icon={<ShieldCheck className="w-4 h-4 text-violet-600 dark:text-violet-400" />} label="Status" value={status} />
               </div>
             )}

@@ -87,9 +87,15 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
               <p className="text-sm text-slate-800 dark:text-slate-200">{prescription.diagnosis}</p>
             </div>
             {prescription.advice && (
-              <div>
-                <p className="text-xs text-slate-400 dark:text-slate-500 mb-1">Advice</p>
-                <p className="text-sm text-slate-800 dark:text-slate-200">{prescription.advice}</p>
+              <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950 border border-emerald-100 dark:border-emerald-800">
+                <p className="text-xs text-emerald-500 dark:text-emerald-400 mb-0.5">Advice</p>
+                <p className="text-sm text-emerald-700 dark:text-emerald-300">{prescription.advice}</p>
+              </div>
+            )}
+            {prescription.investigation && (
+              <div className="p-3 rounded-xl bg-teal-50 dark:bg-teal-950 border border-teal-100 dark:border-teal-800">
+                <p className="text-xs text-teal-500 dark:text-teal-400 mb-0.5">Investigations / Tests</p>
+                <p className="text-sm text-teal-700 dark:text-teal-300">{prescription.investigation}</p>
               </div>
             )}
           </CardContent>
@@ -124,7 +130,10 @@ export default function PrescriptionDetailsPage({ prescription }: { prescription
                           <Pill className="w-3 h-3" /> {rxMed.dosage}
                         </span>
                         <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> {rxMed.duration}
+                          <Clock className="w-3 h-3" /> {rxMed.frequency}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" /> {rxMed.duration}
                         </span>
                         <span>Qty: {rxMed.quantity}</span>
                       </div>

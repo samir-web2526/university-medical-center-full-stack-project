@@ -13,6 +13,7 @@ export interface PrescriptionMedicine {
   prescriptionId: string;
   medicineId: string;
   dosage: string;
+  frequency?: string | null;
   duration: string;
   quantity: number;
   instructions: string | null;
@@ -30,6 +31,7 @@ export interface Prescription {
   doctorId: string;
   diagnosis: string;
   advice: string | null;
+  investigation: string | null;
   prescriptionImage: string | null;
   status: PrescriptionStatus;
   cancelReason: string | null;
@@ -49,6 +51,7 @@ export interface Prescription {
 export interface PrescriptionMedicineInput {
   medicineId: string;
   dosage: string;
+  frequency?: string;
   duration: string;
   quantity: number;
   instructions?: string;
@@ -58,6 +61,7 @@ export interface CreatePrescriptionRequest {
   visitId: string;
   diagnosis: string;
   advice?: string;
+  investigation?: string;
   prescriptionImage?: string;
   medicines?: PrescriptionMedicineInput[];
 }

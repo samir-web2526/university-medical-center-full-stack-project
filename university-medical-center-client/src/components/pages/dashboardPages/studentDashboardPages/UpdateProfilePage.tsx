@@ -24,6 +24,9 @@ interface FormState {
   phone: string;
   gender: string;
   bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  guardianNumber: string;
 }
 
 export default function UpdateProfilePage() {
@@ -34,6 +37,9 @@ export default function UpdateProfilePage() {
     phone: "",
     gender: "",
     bloodGroup: "",
+    presentAddress: "",
+    permanentAddress: "",
+    guardianNumber: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -47,6 +53,9 @@ export default function UpdateProfilePage() {
           phone: data.user?.phone ?? "",
           gender: data.gender ?? "",
           bloodGroup: data.bloodGroup ?? "",
+          presentAddress: data.presentAddress ?? "",
+          permanentAddress: data.permanentAddress ?? "",
+          guardianNumber: data.guardianNumber ?? "",
         });
       }
       setLoading(false);
@@ -62,6 +71,9 @@ export default function UpdateProfilePage() {
     const payload: UpdateStudentProfileRequest = {
       gender: (form.gender as "MALE" | "FEMALE" | "OTHER") || undefined,
       bloodGroup: (form.bloodGroup as any) || undefined,
+      presentAddress: form.presentAddress || undefined,
+      permanentAddress: form.permanentAddress || undefined,
+      guardianNumber: form.guardianNumber || undefined,
       user: {
         name: form.name || undefined,
         email: form.email || undefined,
@@ -204,6 +216,43 @@ export default function UpdateProfilePage() {
                     </SelectContent>
                   </Select>
                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Present Address
+                  </Label>
+                  <Input
+                    className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
+                    value={form.presentAddress}
+                    onChange={(e) => handleChange("presentAddress", e.target.value)}
+                    placeholder="Enter present address"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                    Permanent Address
+                  </Label>
+                  <Input
+                    className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
+                    value={form.permanentAddress}
+                    onChange={(e) => handleChange("permanentAddress", e.target.value)}
+                    placeholder="Enter permanent address"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  Guardian Number
+                </Label>
+                <Input
+                  className="h-11 border-slate-200 dark:border-slate-700 focus:ring-violet-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-xl"
+                  value={form.guardianNumber}
+                  onChange={(e) => handleChange("guardianNumber", e.target.value)}
+                  placeholder="Enter guardian's contact number"
+                />
               </div>
             </div>
 

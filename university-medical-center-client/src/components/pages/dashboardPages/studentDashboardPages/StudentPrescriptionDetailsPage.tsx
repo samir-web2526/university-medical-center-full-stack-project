@@ -73,6 +73,14 @@ export default function StudentPrescriptionDetailsPage({ prescription }: { presc
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{doctorName}</p>
+                  {prescription.doctor?.qualification && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{prescription.doctor.qualification}</p>
+                  )}
+                  {prescription.doctor?.bmdcRegistrationNumber && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                      BMDC: {prescription.doctor.bmdcRegistrationNumber}
+                    </p>
+                  )}
                   <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{prescription.doctor?.specialization ?? "—"}</p>
                 </div>
               </div>
@@ -117,9 +125,15 @@ export default function StudentPrescriptionDetailsPage({ prescription }: { presc
               <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{prescription.diagnosis}</p>
             </div>
             {prescription.advice && (
-              <div className="p-3 rounded-xl bg-violet-50/50 dark:bg-violet-900/10 border border-violet-100 dark:border-violet-800/50">
-                <p className="text-[10px] text-violet-400 dark:text-violet-500 uppercase tracking-wider font-medium mb-1">Advice</p>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{prescription.advice}</p>
+              <div className="mt-3 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950 border border-emerald-100 dark:border-emerald-800">
+                <p className="text-xs text-emerald-500 dark:text-emerald-400 mb-0.5">Advice</p>
+                <p className="text-sm text-emerald-700 dark:text-emerald-300">{prescription.advice}</p>
+              </div>
+            )}
+            {prescription.investigation && (
+              <div className="mt-3 p-3 rounded-xl bg-teal-50 dark:bg-teal-950 border border-teal-100 dark:border-teal-800">
+                <p className="text-xs text-teal-500 dark:text-teal-400 mb-0.5">Investigations / Tests</p>
+                <p className="text-sm text-teal-700 dark:text-teal-300">{prescription.investigation}</p>
               </div>
             )}
           </CardContent>
@@ -150,6 +164,12 @@ export default function StudentPrescriptionDetailsPage({ prescription }: { presc
                       {rxMed.medicine?.genericName && (
                         <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Generic: {rxMed.medicine.genericName}</p>
                       )}
+                      <p className="text-xs text-slate-400 dark:text-slate-500">
+                        {rxMed.dosage && `${rxMed.dosage} · `}
+                        {rxMed.frequency && `${rxMed.frequency} · `}
+                        {rxMed.duration && `${rxMed.duration} · `}
+                        Qty: {rxMed.quantity}
+                      </p>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-2">

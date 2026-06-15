@@ -10,6 +10,7 @@ export interface Doctor {
   gender?: Gender;
   specialization: string;
   qualification: string;
+  bmdcRegistrationNumber?: string | null;
   imageUrl?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -36,6 +37,7 @@ export interface UpdateDoctorProfileRequest {
   gender?: Gender;
   qualification?: string | null;
   specialization?: string | null;
+  bmdcRegistrationNumber?: string | null;
   imageUrl?: string;
 }
 
@@ -44,4 +46,5 @@ export interface AdminUpdateDoctorRequest {
   status?: UserStatus;
   qualification?: string | null;
   specialization?: string | null;
+  bmdcRegistrationNumber?: string | null;
 }

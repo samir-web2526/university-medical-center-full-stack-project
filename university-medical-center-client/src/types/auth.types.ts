@@ -37,6 +37,9 @@ export interface RegisterRequest {
     session: string;
     bloodGroup?: string;
     contactNumber?: string;
+    presentAddress?: string;
+    permanentAddress?: string;
+    guardianNumber?: string;
   }
 }
 

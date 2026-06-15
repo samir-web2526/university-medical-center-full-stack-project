@@ -48,7 +48,6 @@ export default function ForgotPasswordPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        {/* Header */}
         <div className="mb-8 text-center">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-yellow-100 mb-4">
             <svg className="w-7 h-7 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,7 +60,6 @@ export default function ForgotPasswordPage() {
           </p>
         </div>
 
-        {/* Success state */}
         {status === "success" ? (
           <div className="text-center space-y-4">
             <div className="rounded-lg bg-green-50 border border-green-200 px-4 py-4">
@@ -87,7 +85,6 @@ export default function ForgotPasswordPage() {
           </div>
         ) : (
           <>
-            {/* Error banner */}
             {status === "error" && serverMessage && (
               <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
                 {serverMessage}

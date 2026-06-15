@@ -153,6 +153,12 @@ export default function PrescriptionDetailsPage({
                 <p className="text-sm text-emerald-700 dark:text-emerald-300">{prescription.advice}</p>
               </div>
             )}
+            {prescription.investigation && (
+              <div className="mt-3 p-3 rounded-xl bg-teal-50 dark:bg-teal-950 border border-teal-100 dark:border-teal-800">
+                <p className="text-xs text-teal-500 dark:text-teal-400 mb-0.5">Investigations / Tests</p>
+                <p className="text-sm text-teal-700 dark:text-teal-300">{prescription.investigation}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -179,6 +185,7 @@ export default function PrescriptionDetailsPage({
                     </p>
                     <p className="text-xs text-slate-400 dark:text-slate-500">
                       {rxMed.dosage && `${rxMed.dosage} · `}
+                      {rxMed.frequency && `${rxMed.frequency} · `}
                       {rxMed.duration && `${rxMed.duration} · `}
                       Qty: {rxMed.quantity}
                     </p>
@@ -285,6 +292,11 @@ export default function PrescriptionDetailsPage({
               </div>
               {prescription.doctor?.qualification && (
                 <p className="text-xs text-slate-500 dark:text-slate-400">{prescription.doctor.qualification}</p>
+              )}
+              {prescription.doctor?.bmdcRegistrationNumber && (
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">
+                  BMDC: {prescription.doctor.bmdcRegistrationNumber}
+                </p>
               )}
             </CardContent>
           </Card>

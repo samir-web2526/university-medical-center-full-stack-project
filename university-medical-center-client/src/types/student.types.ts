@@ -12,6 +12,9 @@ export interface Student {
   session: string;
   gender?: Gender;
   bloodGroup: BloodGroup | null;
+  presentAddress?: string | null;
+  permanentAddress?: string | null;
+  guardianNumber?: string | null;
   createdAt: string;
   updatedAt: string;
   user?: {
@@ -35,6 +38,9 @@ export interface UpdateStudentProfileRequest {
   gender?: Gender;
   bloodGroup?: BloodGroup;
   imageUrl?: string | null;
+  presentAddress?: string | null;
+  permanentAddress?: string | null;
+  guardianNumber?: string | null;
   user?: {
     name?: string;
     email?: string;

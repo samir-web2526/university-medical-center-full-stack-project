@@ -51,6 +51,7 @@ interface PrescriptionForm {
   visitId: string;
   diagnosis: string;
   advice: string;
+  investigation: string;
   medicines: MedicineEntry[];
 }
 
@@ -63,18 +64,6 @@ const emptyMedicine = (): MedicineEntry => ({
   instructions: "",
 });
 
-const FREQUENCIES = [
-  "Once daily",
-  "Twice daily",
-  "Three times daily",
-  "Four times daily",
-  "Every 6 hours",
-  "Every 8 hours",
-  "As needed",
-  "Before meals",
-  "After meals",
-];
-
 export default function CreatePrescriptionPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -85,6 +74,7 @@ export default function CreatePrescriptionPage() {
     visitId: prefillVisitId,
     diagnosis: "",
     advice: "",
+    investigation: "",
     medicines: [emptyMedicine()],
   });
   const [saving, setSaving] = useState(false);
@@ -242,12 +232,14 @@ export default function CreatePrescriptionPage() {
         visitId: form.visitId.trim(),
         diagnosis: form.diagnosis.trim(),
         ...(form.advice.trim() && { advice: form.advice.trim() }),
+        ...(form.investigation.trim() && { investigation: form.investigation.trim() }),
         ...(uploadedImageUrl && { prescriptionImage: uploadedImageUrl }),
         medicines: form.medicines
           .filter((m) => m.medicineId)
           .map((m) => ({
             medicineId: m.medicineId,
             dosage: m.dosage.trim(),
+            frequency: m.frequency.trim(),
             duration: m.duration.trim(),
             quantity: Number(m.quantity),
             ...(m.instructions.trim() && { instructions: m.instructions.trim() }),
@@ -354,6 +346,17 @@ export default function CreatePrescriptionPage() {
                 placeholder="Follow-up instructions or advice…"
                 value={form.advice}
                 onChange={(e) => updateField("advice", e.target.value)}
+                className="resize-none border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-emerald-500 min-h-20 rounded-xl"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                Investigations / Tests <span className="text-slate-400 font-normal">(optional)</span>
+              </Label>
+              <Textarea
+                placeholder="Required tests or investigations…"
+                value={form.investigation}
+                onChange={(e) => updateField("investigation", e.target.value)}
                 className="resize-none border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 focus-visible:ring-emerald-500 min-h-20 rounded-xl"
               />
             </div>
@@ -542,21 +545,12 @@ export default function CreatePrescriptionPage() {
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-xs text-slate-600 dark:text-slate-400 font-medium">Frequency</Label>
-                      <Select
+                      <Input
+                        placeholder="e.g. Twice daily, Every 8 hours"
                         value={med.frequency}
-                        onValueChange={(v) => updateMedicine(index, "frequency", v)}
-                      >
-                        <SelectTrigger className="h-9 border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus:ring-emerald-500 rounded-xl text-sm">
-                          <SelectValue placeholder="Select…" />
-                        </SelectTrigger>
-                        <SelectContent className="dark:bg-slate-800 dark:border-slate-700">
-                          {FREQUENCIES.map((f) => (
-                            <SelectItem key={f} value={f} className="text-sm">
-                              {f}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        onChange={(e) => updateMedicine(index, "frequency", e.target.value)}
+                        className="h-9 border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 focus-visible:ring-emerald-500 rounded-xl text-sm"
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-xs text-slate-600 dark:text-slate-400 font-medium">Duration</Label>

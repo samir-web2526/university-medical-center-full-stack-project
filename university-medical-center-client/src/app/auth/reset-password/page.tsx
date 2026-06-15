@@ -104,7 +104,6 @@ function ResetPasswordForm() {
       )}
 
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
-        {/* New Password */}
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
             New password
@@ -137,7 +136,6 @@ function ResetPasswordForm() {
           {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password}</p>}
         </div>
 
-        {/* Confirm Password */}
         <div>
           <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
             Confirm new password
@@ -172,7 +170,6 @@ function ResetPasswordForm() {
           )}
         </div>
 
-        {/* Password strength hint */}
         <ul className="text-xs text-gray-400 space-y-0.5 list-disc list-inside">
           <li className={password.length >= 8 ? "text-green-600" : ""}>At least 8 characters</li>
           <li className={/[A-Z]/.test(password) ? "text-green-600" : ""}>One uppercase letter</li>
@@ -201,7 +198,6 @@ export default function ResetPasswordPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        {/* Header */}
         <div className="mb-8 text-center">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
             <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,7 +208,6 @@ export default function ResetPasswordPage() {
           <p className="text-sm text-gray-500 mt-1">Choose a strong password for your account.</p>
         </div>
 
-        {/* useSearchParams must be wrapped in Suspense */}
         <Suspense fallback={<p className="text-center text-sm text-gray-400">Loading…</p>}>
           <ResetPasswordForm />
         </Suspense>
@@ -221,7 +216,6 @@ export default function ResetPasswordPage() {
   )
 }
 
-// ── Tiny inline icon component ─────────────────────────────────────────────────
 function EyeIcon({ open }: { open: boolean }) {
   if (open) {
     return (

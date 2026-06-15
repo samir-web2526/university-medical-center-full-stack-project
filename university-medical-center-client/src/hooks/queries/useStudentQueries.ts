@@ -6,7 +6,8 @@ import {
   updateStudent,
   deleteStudent,
 } from "@/services/student.service";
-import type { Student, PaginatedResponse, ServiceResponse } from "@/types";
+import { updateUserStatus } from "@/services/auth.service";
+import type { Student, PaginatedResponse, ServiceResponse, UserStatus } from "@/types";
 
 // Query Keys
 export const studentKeys = {
@@ -43,6 +44,17 @@ export function useDeleteStudent() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteStudent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: studentKeys.all });
+    },
+  });
+}
+
+export function useUpdateUserStatus() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ userId, status }: { userId: string; status: UserStatus }) =>
+      updateUserStatus(userId, status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: studentKeys.all });
     },

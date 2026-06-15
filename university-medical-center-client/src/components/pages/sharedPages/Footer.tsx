@@ -28,14 +28,12 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-[#0a2a5a] text-white">
-      {/* Main footer */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
 
-          {/* Brand col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-linear-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center shrink-0">
                 <Building2 size={18} className="text-white" />
               </div>
               <div>
@@ -53,7 +51,6 @@ export default function Footer() {
               portal connects staff, faculty, and departments seamlessly.
             </p>
 
-            {/* Contact */}
             <div className="space-y-2">
               <a
                 href="tel:+8809612345678"
@@ -70,13 +67,12 @@ export default function Footer() {
                 support@umc.edu.bd
               </a>
               <div className="flex items-start gap-2 text-xs text-slate-400">
-                <MapPin size={13} className="mt-0.5 flex-shrink-0" />
+                <MapPin size={13} className="mt-0.5 shrink-0" />
                 <span>Dhaka University Campus, Shahbagh, Dhaka 1000</span>
               </div>
             </div>
           </div>
 
-          {/* Portal links */}
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Portal
@@ -95,7 +91,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Departments */}
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Departments
@@ -114,7 +109,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Support
@@ -137,7 +131,6 @@ export default function Footer() {
 
       <Separator className="bg-white/10" />
 
-      {/* Bottom bar */}
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-slate-500">

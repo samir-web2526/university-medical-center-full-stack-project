@@ -11,6 +11,7 @@ import type {
   RegisterRequest,
   ResetPasswordRequest,
   ServiceResponse,
+  UserStatus,
 } from "@/types";
 
 const API = process.env.NEXT_PUBLIC_API;
@@ -198,6 +199,37 @@ export async function changePassword(
     }
 
     return { data: null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
+export async function updateUserStatus(
+  userId: string,
+  status: UserStatus
+): Promise<ServiceResponse<{ id: string; name: string; email: string; role: string; status: string; isActive: boolean }>> {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API}/api/v1/users/${userId}/status`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to update status" };
+    }
+
+    return { data: json?.data ?? null, error: null };
   } catch (err) {
     return {
       data: null,

@@ -64,7 +64,6 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        {/* Header */}
         <div className="mb-8 text-center">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
             <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,7 +74,6 @@ export default function LoginPage() {
           <p className="text-sm text-gray-500 mt-1">Sign in to your UMC account</p>
         </div>
 
-        {/* Server error */}
         {serverError && (
           <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
             {serverError}
@@ -83,7 +81,6 @@ export default function LoginPage() {
         )}
 
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
-          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email address
@@ -103,7 +100,6 @@ export default function LoginPage() {
             {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
           </div>
 
-          {/* Password */}
           <div>
             <div className="flex items-center justify-between mb-1">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -148,7 +144,6 @@ export default function LoginPage() {
             {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password}</p>}
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}

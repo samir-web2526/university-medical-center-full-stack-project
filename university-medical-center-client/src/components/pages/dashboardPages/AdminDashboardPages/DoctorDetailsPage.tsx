@@ -33,6 +33,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
     status: doctor.user?.status,
     qualification: doctor.qualification,
     specialization: doctor.specialization,
+    bmdcRegistrationNumber: doctor.bmdcRegistrationNumber,
     ...edits,
   };
 
@@ -48,6 +49,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
         ...form,
         specialization: form.specialization || null,
         qualification: form.qualification || null,
+        bmdcRegistrationNumber: form.bmdcRegistrationNumber || null,
       };
       await updateMutation.mutateAsync({ id: doctor.id, ...payload });
       toast.success("Doctor updated successfully");
@@ -83,7 +85,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
             </div>
             <div className="pt-10 flex items-center justify-between flex-wrap gap-2">
               <div>
-                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-50">Dr. {name}</h1>
+                <h1 className="text-xl font-bold text-slate-900 dark:text-slate-50">{name}</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400">{doctor.specialization}</p>
               </div>
               <Badge variant="outline" className={status === "ACTIVE" ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800" : "bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"}>
@@ -108,6 +110,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
               <InfoItem icon={<Mail className="w-4 h-4 text-blue-600 dark:text-blue-400" />} label="Email" value={email} />
               <InfoItem icon={<Stethoscope className="w-4 h-4 text-blue-600 dark:text-blue-400" />} label="Specialization" value={doctor.specialization} />
               <InfoItem icon={<GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" />} label="Qualification" value={doctor.qualification} />
+              <InfoItem icon={<ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400" />} label="BMDC Number" value={doctor.bmdcRegistrationNumber || "Not provided"} />
             </div>
           </CardContent>
         </Card>
@@ -172,6 +175,19 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
                 placeholder="e.g. MBBS, MD"
                 value={form.qualification ?? ""}
                 onChange={(e) => set("qualification", e.target.value)}
+                className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />BMDC Registration Number
+              </Label>
+              <input
+                type="text"
+                placeholder="e.g. A-12345"
+                value={form.bmdcRegistrationNumber ?? ""}
+                onChange={(e) => set("bmdcRegistrationNumber", e.target.value)}
                 className="flex h-10 w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>

@@ -53,6 +53,7 @@ export default function DoctorProfilePage() {
     { icon: Phone, label: "Phone", value: doctor.user?.phone ?? "Not provided" },
     { icon: Stethoscope, label: "Specialization", value: doctor.specialization },
     { icon: GraduationCap, label: "Qualification", value: doctor.qualification },
+    { icon: ShieldCheck, label: "BMDC Number", value: doctor.bmdcRegistrationNumber || "Not provided" },
     {
       icon: Calendar,
       label: "Member Since",

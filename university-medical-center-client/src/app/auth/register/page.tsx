@@ -16,6 +16,9 @@ type FormState = {
   session: string
   bloodGroup: string
   contactNumber: string
+  presentAddress: string
+  permanentAddress: string
+  guardianNumber: string
 }
 
 type FieldErrors = Partial<Record<keyof FormState, string>>
@@ -33,6 +36,9 @@ export default function RegisterPage() {
     session: "",
     bloodGroup: "",
     contactNumber: "",
+    presentAddress: "",
+    permanentAddress: "",
+    guardianNumber: "",
   })
   const [errors, setErrors] = useState<FieldErrors>({})
   const [serverError, setServerError] = useState("")
@@ -92,6 +98,9 @@ export default function RegisterPage() {
           session: form.session,
           bloodGroup: form.bloodGroup || undefined,
           contactNumber: form.contactNumber || undefined,
+          presentAddress: form.presentAddress || undefined,
+          permanentAddress: form.permanentAddress || undefined,
+          guardianNumber: form.guardianNumber || undefined,
         },
       })
       if (error || !data) {
@@ -115,11 +124,10 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e8f4ff] via-[#d0e8ff] to-[#c8dff8] px-4 py-12">
+    <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#e8f4ff] via-[#d0e8ff] to-[#c8dff8] px-4 py-12">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
 
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#0b5394] to-[#2196f3] px-8 py-6 text-center">
+        <div className="bg-linear-to-r from-[#0b5394] to-[#2196f3] px-8 py-6 text-center">
           <div className="flex items-center justify-center gap-2.5 mb-3">
             <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
               <Building2 size={18} className="text-white" />
@@ -138,7 +146,6 @@ export default function RegisterPage() {
         </div>
 
         <div className="px-8 py-6">
-          {/* Server error */}
           {serverError && (
             <div className="mb-5 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
               {serverError}
@@ -147,7 +154,6 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
 
-            {/* Full Name */}
             <Field id="fullName" label="Full Name" error={errors.fullName}>
               <input
                 id="fullName"
@@ -161,7 +167,6 @@ export default function RegisterPage() {
               />
             </Field>
 
-            {/* Email */}
             <Field id="email" label="Email Address" error={errors.email}>
               <input
                 id="email"
@@ -175,7 +180,6 @@ export default function RegisterPage() {
               />
             </Field>
 
-            {/* Student ID */}
             <Field id="studentId" label="Student ID" error={errors.studentId}>
               <input
                 id="studentId"
@@ -188,7 +192,6 @@ export default function RegisterPage() {
               />
             </Field>
 
-            {/* Department + Session */}
             <div className="grid grid-cols-2 gap-3">
               <Field id="department" label="Department" error={errors.department}>
                 <input
@@ -215,7 +218,6 @@ export default function RegisterPage() {
               </Field>
             </div>
 
-            {/* Blood Group + Contact */}
             <div className="grid grid-cols-2 gap-3">
               <Field
                 id="bloodGroup"
@@ -256,7 +258,44 @@ export default function RegisterPage() {
               </Field>
             </div>
 
-            {/* Password */}
+            <div className="grid grid-cols-2 gap-3">
+              <Field id="presentAddress" label={<>Present Address <span className="text-slate-400 font-normal">(optional)</span></>}>
+                <input
+                  id="presentAddress"
+                  name="presentAddress"
+                  type="text"
+                  value={form.presentAddress}
+                  onChange={handleChange}
+                  placeholder="e.g. Dhaka"
+                  className={inputCn(false)}
+                />
+              </Field>
+
+              <Field id="permanentAddress" label={<>Permanent Address <span className="text-slate-400 font-normal">(optional)</span></>}>
+                <input
+                  id="permanentAddress"
+                  name="permanentAddress"
+                  type="text"
+                  value={form.permanentAddress}
+                  onChange={handleChange}
+                  placeholder="e.g. Sylhet"
+                  className={inputCn(false)}
+                />
+              </Field>
+            </div>
+
+            <Field id="guardianNumber" label={<>Guardian Number <span className="text-slate-400 font-normal">(optional)</span></>}>
+              <input
+                id="guardianNumber"
+                name="guardianNumber"
+                type="tel"
+                value={form.guardianNumber}
+                onChange={handleChange}
+                placeholder="01XXXXXXXXX"
+                className={inputCn(false)}
+              />
+            </Field>
+
             <Field id="password" label="Password" error={errors.password}>
               <div className="relative">
                 <input
@@ -273,7 +312,6 @@ export default function RegisterPage() {
               </div>
             </Field>
 
-            {/* Confirm Password */}
             <Field id="confirmPassword" label="Confirm Password" error={errors.confirmPassword}>
               <div className="relative">
                 <input
@@ -290,11 +328,10 @@ export default function RegisterPage() {
               </div>
             </Field>
 
-            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-gradient-to-r from-[#0b5394] to-[#2196f3] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#2196f3] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              className="w-full rounded-lg bg-linear-to-r from-[#0b5394] to-[#2196f3] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#2196f3] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
             >
               {loading ? "Creating account…" : "Create Account"}
             </button>
@@ -314,8 +351,6 @@ export default function RegisterPage() {
     </main>
   )
 }
-
-// ── Helpers ────────────────────────────────────────────────────────────────────
 
 function inputCn(hasError: boolean) {
   return `w-full rounded-lg border px-3 py-2.5 text-sm text-gray-900 placeholder-slate-400 outline-none transition focus:ring-2 focus:ring-[#2196f3] focus:border-[#2196f3] ${

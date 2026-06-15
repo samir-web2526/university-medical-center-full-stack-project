@@ -19,6 +19,7 @@ interface FormState {
   phone: string;
   specialization: string;
   qualification: string;
+  bmdcRegistrationNumber: string;
 }
 
 export default function UpdateMyProfile() {
@@ -28,6 +29,7 @@ export default function UpdateMyProfile() {
     phone: "",
     specialization: "",
     qualification: "",
+    bmdcRegistrationNumber: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -40,6 +42,7 @@ export default function UpdateMyProfile() {
           phone: data.user?.phone ?? "",
           specialization: data.specialization ?? "",
           qualification: data.qualification ?? "",
+          bmdcRegistrationNumber: data.bmdcRegistrationNumber ?? "",
         });
       }
       setLoading(false);
@@ -58,6 +61,7 @@ export default function UpdateMyProfile() {
       phone: form.phone || undefined,
       specialization: form.specialization || null,
       qualification: form.qualification || null,
+      bmdcRegistrationNumber: form.bmdcRegistrationNumber || null,
     };
 
     const { error } = await updateMyProfile(payload);
@@ -97,6 +101,12 @@ export default function UpdateMyProfile() {
       label: "Qualification",
       placeholder: "e.g. MBBS, MD, FCPS",
       icon: GraduationCap,
+    },
+    {
+      key: "bmdcRegistrationNumber",
+      label: "BMDC Registration Number",
+      placeholder: "e.g. A-12345",
+      icon: Stethoscope,
     },
     {
       key: "phone",
