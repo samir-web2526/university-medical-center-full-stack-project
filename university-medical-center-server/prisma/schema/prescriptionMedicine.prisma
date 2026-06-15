@@ -8,6 +8,7 @@ model PrescriptionMedicine {
   medicine        Medicine @relation(fields: [medicineId], references: [id])
 
   dosage          String
+  frequency       String?
   duration        String
 
   quantity        Int?

@@ -5,11 +5,13 @@ const createPrescription = z.object({
         visitId: z.string(),
         diagnosis: z.string(),
         advice: z.string().optional(),
+        investigation: z.string().optional(),
         prescriptionImage: z.string().url().optional(),
         medicines: z.array(
             z.object({
                 medicineId: z.string(),
                 dosage: z.string(),
+                frequency: z.string().optional(),
                 quantity: z.number().min(1),
                 duration: z.string(),
                 instructions: z.string().optional(),

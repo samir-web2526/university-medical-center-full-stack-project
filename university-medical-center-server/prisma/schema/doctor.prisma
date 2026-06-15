@@ -8,6 +8,7 @@ model Doctor {
 
   qualification  String?
   specialization String?
+  bmdcRegistrationNumber String?
 
   imageUrl       String?
 

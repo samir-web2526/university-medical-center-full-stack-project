@@ -33,6 +33,9 @@ export type StudentMinAggregateOutputType = {
   gender: $Enums.Gender | null
   bloodGroup: $Enums.BloodGroup | null
   imageUrl: string | null
+  presentAddress: string | null
+  permanentAddress: string | null
+  guardianNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +49,9 @@ export type StudentMaxAggregateOutputType = {
   gender: $Enums.Gender | null
   bloodGroup: $Enums.BloodGroup | null
   imageUrl: string | null
+  presentAddress: string | null
+  permanentAddress: string | null
+  guardianNumber: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +65,9 @@ export type StudentCountAggregateOutputType = {
   gender: number
   bloodGroup: number
   imageUrl: number
+  presentAddress: number
+  permanentAddress: number
+  guardianNumber: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +83,9 @@ export type StudentMinAggregateInputType = {
   gender?: true
   bloodGroup?: true
   imageUrl?: true
+  presentAddress?: true
+  permanentAddress?: true
+  guardianNumber?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +99,9 @@ export type StudentMaxAggregateInputType = {
   gender?: true
   bloodGroup?: true
   imageUrl?: true
+  presentAddress?: true
+  permanentAddress?: true
+  guardianNumber?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +115,9 @@ export type StudentCountAggregateInputType = {
   gender?: true
   bloodGroup?: true
   imageUrl?: true
+  presentAddress?: true
+  permanentAddress?: true
+  guardianNumber?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +204,9 @@ export type StudentGroupByOutputType = {
   gender: $Enums.Gender | null
   bloodGroup: $Enums.BloodGroup | null
   imageUrl: string | null
+  presentAddress: string | null
+  permanentAddress: string | null
+  guardianNumber: string | null
   createdAt: Date
   updatedAt: Date
   _count: StudentCountAggregateOutputType | null
@@ -220,6 +241,9 @@ export type StudentWhereInput = {
   gender?: Prisma.EnumGenderNullableFilter<"Student"> | $Enums.Gender | null
   bloodGroup?: Prisma.EnumBloodGroupNullableFilter<"Student"> | $Enums.BloodGroup | null
   imageUrl?: Prisma.StringNullableFilter<"Student"> | string | null
+  presentAddress?: Prisma.StringNullableFilter<"Student"> | string | null
+  permanentAddress?: Prisma.StringNullableFilter<"Student"> | string | null
+  guardianNumber?: Prisma.StringNullableFilter<"Student"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Student"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Student"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -236,6 +260,9 @@ export type StudentOrderByWithRelationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  presentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  permanentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  guardianNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -255,6 +282,9 @@ export type StudentWhereUniqueInput = Prisma.AtLeast<{
   gender?: Prisma.EnumGenderNullableFilter<"Student"> | $Enums.Gender | null
   bloodGroup?: Prisma.EnumBloodGroupNullableFilter<"Student"> | $Enums.BloodGroup | null
   imageUrl?: Prisma.StringNullableFilter<"Student"> | string | null
+  presentAddress?: Prisma.StringNullableFilter<"Student"> | string | null
+  permanentAddress?: Prisma.StringNullableFilter<"Student"> | string | null
+  guardianNumber?: Prisma.StringNullableFilter<"Student"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Student"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Student"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -271,6 +301,9 @@ export type StudentOrderByWithAggregationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGroup?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  presentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  permanentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  guardianNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.StudentCountOrderByAggregateInput
@@ -290,6 +323,9 @@ export type StudentScalarWhereWithAggregatesInput = {
   gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"Student"> | $Enums.Gender | null
   bloodGroup?: Prisma.EnumBloodGroupNullableWithAggregatesFilter<"Student"> | $Enums.BloodGroup | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Student"> | string | null
+  presentAddress?: Prisma.StringNullableWithAggregatesFilter<"Student"> | string | null
+  permanentAddress?: Prisma.StringNullableWithAggregatesFilter<"Student"> | string | null
+  guardianNumber?: Prisma.StringNullableWithAggregatesFilter<"Student"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Student"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Student"> | Date | string
 }
@@ -302,6 +338,9 @@ export type StudentCreateInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutStudentInput
@@ -318,6 +357,9 @@ export type StudentUncheckedCreateInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visits?: Prisma.VisitUncheckedCreateNestedManyWithoutStudentInput
@@ -332,6 +374,9 @@ export type StudentUpdateInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
@@ -348,6 +393,9 @@ export type StudentUncheckedUpdateInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visits?: Prisma.VisitUncheckedUpdateManyWithoutStudentNestedInput
@@ -363,6 +411,9 @@ export type StudentCreateManyInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -375,6 +426,9 @@ export type StudentUpdateManyMutationInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -388,6 +442,9 @@ export type StudentUncheckedUpdateManyInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -406,6 +463,9 @@ export type StudentCountOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
+  permanentAddress?: Prisma.SortOrder
+  guardianNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,6 +479,9 @@ export type StudentMaxOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
+  permanentAddress?: Prisma.SortOrder
+  guardianNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -432,6 +495,9 @@ export type StudentMinOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   bloodGroup?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
+  permanentAddress?: Prisma.SortOrder
+  guardianNumber?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -513,6 +579,9 @@ export type StudentCreateWithoutPrescriptionsInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutStudentInput
@@ -528,6 +597,9 @@ export type StudentUncheckedCreateWithoutPrescriptionsInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visits?: Prisma.VisitUncheckedCreateNestedManyWithoutStudentInput
@@ -557,6 +629,9 @@ export type StudentUpdateWithoutPrescriptionsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
@@ -572,6 +647,9 @@ export type StudentUncheckedUpdateWithoutPrescriptionsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visits?: Prisma.VisitUncheckedUpdateManyWithoutStudentNestedInput
@@ -585,6 +663,9 @@ export type StudentCreateWithoutUserInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visits?: Prisma.VisitCreateNestedManyWithoutStudentInput
@@ -599,6 +680,9 @@ export type StudentUncheckedCreateWithoutUserInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   visits?: Prisma.VisitUncheckedCreateNestedManyWithoutStudentInput
@@ -629,6 +713,9 @@ export type StudentUpdateWithoutUserInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visits?: Prisma.VisitUpdateManyWithoutStudentNestedInput
@@ -643,6 +730,9 @@ export type StudentUncheckedUpdateWithoutUserInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   visits?: Prisma.VisitUncheckedUpdateManyWithoutStudentNestedInput
@@ -657,6 +747,9 @@ export type StudentCreateWithoutVisitsInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutStudentInput
@@ -672,6 +765,9 @@ export type StudentUncheckedCreateWithoutVisitsInput = {
   gender?: $Enums.Gender | null
   bloodGroup?: $Enums.BloodGroup | null
   imageUrl?: string | null
+  presentAddress?: string | null
+  permanentAddress?: string | null
+  guardianNumber?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutStudentInput
@@ -701,6 +797,9 @@ export type StudentUpdateWithoutVisitsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutStudentNestedInput
@@ -716,6 +815,9 @@ export type StudentUncheckedUpdateWithoutVisitsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   bloodGroup?: Prisma.NullableEnumBloodGroupFieldUpdateOperationsInput | $Enums.BloodGroup | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  permanentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardianNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutStudentNestedInput
@@ -770,6 +872,9 @@ export type StudentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   gender?: boolean
   bloodGroup?: boolean
   imageUrl?: boolean
+  presentAddress?: boolean
+  permanentAddress?: boolean
+  guardianNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -787,6 +892,9 @@ export type StudentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   gender?: boolean
   bloodGroup?: boolean
   imageUrl?: boolean
+  presentAddress?: boolean
+  permanentAddress?: boolean
+  guardianNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -801,6 +909,9 @@ export type StudentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   gender?: boolean
   bloodGroup?: boolean
   imageUrl?: boolean
+  presentAddress?: boolean
+  permanentAddress?: boolean
+  guardianNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -815,11 +926,14 @@ export type StudentSelectScalar = {
   gender?: boolean
   bloodGroup?: boolean
   imageUrl?: boolean
+  presentAddress?: boolean
+  permanentAddress?: boolean
+  guardianNumber?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "studentId" | "department" | "session" | "gender" | "bloodGroup" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
+export type StudentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "studentId" | "department" | "session" | "gender" | "bloodGroup" | "imageUrl" | "presentAddress" | "permanentAddress" | "guardianNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["student"]>
 export type StudentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   visits?: boolean | Prisma.Student$visitsArgs<ExtArgs>
@@ -849,6 +963,9 @@ export type $StudentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     gender: $Enums.Gender | null
     bloodGroup: $Enums.BloodGroup | null
     imageUrl: string | null
+    presentAddress: string | null
+    permanentAddress: string | null
+    guardianNumber: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["student"]>
@@ -1285,6 +1402,9 @@ export interface StudentFieldRefs {
   readonly gender: Prisma.FieldRef<"Student", 'Gender'>
   readonly bloodGroup: Prisma.FieldRef<"Student", 'BloodGroup'>
   readonly imageUrl: Prisma.FieldRef<"Student", 'String'>
+  readonly presentAddress: Prisma.FieldRef<"Student", 'String'>
+  readonly permanentAddress: Prisma.FieldRef<"Student", 'String'>
+  readonly guardianNumber: Prisma.FieldRef<"Student", 'String'>
   readonly createdAt: Prisma.FieldRef<"Student", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Student", 'DateTime'>
 }

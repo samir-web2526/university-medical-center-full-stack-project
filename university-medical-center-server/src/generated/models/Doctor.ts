@@ -30,6 +30,7 @@ export type DoctorMinAggregateOutputType = {
   gender: $Enums.Gender | null
   qualification: string | null
   specialization: string | null
+  bmdcRegistrationNumber: string | null
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -41,6 +42,7 @@ export type DoctorMaxAggregateOutputType = {
   gender: $Enums.Gender | null
   qualification: string | null
   specialization: string | null
+  bmdcRegistrationNumber: string | null
   imageUrl: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,6 +54,7 @@ export type DoctorCountAggregateOutputType = {
   gender: number
   qualification: number
   specialization: number
+  bmdcRegistrationNumber: number
   imageUrl: number
   createdAt: number
   updatedAt: number
@@ -65,6 +68,7 @@ export type DoctorMinAggregateInputType = {
   gender?: true
   qualification?: true
   specialization?: true
+  bmdcRegistrationNumber?: true
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
@@ -76,6 +80,7 @@ export type DoctorMaxAggregateInputType = {
   gender?: true
   qualification?: true
   specialization?: true
+  bmdcRegistrationNumber?: true
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
@@ -87,6 +92,7 @@ export type DoctorCountAggregateInputType = {
   gender?: true
   qualification?: true
   specialization?: true
+  bmdcRegistrationNumber?: true
   imageUrl?: true
   createdAt?: true
   updatedAt?: true
@@ -171,6 +177,7 @@ export type DoctorGroupByOutputType = {
   gender: $Enums.Gender | null
   qualification: string | null
   specialization: string | null
+  bmdcRegistrationNumber: string | null
   imageUrl: string | null
   createdAt: Date
   updatedAt: Date
@@ -203,6 +210,7 @@ export type DoctorWhereInput = {
   gender?: Prisma.EnumGenderNullableFilter<"Doctor"> | $Enums.Gender | null
   qualification?: Prisma.StringNullableFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  bmdcRegistrationNumber?: Prisma.StringNullableFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Doctor"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
@@ -217,6 +225,7 @@ export type DoctorOrderByWithRelationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
   specialization?: Prisma.SortOrderInput | Prisma.SortOrder
+  bmdcRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -234,6 +243,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   gender?: Prisma.EnumGenderNullableFilter<"Doctor"> | $Enums.Gender | null
   qualification?: Prisma.StringNullableFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableFilter<"Doctor"> | string | null
+  bmdcRegistrationNumber?: Prisma.StringNullableFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"Doctor"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Doctor"> | Date | string
@@ -248,6 +258,7 @@ export type DoctorOrderByWithAggregationInput = {
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
   qualification?: Prisma.SortOrderInput | Prisma.SortOrder
   specialization?: Prisma.SortOrderInput | Prisma.SortOrder
+  bmdcRegistrationNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -265,6 +276,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"Doctor"> | $Enums.Gender | null
   qualification?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   specialization?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
+  bmdcRegistrationNumber?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Doctor"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Doctor"> | Date | string
@@ -275,6 +287,7 @@ export type DoctorCreateInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -289,6 +302,7 @@ export type DoctorUncheckedCreateInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -301,6 +315,7 @@ export type DoctorUpdateInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -315,6 +330,7 @@ export type DoctorUncheckedUpdateInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -328,6 +344,7 @@ export type DoctorCreateManyInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -338,6 +355,7 @@ export type DoctorUpdateManyMutationInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -349,6 +367,7 @@ export type DoctorUncheckedUpdateManyInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -360,6 +379,7 @@ export type DoctorCountOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
+  bmdcRegistrationNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -371,6 +391,7 @@ export type DoctorMaxOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
+  bmdcRegistrationNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -382,6 +403,7 @@ export type DoctorMinOrderByAggregateInput = {
   gender?: Prisma.SortOrder
   qualification?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
+  bmdcRegistrationNumber?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -478,6 +500,7 @@ export type DoctorCreateWithoutPrescriptionsInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -491,6 +514,7 @@ export type DoctorUncheckedCreateWithoutPrescriptionsInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -518,6 +542,7 @@ export type DoctorUpdateWithoutPrescriptionsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -531,6 +556,7 @@ export type DoctorUncheckedUpdateWithoutPrescriptionsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -542,6 +568,7 @@ export type DoctorCreateWithoutUserInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -554,6 +581,7 @@ export type DoctorUncheckedCreateWithoutUserInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -582,6 +610,7 @@ export type DoctorUpdateWithoutUserInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,6 +623,7 @@ export type DoctorUncheckedUpdateWithoutUserInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -606,6 +636,7 @@ export type DoctorCreateWithoutVisitsInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -619,6 +650,7 @@ export type DoctorUncheckedCreateWithoutVisitsInput = {
   gender?: $Enums.Gender | null
   qualification?: string | null
   specialization?: string | null
+  bmdcRegistrationNumber?: string | null
   imageUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -646,6 +678,7 @@ export type DoctorUpdateWithoutVisitsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -659,6 +692,7 @@ export type DoctorUncheckedUpdateWithoutVisitsInput = {
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
   qualification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   specialization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bmdcRegistrationNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -711,6 +745,7 @@ export type DoctorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   gender?: boolean
   qualification?: boolean
   specialization?: boolean
+  bmdcRegistrationNumber?: boolean
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -726,6 +761,7 @@ export type DoctorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   gender?: boolean
   qualification?: boolean
   specialization?: boolean
+  bmdcRegistrationNumber?: boolean
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -738,6 +774,7 @@ export type DoctorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   gender?: boolean
   qualification?: boolean
   specialization?: boolean
+  bmdcRegistrationNumber?: boolean
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -750,12 +787,13 @@ export type DoctorSelectScalar = {
   gender?: boolean
   qualification?: boolean
   specialization?: boolean
+  bmdcRegistrationNumber?: boolean
   imageUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "gender" | "qualification" | "specialization" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
+export type DoctorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "gender" | "qualification" | "specialization" | "bmdcRegistrationNumber" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["doctor"]>
 export type DoctorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   visits?: boolean | Prisma.Doctor$visitsArgs<ExtArgs>
@@ -782,6 +820,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     gender: $Enums.Gender | null
     qualification: string | null
     specialization: string | null
+    bmdcRegistrationNumber: string | null
     imageUrl: string | null
     createdAt: Date
     updatedAt: Date
@@ -1216,6 +1255,7 @@ export interface DoctorFieldRefs {
   readonly gender: Prisma.FieldRef<"Doctor", 'Gender'>
   readonly qualification: Prisma.FieldRef<"Doctor", 'String'>
   readonly specialization: Prisma.FieldRef<"Doctor", 'String'>
+  readonly bmdcRegistrationNumber: Prisma.FieldRef<"Doctor", 'String'>
   readonly imageUrl: Prisma.FieldRef<"Doctor", 'String'>
   readonly createdAt: Prisma.FieldRef<"Doctor", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Doctor", 'DateTime'>

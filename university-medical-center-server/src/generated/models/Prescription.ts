@@ -31,6 +31,7 @@ export type PrescriptionMinAggregateOutputType = {
   doctorId: string | null
   diagnosis: string | null
   advice: string | null
+  investigation: string | null
   prescriptionImage: string | null
   status: $Enums.PrescriptionStatus | null
   cancelReason: string | null
@@ -46,6 +47,7 @@ export type PrescriptionMaxAggregateOutputType = {
   doctorId: string | null
   diagnosis: string | null
   advice: string | null
+  investigation: string | null
   prescriptionImage: string | null
   status: $Enums.PrescriptionStatus | null
   cancelReason: string | null
@@ -61,6 +63,7 @@ export type PrescriptionCountAggregateOutputType = {
   doctorId: number
   diagnosis: number
   advice: number
+  investigation: number
   prescriptionImage: number
   status: number
   cancelReason: number
@@ -78,6 +81,7 @@ export type PrescriptionMinAggregateInputType = {
   doctorId?: true
   diagnosis?: true
   advice?: true
+  investigation?: true
   prescriptionImage?: true
   status?: true
   cancelReason?: true
@@ -93,6 +97,7 @@ export type PrescriptionMaxAggregateInputType = {
   doctorId?: true
   diagnosis?: true
   advice?: true
+  investigation?: true
   prescriptionImage?: true
   status?: true
   cancelReason?: true
@@ -108,6 +113,7 @@ export type PrescriptionCountAggregateInputType = {
   doctorId?: true
   diagnosis?: true
   advice?: true
+  investigation?: true
   prescriptionImage?: true
   status?: true
   cancelReason?: true
@@ -196,6 +202,7 @@ export type PrescriptionGroupByOutputType = {
   doctorId: string
   diagnosis: string | null
   advice: string | null
+  investigation: string | null
   prescriptionImage: string | null
   status: $Enums.PrescriptionStatus
   cancelReason: string | null
@@ -232,6 +239,7 @@ export type PrescriptionWhereInput = {
   doctorId?: Prisma.StringFilter<"Prescription"> | string
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  investigation?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
   status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
   cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
@@ -251,6 +259,7 @@ export type PrescriptionOrderByWithRelationInput = {
   doctorId?: Prisma.SortOrder
   diagnosis?: Prisma.SortOrderInput | Prisma.SortOrder
   advice?: Prisma.SortOrderInput | Prisma.SortOrder
+  investigation?: Prisma.SortOrderInput | Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -273,6 +282,7 @@ export type PrescriptionWhereUniqueInput = Prisma.AtLeast<{
   doctorId?: Prisma.StringFilter<"Prescription"> | string
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  investigation?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
   status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
   cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
@@ -292,6 +302,7 @@ export type PrescriptionOrderByWithAggregationInput = {
   doctorId?: Prisma.SortOrder
   diagnosis?: Prisma.SortOrderInput | Prisma.SortOrder
   advice?: Prisma.SortOrderInput | Prisma.SortOrder
+  investigation?: Prisma.SortOrderInput | Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   cancelReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -313,6 +324,7 @@ export type PrescriptionScalarWhereWithAggregatesInput = {
   doctorId?: Prisma.StringWithAggregatesFilter<"Prescription"> | string
   diagnosis?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
+  investigation?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
   status?: Prisma.EnumPrescriptionStatusWithAggregatesFilter<"Prescription"> | $Enums.PrescriptionStatus
   cancelReason?: Prisma.StringNullableWithAggregatesFilter<"Prescription"> | string | null
@@ -325,6 +337,7 @@ export type PrescriptionCreateInput = {
   id?: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -344,6 +357,7 @@ export type PrescriptionUncheckedCreateInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -357,6 +371,7 @@ export type PrescriptionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -376,6 +391,7 @@ export type PrescriptionUncheckedUpdateInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -392,6 +408,7 @@ export type PrescriptionCreateManyInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -404,6 +421,7 @@ export type PrescriptionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -419,6 +437,7 @@ export type PrescriptionUncheckedUpdateManyInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -444,6 +463,7 @@ export type PrescriptionCountOrderByAggregateInput = {
   doctorId?: Prisma.SortOrder
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
+  investigation?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   cancelReason?: Prisma.SortOrder
@@ -459,6 +479,7 @@ export type PrescriptionMaxOrderByAggregateInput = {
   doctorId?: Prisma.SortOrder
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
+  investigation?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   cancelReason?: Prisma.SortOrder
@@ -474,6 +495,7 @@ export type PrescriptionMinOrderByAggregateInput = {
   doctorId?: Prisma.SortOrder
   diagnosis?: Prisma.SortOrder
   advice?: Prisma.SortOrder
+  investigation?: Prisma.SortOrder
   prescriptionImage?: Prisma.SortOrder
   status?: Prisma.SortOrder
   cancelReason?: Prisma.SortOrder
@@ -630,6 +652,7 @@ export type PrescriptionCreateWithoutDoctorInput = {
   id?: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -647,6 +670,7 @@ export type PrescriptionUncheckedCreateWithoutDoctorInput = {
   studentId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -692,6 +716,7 @@ export type PrescriptionScalarWhereInput = {
   doctorId?: Prisma.StringFilter<"Prescription"> | string
   diagnosis?: Prisma.StringNullableFilter<"Prescription"> | string | null
   advice?: Prisma.StringNullableFilter<"Prescription"> | string | null
+  investigation?: Prisma.StringNullableFilter<"Prescription"> | string | null
   prescriptionImage?: Prisma.StringNullableFilter<"Prescription"> | string | null
   status?: Prisma.EnumPrescriptionStatusFilter<"Prescription"> | $Enums.PrescriptionStatus
   cancelReason?: Prisma.StringNullableFilter<"Prescription"> | string | null
@@ -704,6 +729,7 @@ export type PrescriptionCreateWithoutMedicinesInput = {
   id?: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -722,6 +748,7 @@ export type PrescriptionUncheckedCreateWithoutMedicinesInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -750,6 +777,7 @@ export type PrescriptionUpdateWithoutMedicinesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -768,6 +796,7 @@ export type PrescriptionUncheckedUpdateWithoutMedicinesInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -780,6 +809,7 @@ export type PrescriptionCreateWithoutStudentInput = {
   id?: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -797,6 +827,7 @@ export type PrescriptionUncheckedCreateWithoutStudentInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -836,6 +867,7 @@ export type PrescriptionCreateWithoutVisitInput = {
   id?: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -853,6 +885,7 @@ export type PrescriptionUncheckedCreateWithoutVisitInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -882,6 +915,7 @@ export type PrescriptionUpdateWithoutVisitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -899,6 +933,7 @@ export type PrescriptionUncheckedUpdateWithoutVisitInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -914,6 +949,7 @@ export type PrescriptionCreateManyDoctorInput = {
   studentId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -926,6 +962,7 @@ export type PrescriptionUpdateWithoutDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -943,6 +980,7 @@ export type PrescriptionUncheckedUpdateWithoutDoctorInput = {
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -958,6 +996,7 @@ export type PrescriptionUncheckedUpdateManyWithoutDoctorInput = {
   studentId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -972,6 +1011,7 @@ export type PrescriptionCreateManyStudentInput = {
   doctorId: string
   diagnosis?: string | null
   advice?: string | null
+  investigation?: string | null
   prescriptionImage?: string | null
   status?: $Enums.PrescriptionStatus
   cancelReason?: string | null
@@ -984,6 +1024,7 @@ export type PrescriptionUpdateWithoutStudentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1001,6 +1042,7 @@ export type PrescriptionUncheckedUpdateWithoutStudentInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1016,6 +1058,7 @@ export type PrescriptionUncheckedUpdateManyWithoutStudentInput = {
   doctorId?: Prisma.StringFieldUpdateOperationsInput | string
   diagnosis?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   advice?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  investigation?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   prescriptionImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumPrescriptionStatusFieldUpdateOperationsInput | $Enums.PrescriptionStatus
   cancelReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1062,6 +1105,7 @@ export type PrescriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   doctorId?: boolean
   diagnosis?: boolean
   advice?: boolean
+  investigation?: boolean
   prescriptionImage?: boolean
   status?: boolean
   cancelReason?: boolean
@@ -1082,6 +1126,7 @@ export type PrescriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   doctorId?: boolean
   diagnosis?: boolean
   advice?: boolean
+  investigation?: boolean
   prescriptionImage?: boolean
   status?: boolean
   cancelReason?: boolean
@@ -1100,6 +1145,7 @@ export type PrescriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   doctorId?: boolean
   diagnosis?: boolean
   advice?: boolean
+  investigation?: boolean
   prescriptionImage?: boolean
   status?: boolean
   cancelReason?: boolean
@@ -1118,6 +1164,7 @@ export type PrescriptionSelectScalar = {
   doctorId?: boolean
   diagnosis?: boolean
   advice?: boolean
+  investigation?: boolean
   prescriptionImage?: boolean
   status?: boolean
   cancelReason?: boolean
@@ -1126,7 +1173,7 @@ export type PrescriptionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PrescriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "visitId" | "studentId" | "doctorId" | "diagnosis" | "advice" | "prescriptionImage" | "status" | "cancelReason" | "cancelledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
+export type PrescriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "visitId" | "studentId" | "doctorId" | "diagnosis" | "advice" | "investigation" | "prescriptionImage" | "status" | "cancelReason" | "cancelledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["prescription"]>
 export type PrescriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   visit?: boolean | Prisma.VisitDefaultArgs<ExtArgs>
   student?: boolean | Prisma.StudentDefaultArgs<ExtArgs>
@@ -1160,6 +1207,7 @@ export type $PrescriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     doctorId: string
     diagnosis: string | null
     advice: string | null
+    investigation: string | null
     prescriptionImage: string | null
     status: $Enums.PrescriptionStatus
     cancelReason: string | null
@@ -1599,6 +1647,7 @@ export interface PrescriptionFieldRefs {
   readonly doctorId: Prisma.FieldRef<"Prescription", 'String'>
   readonly diagnosis: Prisma.FieldRef<"Prescription", 'String'>
   readonly advice: Prisma.FieldRef<"Prescription", 'String'>
+  readonly investigation: Prisma.FieldRef<"Prescription", 'String'>
   readonly prescriptionImage: Prisma.FieldRef<"Prescription", 'String'>
   readonly status: Prisma.FieldRef<"Prescription", 'PrescriptionStatus'>
   readonly cancelReason: Prisma.FieldRef<"Prescription", 'String'>

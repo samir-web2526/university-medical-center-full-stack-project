@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Role, Gender, BloodGroup } from '../../generated/client';
+import { Role, Gender, BloodGroup, UserStatus } from '../../generated/client';
 
 export const registerUserValidationSchema = z.object({
     body: z.object({
@@ -29,6 +29,9 @@ export const registerUserValidationSchema = z.object({
             gender: z.nativeEnum(Gender).optional().nullable(),
             bloodGroup: z.nativeEnum(BloodGroup).optional().nullable(),
             imageUrl: z.string().url('Invalid image URL').optional().nullable(),
+            presentAddress: z.string().optional().nullable(),
+            permanentAddress: z.string().optional().nullable(),
+            guardianNumber: z.string().optional().nullable(),
         }).optional(),
     }),
 });
@@ -62,6 +65,7 @@ export const updateDoctorProfileValidationSchema = z.object({
         gender: z.nativeEnum(Gender).optional().nullable(),
         qualification: z.string().optional().nullable(),
         specialization: z.string().optional().nullable(),
+        bmdcRegistrationNumber: z.string().optional().nullable(),
         imageUrl: z.string().url('Invalid image URL').optional().nullable(),
     }),
 });
@@ -90,6 +94,14 @@ export const resetPasswordValidationSchema = z.object({
     }),
 });
 
+export const updateUserStatusValidationSchema = z.object({
+    body: z.object({
+        status: z.nativeEnum(UserStatus, {
+            message: 'Invalid status',
+        }),
+    }),
+});
+
 export const userValidationSchema = {
     registerUserValidationSchema,
     createDoctorValidationSchema,
@@ -98,4 +110,5 @@ export const userValidationSchema = {
     loginUserValidationSchema,
     forgotPasswordValidationSchema,
     resetPasswordValidationSchema,
+    updateUserStatusValidationSchema,
 };

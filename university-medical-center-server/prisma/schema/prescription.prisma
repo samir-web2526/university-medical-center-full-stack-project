@@ -12,6 +12,7 @@ model Prescription {
 
   diagnosis          String?
   advice             String?
+  investigation      String?
 
   prescriptionImage  String?
 

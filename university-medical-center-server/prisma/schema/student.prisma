@@ -13,6 +13,10 @@ model Student {
 
   imageUrl      String?
 
+  presentAddress   String?
+  permanentAddress String?
+  guardianNumber   String?
+
   visits        Visit[]
   prescriptions Prescription[]
 

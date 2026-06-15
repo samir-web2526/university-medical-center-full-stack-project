@@ -86,6 +86,7 @@ export const DoctorScalarFieldEnum = {
   gender: 'gender',
   qualification: 'qualification',
   specialization: 'specialization',
+  bmdcRegistrationNumber: 'bmdcRegistrationNumber',
   imageUrl: 'imageUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -137,6 +138,7 @@ export const PrescriptionScalarFieldEnum = {
   doctorId: 'doctorId',
   diagnosis: 'diagnosis',
   advice: 'advice',
+  investigation: 'investigation',
   prescriptionImage: 'prescriptionImage',
   status: 'status',
   cancelReason: 'cancelReason',
@@ -153,6 +155,7 @@ export const PrescriptionMedicineScalarFieldEnum = {
   prescriptionId: 'prescriptionId',
   medicineId: 'medicineId',
   dosage: 'dosage',
+  frequency: 'frequency',
   duration: 'duration',
   quantity: 'quantity',
   instructions: 'instructions',
@@ -172,6 +175,9 @@ export const StudentScalarFieldEnum = {
   gender: 'gender',
   bloodGroup: 'bloodGroup',
   imageUrl: 'imageUrl',
+  presentAddress: 'presentAddress',
+  permanentAddress: 'permanentAddress',
+  guardianNumber: 'guardianNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

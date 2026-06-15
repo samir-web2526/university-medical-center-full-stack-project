@@ -63,4 +63,11 @@ router.post(
     UserController.resetPassword
 );
 
+router.patch(
+    '/:id/status',
+    checkAuth(Role.ADMIN),
+    validateRequest(userValidationSchema.updateUserStatusValidationSchema),
+    UserController.updateUserStatus
+);
+
 export const UserRoutes = router;

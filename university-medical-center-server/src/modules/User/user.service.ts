@@ -1,6 +1,6 @@
 import { prisma } from '../../lib/prisma';
 import bcrypt from 'bcrypt';
-import { Role } from '../../generated/client';
+import { Role, UserStatus } from '../../generated/client';
 import AppError from '../../errorHelpers/appError';
 import status from 'http-status';
 import { tokenUtils } from '../../utils/token';
@@ -33,6 +33,7 @@ const registerUser = async (payload: any) => {
                 email,
                 password: hashedPassword,
                 role,
+                status: UserStatus.INACTIVE,
                 mustChangePassword: false,
                 isProfileComplete: true,
             },
@@ -176,8 +177,12 @@ const login = async (payload: any) => {
         throw new AppError(status.FORBIDDEN, 'User is inactive');
     }
 
-    if (user.status === 'BLOCKED') {
+    if (user.status === UserStatus.BLOCKED) {
         throw new AppError(status.FORBIDDEN, 'User is blocked');
+    }
+
+    if (user.status === UserStatus.INACTIVE) {
+        throw new AppError(status.FORBIDDEN, 'Your account is pending admin approval. Please wait until your account is activated.');
     }
 
     const isPasswordMatched = await bcrypt.compare(password, user.password);
@@ -227,8 +232,12 @@ const refreshToken = async (token: string) => {
         throw new AppError(status.FORBIDDEN, 'User is inactive');
     }
 
-    if (user.status === 'BLOCKED') {
+    if (user.status === UserStatus.BLOCKED) {
         throw new AppError(status.FORBIDDEN, 'User is blocked');
+    }
+
+    if (user.status === UserStatus.INACTIVE) {
+        throw new AppError(status.FORBIDDEN, 'Your account is pending admin approval. Please wait until your account is activated.');
     }
 
     const jwtPayload = {
@@ -254,8 +263,12 @@ const forgotPassword = async (payload: { email: string }) => {
         throw new AppError(status.NOT_FOUND, 'No account found with this email');
     }
 
-    if (!user.isActive || user.status === 'BLOCKED') {
+    if (!user.isActive || user.status === UserStatus.BLOCKED) {
         throw new AppError(status.FORBIDDEN, 'Your account is inactive or blocked');
+    }
+
+    if (user.status === UserStatus.INACTIVE) {
+        throw new AppError(status.FORBIDDEN, 'Your account is pending admin approval. Please wait until your account is activated.');
     }
 
     const resetPayload = { id: user.id, email: user.email };
@@ -299,6 +312,31 @@ const resetPassword = async (payload: { token: string; newPassword: string }) =>
     return { message: 'Password reset successfully' };
 };
 
+const updateUserStatus = async (userId: string, payload: { status: UserStatus }) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+    });
+
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, 'User not found');
+    }
+
+    const result = await prisma.user.update({
+        where: { id: userId },
+        data: { status: payload.status },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            status: true,
+            isActive: true,
+        }
+    });
+
+    return result;
+};
+
 export const UserService = {
     registerUser,
     createDoctor,
@@ -308,4 +346,5 @@ export const UserService = {
     refreshToken,
     forgotPassword,
     resetPassword,
+    updateUserStatus,
 };

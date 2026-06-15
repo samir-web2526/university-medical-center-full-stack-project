@@ -110,6 +110,17 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const updateUserStatus = catchAsync(async (req: Request, res: Response) => {
+    const userId = req.params.id as string;
+    const result = await UserService.updateUserStatus(userId, req.body);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'User status updated successfully',
+        data: result,
+    });
+});
+
 export const UserController = {
     registerUser,
     createDoctor,
@@ -120,4 +131,5 @@ export const UserController = {
     logoutUser,
     forgotPassword,
     resetPassword,
+    updateUserStatus,
 };

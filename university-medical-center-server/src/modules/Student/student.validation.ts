@@ -9,6 +9,9 @@ const updateStudentValidationSchemaByOwn = z.object({
         gender: z.enum(Gender).optional(),
         bloodGroup: z.enum(BloodGroup).optional(),
         imageUrl: z.string().url().optional(),
+        presentAddress: z.string().optional(),
+        permanentAddress: z.string().optional(),
+        guardianNumber: z.string().optional(),
     }).strict(),
 });
 
@@ -23,6 +26,7 @@ const updateStudentValidationSchemaByAdmin = z.object({
         gender: z.enum(Gender).optional(),
 
         bloodGroup: z.enum(BloodGroup).optional(),
+
         status: z.enum(UserStatus).optional(),
     }).strict(),
 });
