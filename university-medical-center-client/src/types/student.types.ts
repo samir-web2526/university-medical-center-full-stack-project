@@ -1,4 +1,4 @@
-import type { BloodGroup, UserStatus } from "./common.types";
+import type { BloodGroup, Gender, UserStatus } from "./common.types";
 
 // ─────────────────────────────────────────────
 // Student Model
@@ -31,8 +31,6 @@ export interface Student {
 // ─────────────────────────────────────────────
 // Student Request DTOs
 // ─────────────────────────────────────────────
-
-export type Gender = "MALE" | "FEMALE" | "OTHER";
 
 export interface UpdateStudentProfileRequest {
   gender?: Gender;

@@ -12,7 +12,6 @@ export {
   logout,
   changePassword,
   createDoctor,
-  updateDoctorProfile,
   updateUserStatus,
 } from "./auth.service";
 
@@ -28,7 +27,7 @@ export {
 // ── Doctor ──────────────────────────────────────────────────────────────────
 export {
   getMyProfile as getDoctorProfile,
-  updateMyProfile as updateDoctorMyProfile,
+  updateMyProfile as updateDoctorProfile,
   getAllDoctors,
   getDoctorById,
   updateDoctor,

@@ -1,10 +1,5 @@
-import MyAllPatientsPage from '@/components/pages/dashboardPages/DoctorDashboardPages/MyAllPatientsPage'
-import React from 'react'
+import MyAllPatientsPage from '@/components/pages/dashboardPages/DoctorDashboardPages/MyAllPatientsPage';
 
-export default function DoctorPatients() {
-  return (
-    <div>
-        <MyAllPatientsPage />
-    </div>
-  )
+export default function Page() {
+  return <MyAllPatientsPage />;
 }

@@ -1,10 +1,5 @@
-import ManageMedicinePage from '@/components/pages/dashboardPages/AdminDashboardPages/ManageMedicinePage'
-import React from 'react'
+import AllMedicinesPage from '@/components/pages/dashboardPages/AdminDashboardPages/AllMedicinesPage';
 
-export default function ManageMedicines() {
-  return (
-    <div>
-        <ManageMedicinePage></ManageMedicinePage>
-    </div>
-  )
+export default function Page() {
+  return <AllMedicinesPage />;
 }
