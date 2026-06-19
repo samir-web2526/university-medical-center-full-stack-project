@@ -1,5 +1,5 @@
-import BlogsPage from "@/components/pages/NavbarPages/BlogsPage";
+import BlogPreviewSection from "@/components/pages/homeSections/BlogPreviewSection";
 
 export default function Blogs() {
-  return <BlogsPage />;
+  return <BlogPreviewSection limit={100} showViewAll={false} />;
 }

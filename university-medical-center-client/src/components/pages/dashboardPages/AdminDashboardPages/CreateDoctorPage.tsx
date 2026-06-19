@@ -29,7 +29,7 @@ export default function CreateDoctorPage() {
     try {
       await createMutation.mutateAsync(form);
       toast.success("Doctor account created!");
-      router.refresh()
+      router.push("/dashboard/all-doctors");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to create doctor");
     }

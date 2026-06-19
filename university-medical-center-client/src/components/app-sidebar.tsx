@@ -11,6 +11,7 @@ import {
   Search,
   Pill,
   PenLine,
+  KeyRound,
 } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -93,6 +94,11 @@ const ADMIN_NAV = [
         url: "/dashboard/me",
         icon: UserCircle,
       },
+      {
+        title: "Change Password",
+        url: "/dashboard/change-password",
+        icon: KeyRound,
+      },
     ],
   },
 ];
@@ -133,6 +139,11 @@ const STUDENT_NAV = [
         title: "My Profile",
         url: "/dashboard/me",
         icon: UserCircle,
+      },
+      {
+        title: "Change Password",
+        url: "/dashboard/change-password",
+        icon: KeyRound,
       },
     ],
   },
@@ -194,6 +205,11 @@ const DOCTOR_NAV = [
         title: "My Profile",
         url: "/dashboard/me",
         icon: UserCircle,
+      },
+      {
+        title: "Change Password",
+        url: "/dashboard/change-password",
+        icon: KeyRound,
       },
     ],
   },
