@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getAllDoctors,
+  getPublicDoctors,
   getDoctorById,
   updateDoctor,
   deleteDoctor,
@@ -14,6 +15,7 @@ import type { Doctor, PaginatedResponse, CreateDoctorRequest } from "@/types";
 export const doctorKeys = {
   all: ["doctors"] as const,
   list: (page: number, limit: number) => [...doctorKeys.all, "list", page, limit] as const,
+  publicList: (page: number, limit: number) => [...doctorKeys.all, "public", page, limit] as const,
   detail: (id: string) => [...doctorKeys.all, "detail", id] as const,
 };
 
@@ -23,6 +25,17 @@ export function useDoctors(page: number = 1, limit: number = 10) {
     queryKey: doctorKeys.list(page, limit),
     queryFn: async () => {
       const result = await getAllDoctors(page, limit);
+      if (result.error) throw new Error(result.error);
+      return result.data as PaginatedResponse<Doctor>;
+    },
+  });
+}
+
+export function usePublicDoctors(page: number = 1, limit: number = 10) {
+  return useQuery({
+    queryKey: doctorKeys.publicList(page, limit),
+    queryFn: async () => {
+      const result = await getPublicDoctors(page, limit);
       if (result.error) throw new Error(result.error);
       return result.data as PaginatedResponse<Doctor>;
     },

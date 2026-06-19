@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import logo from "@/assets/images/logo.png";
 
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -20,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "UMC, JSTU",
   description: "University Medical Center - Health & Wellness Portal",
+  icons: {
+    icon: logo.src,
+  },
 };
 
 export default function RootLayout({

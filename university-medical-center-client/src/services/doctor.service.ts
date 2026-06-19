@@ -100,6 +100,31 @@ export async function getAllDoctors(
   }
 }
 
+export async function getPublicDoctors(
+  page = 1,
+  limit = 10
+): Promise<ServiceResponse<PaginatedResponse<Doctor>>> {
+  try {
+    const res = await fetch(
+      `${API}/api/v1/doctors/public?page=${page}&limit=${limit}`,
+      { cache: "no-store" }
+    );
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to fetch doctors" };
+    }
+
+    return { data: json ?? null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
 export async function getDoctorById(
   id: string
 ): Promise<ServiceResponse<Doctor>> {

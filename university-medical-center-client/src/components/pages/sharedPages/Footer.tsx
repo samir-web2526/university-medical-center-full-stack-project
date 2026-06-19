@@ -1,4 +1,6 @@
-import { Building2, Heart, Mail, Phone, MapPin } from "lucide-react"
+import { Heart, Mail, Phone, MapPin } from "lucide-react"
+import Image from "next/image"
+import logo from "@/assets/images/logo.png"
 import { Separator } from "@/components/ui/separator"
 
 const footerLinks = {
@@ -33,9 +35,7 @@ export default function Footer() {
 
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-linear-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center shrink-0">
-                <Building2 size={18} className="text-white" />
-              </div>
+              <Image src={logo} alt="UMC Logo" width={36} height={36} className="rounded-lg shrink-0" />
               <div>
                 <p className="text-sm font-semibold leading-tight">
                   University Medical Center
@@ -68,7 +68,7 @@ export default function Footer() {
               </a>
               <div className="flex items-start gap-2 text-xs text-slate-400">
                 <MapPin size={13} className="mt-0.5 shrink-0" />
-                <span>Dhaka University Campus, Shahbagh, Dhaka 1000</span>
+                <span>JSTU Campus, Melandah, Jamalpur-2000</span>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function Footer() {
             </a>
           </div>
           <p className="text-xs text-slate-600 flex items-center gap-1">
-            Made with <Heart size={11} className="text-red-400 fill-red-400" /> by UMC Tech Team
+            Made by Samir Baishnab
           </p>
         </div>
       </div>

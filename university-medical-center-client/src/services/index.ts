@@ -29,6 +29,7 @@ export {
   getMyProfile as getDoctorProfile,
   updateMyProfile as updateDoctorProfile,
   getAllDoctors,
+  getPublicDoctors,
   getDoctorById,
   updateDoctor,
   deleteDoctor,

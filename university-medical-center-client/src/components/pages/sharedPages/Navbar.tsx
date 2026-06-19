@@ -1,6 +1,8 @@
 "use client";
 
-import { Menu, Building2, LayoutDashboard, LogOut, UserCircle } from "lucide-react";
+import { Menu, LayoutDashboard, LogOut, UserCircle } from "lucide-react";
+import Image from "next/image";
+import logo from "@/assets/images/logo.png";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -76,9 +78,7 @@ export function Navbar({ className, user }: NavbarProps) {
         <nav className="hidden lg:flex items-center justify-between h-16">
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center shadow-sm">
-              <Building2 size={15} className="text-white" />
-            </div>
+            <Image src={logo} alt="UMC Logo" width={32} height={32} className="rounded-lg shadow-sm" />
             <div>
               <p className="text-sm font-semibold text-[#0b5394] leading-tight">
                 University Medical Center
@@ -197,9 +197,7 @@ export function Navbar({ className, user }: NavbarProps) {
         {/* Mobile */}
         <div className="flex lg:hidden items-center justify-between h-14">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center">
-              <Building2 size={13} className="text-white" />
-            </div>
+            <Image src={logo} alt="UMC Logo" width={28} height={28} className="rounded-lg" />
             <span className="text-sm font-semibold text-[#0b5394]">
               UMC Portal
             </span>
@@ -223,9 +221,7 @@ export function Navbar({ className, user }: NavbarProps) {
               >
                 <SheetHeader className="px-5 pt-5 pb-4 border-b border-border">
                   <SheetTitle className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0b5394] to-[#2196f3] flex items-center justify-center">
-                      <Building2 size={13} className="text-white" />
-                    </div>
+                    <Image src={logo} alt="UMC Logo" width={28} height={28} className="rounded-lg" />
                     <div className="text-left">
                       <p className="text-sm font-semibold text-[#0b5394] leading-tight">
                         University Medical Center
