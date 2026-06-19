@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap, Sparkles, Pencil, Camera, X, Loader2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getMyProfile, updateMyProfile } from "@/services/doctor.service";
 import { uploadImage, isValidImageType } from "@/lib/upload";
 
@@ -237,9 +238,12 @@ export default function UpdateMyProfile() {
 
               {(imagePreview || existingImageUrl) && !uploading ? (
                 <div className="relative inline-block">
-                  <img
+                  <Image
                     src={imagePreview || existingImageUrl!}
                     alt="Profile preview"
+                    width={112}
+                    height={112}
+                    unoptimized
                     className="w-28 h-28 rounded-2xl object-cover border-2 border-slate-200 dark:border-slate-700 cursor-pointer"
                     onClick={() => fileInputRef.current?.click()}
                   />

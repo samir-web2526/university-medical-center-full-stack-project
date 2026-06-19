@@ -8,9 +8,10 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  User, Mail, Phone, GraduationCap, Calendar, Edit, ShieldCheck, Droplets,
+  User, Mail, Phone, GraduationCap, Calendar, Edit, ShieldCheck, Droplets, Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getMyProfile } from "@/services/student.service";
 
 export default function ProfilePage() {
@@ -69,45 +70,62 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
-        <Card className="overflow-hidden border-0 shadow-xl dark:bg-slate-900 dark:border-slate-800">
-          <div className="relative h-40 bg-linear-to-br from-violet-600 via-purple-600 to-indigo-600">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDJ2LTJoMzR6TTM2IDIwdjJIMnYyaDM0ek0zNiA2djJIMnYyaDM0eiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
-            <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
-            <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-purple-400/20 blur-2xl" />
-          </div>
-
-          <CardContent className="relative px-6 pb-6">
-            <div className="absolute -top-14 left-6">
-              <div className="w-28 h-28 rounded-2xl bg-white dark:bg-slate-800 shadow-xl border-4 border-white dark:border-slate-800 flex items-center justify-center ring-4 ring-violet-100 dark:ring-violet-900/50">
-                <span className="text-4xl font-bold bg-linear-to-br from-violet-600 to-purple-600 bg-clip-text text-transparent">
-                  {userName.charAt(0).toUpperCase()}
-                </span>
-              </div>
+        <div className="rounded-2xl bg-linear-to-r from-violet-600 via-purple-500 to-indigo-500 p-6 shadow-lg shadow-violet-500/20">
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-white" />
             </div>
+            <h1 className="text-2xl font-bold text-white">My Profile</h1>
+          </div>
+          <p className="text-violet-100 text-sm ml-13">View your personal details</p>
+        </div>
 
-            <div className="flex justify-end pt-4">
-              <Button asChild size="sm" className="bg-linear-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 rounded-xl gap-2 shadow-lg shadow-violet-500/25">
+        <Card className="overflow-hidden border-0 shadow-xl dark:bg-slate-900 dark:border-slate-800">
+          <CardContent className="relative px-6 pt-6 pb-6">
+            <div className="flex flex-col items-center relative z-10">
+              {student.imageUrl ? (
+                <div className="relative group">
+                  <Image
+                    src={student.imageUrl}
+                    alt={userName}
+                    width={112}
+                    height={112}
+                    unoptimized
+                    className="w-28 h-28 rounded-full object-cover shadow-2xl border-4 border-white dark:border-slate-900 group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-full ring-2 ring-violet-400/50 dark:ring-violet-500/30 ring-offset-4 ring-offset-white dark:ring-offset-slate-900" />
+                </div>
+              ) : (
+                <div className="w-28 h-28 rounded-full bg-linear-to-br from-violet-500 to-purple-600 shadow-2xl border-4 border-white dark:border-slate-900 flex items-center justify-center">
+                  <span className="text-4xl font-bold text-white">
+                    {userName.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
+
+              <div className="mt-4 text-center space-y-2">
+                <div className="flex items-center justify-center gap-2.5 flex-wrap">
+                  <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{userName}</h1>
+                  <Badge className={`text-xs font-medium border ${statusColor}`} variant="outline">
+                    <ShieldCheck className="w-3 h-3 mr-1" />
+                    {userStatus}
+                  </Badge>
+                </div>
+                <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center justify-center gap-1.5">
+                  <GraduationCap className="w-4 h-4 text-violet-500" />
+                  {student.department}
+                </p>
+                <p className="text-slate-400 dark:text-slate-500 text-xs font-mono tracking-wider">
+                  ID: {student.studentId}
+                </p>
+              </div>
+
+              <Button asChild size="sm" className="mt-5 bg-linear-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 rounded-xl gap-2 shadow-lg shadow-violet-500/25 px-6">
                 <Link href="/dashboard/update-profile">
                   <Edit className="w-3.5 h-3.5" />
                   Edit Profile
                 </Link>
               </Button>
-            </div>
-
-            <div className="mt-4 space-y-2">
-              <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">{userName}</h1>
-                <Badge className={`text-xs font-medium border ${statusColor}`} variant="outline">
-                  <ShieldCheck className="w-3 h-3 mr-1" />
-                  {userStatus}
-                </Badge>
-              </div>
-              <div className="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-2">
-                <span className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                  <span className="text-[9px] font-mono font-bold text-slate-500 dark:text-slate-400">ID</span>
-                </span>
-                {student.studentId}
-              </div>
             </div>
           </CardContent>
         </Card>
@@ -150,11 +168,12 @@ function ProfileSkeleton() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-10 px-4">
       <div className="max-w-3xl mx-auto space-y-6">
         <Card className="border-0 shadow-xl overflow-hidden dark:bg-slate-900 dark:border-slate-800">
-          <Skeleton className="h-40 w-full rounded-none" />
-          <CardContent className="pt-4 pb-6 px-6 space-y-3">
-            <Skeleton className="h-14 w-14 rounded-xl" />
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-32 w-full rounded-none" />
+          <CardContent className="pt-0 pb-6 px-6 flex flex-col items-center -mt-12">
+            <Skeleton className="w-28 h-28 rounded-full border-4 border-white dark:border-slate-900" />
+            <Skeleton className="h-6 w-48 mt-4" />
+            <Skeleton className="h-4 w-36 mt-2" />
+            <Skeleton className="h-8 w-28 mt-5 rounded-xl" />
           </CardContent>
         </Card>
         <Card className="border-0 shadow-lg dark:bg-slate-900 dark:border-slate-800">

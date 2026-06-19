@@ -19,6 +19,7 @@ import {
   Sparkles
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getMyProfile } from "@/services/doctor.service";
 
 export default function DoctorProfilePage() {
@@ -79,48 +80,45 @@ export default function DoctorProfilePage() {
         </div>
 
         <Card className="overflow-hidden border-0 shadow-md dark:bg-slate-900 dark:border dark:border-slate-800">
-          <div className="h-28 bg-linear-to-r from-emerald-600 via-teal-500 to-cyan-500 relative">
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDJ2LTJoMzR6TTIgMTBoMnYySDJ2LTJ6bTAgMTJoMnYySDJ2LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30" />
-          </div>
-
-          <CardContent className="relative pt-0 pb-6 px-6">
-            <div className="absolute -top-10 left-6">
-              {doctor.imageUrl || doctor.user?.imageUrl ? (
-                <img
-                  src={doctor.imageUrl || doctor.user?.imageUrl!}
+          <CardContent className="relative pt-6 pb-6 px-6">
+            <div className="flex flex-col items-center">
+              {doctor.imageUrl ? (
+                <Image
+                  src={doctor.imageUrl}
                   alt={doctor.user?.name ?? "Doctor"}
-                  className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-emerald-500/30 border-4 border-white dark:border-slate-900"
+                  width={80}
+                  height={80}
+                  unoptimized
+                  className="w-20 h-20 rounded-full object-cover shadow-lg border-4 border-white dark:border-slate-900"
                 />
               ) : (
-                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30 border-4 border-white dark:border-slate-900 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-linear-to-br from-emerald-500 to-teal-600 shadow-lg border-4 border-white dark:border-slate-900 flex items-center justify-center">
                   <span className="text-3xl font-bold text-white">
                     {(doctor.user?.name ?? "D").charAt(0).toUpperCase()}
                   </span>
                 </div>
               )}
-            </div>
 
-            <div className="flex justify-end pt-3">
-              <Button asChild size="sm" className="bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl gap-2 shadow-md shadow-emerald-500/20 transition-all duration-200">
+              <div className="mt-4 text-center space-y-1.5">
+                <div className="flex items-center gap-3 flex-wrap justify-center">
+                  <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{doctor.user?.name ?? "Unknown"}</h1>
+                  <Badge className={`text-xs font-medium border ${statusColor}`} variant="outline">
+                    <ShieldCheck className="w-3 h-3 mr-1" />
+                    {doctor.user?.status ?? "UNKNOWN"}
+                  </Badge>
+                </div>
+                <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center justify-center gap-1.5">
+                  <Stethoscope className="w-3.5 h-3.5 text-emerald-500" />
+                  {doctor.specialization}
+                </p>
+              </div>
+
+              <Button asChild size="sm" className="mt-4 bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl gap-2 shadow-md shadow-emerald-500/20 transition-all duration-200">
                 <Link href="/dashboard/update-profile">
                   <Edit className="w-3.5 h-3.5" />
                   Edit Profile
                 </Link>
               </Button>
-            </div>
-
-            <div className="mt-3 space-y-1.5">
-              <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{doctor.user?.name ?? "Unknown"}</h1>
-                <Badge className={`text-xs font-medium border ${statusColor}`} variant="outline">
-                  <ShieldCheck className="w-3 h-3 mr-1" />
-                  {doctor.user?.status ?? "UNKNOWN"}
-                </Badge>
-              </div>
-              <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1.5">
-                <Stethoscope className="w-3.5 h-3.5 text-emerald-500" />
-                {doctor.specialization}
-              </p>
             </div>
           </CardContent>
         </Card>

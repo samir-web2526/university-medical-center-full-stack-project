@@ -12,6 +12,7 @@ export interface Student {
   session: string;
   gender?: Gender;
   bloodGroup: BloodGroup | null;
+  imageUrl?: string | null;
   presentAddress?: string | null;
   permanentAddress?: string | null;
   guardianNumber?: string | null;
