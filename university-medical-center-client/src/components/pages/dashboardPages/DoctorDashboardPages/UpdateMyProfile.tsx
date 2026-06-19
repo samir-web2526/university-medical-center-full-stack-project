@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { UpdateDoctorProfileRequest } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap, Sparkles, Pencil } from "lucide-react";
+import { ArrowLeft, Save, User, Phone, Stethoscope, GraduationCap, Sparkles, Pencil, Camera, X, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { getMyProfile, updateMyProfile } from "@/services/doctor.service";
+import { uploadImage, isValidImageType } from "@/lib/upload";
 
 interface FormState {
   name: string;
@@ -24,6 +25,7 @@ interface FormState {
 
 export default function UpdateMyProfile() {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<FormState>({
     name: "",
     phone: "",
@@ -33,6 +35,13 @@ export default function UpdateMyProfile() {
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+
+  const [existingImageUrl, setExistingImageUrl] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [imageRemoved, setImageRemoved] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     getMyProfile().then(({ data }) => {
@@ -44,10 +53,67 @@ export default function UpdateMyProfile() {
           qualification: data.qualification ?? "",
           bmdcRegistrationNumber: data.bmdcRegistrationNumber ?? "",
         });
+        setExistingImageUrl(data.imageUrl ?? data.user?.imageUrl ?? null);
       }
       setLoading(false);
     });
   }, []);
+
+  const handleImageSelect = async (file: File) => {
+    if (!isValidImageType(file)) {
+      toast.error("Only JPEG, PNG, GIF, WebP images are allowed");
+      return;
+    }
+    if (file.size > 32 * 1024 * 1024) {
+      toast.error("Image must be smaller than 32MB");
+      return;
+    }
+
+    setImagePreview(URL.createObjectURL(file));
+    setUploading(true);
+
+    try {
+      const result = await uploadImage(file, `doctor-profile-${Date.now()}`);
+      setUploadedImageUrl(result.url);
+      toast.success("Image uploaded successfully");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to upload image");
+      setImagePreview(null);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleImageSelect(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragActive(false);
+    const file = e.dataTransfer.files[0];
+    if (file) handleImageSelect(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragActive(false);
+  };
+
+  const removeImage = () => {
+    setExistingImageUrl(null);
+    setImagePreview(null);
+    setUploadedImageUrl(null);
+    setImageRemoved(true);
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const handleChange = (key: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -62,6 +128,8 @@ export default function UpdateMyProfile() {
       specialization: form.specialization || null,
       qualification: form.qualification || null,
       bmdcRegistrationNumber: form.bmdcRegistrationNumber || null,
+      ...(uploadedImageUrl && { imageUrl: uploadedImageUrl }),
+      ...(!uploadedImageUrl && imageRemoved && { imageUrl: "" }),
     };
 
     const { error } = await updateMyProfile(payload);
@@ -153,6 +221,72 @@ export default function UpdateMyProfile() {
           <Separator className="dark:bg-slate-800" />
 
           <CardContent className="pt-6 space-y-5">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <Camera className="w-3.5 h-3.5 text-emerald-500" />
+                Profile Photo
+              </Label>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileInputChange}
+              />
+
+              {(imagePreview || existingImageUrl) && !uploading ? (
+                <div className="relative inline-block">
+                  <img
+                    src={imagePreview || existingImageUrl!}
+                    alt="Profile preview"
+                    className="w-28 h-28 rounded-2xl object-cover border-2 border-slate-200 dark:border-slate-700 cursor-pointer"
+                    onClick={() => fileInputRef.current?.click()}
+                  />
+                  <div
+                    className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <Camera className="w-6 h-6 text-white" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-md z-10"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`w-full border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-all ${
+                    dragActive
+                      ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-500/10"
+                      : "border-slate-200 dark:border-slate-700 hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                  }`}
+                >
+                  {uploading ? (
+                    <div className="flex flex-col items-center gap-2">
+                      <Loader2 className="w-8 h-8 text-emerald-500 animate-spin" />
+                      <p className="text-sm text-slate-500 dark:text-slate-400">Uploading...</p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center gap-2">
+                      <Camera className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">Click to upload</span> or drag and drop
+                      </p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500">PNG, JPG, GIF, WebP (max 32MB)</p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             {fields.map((field) => (
               <div key={field.key} className="space-y-1.5">
                 <Label htmlFor={field.key} className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">

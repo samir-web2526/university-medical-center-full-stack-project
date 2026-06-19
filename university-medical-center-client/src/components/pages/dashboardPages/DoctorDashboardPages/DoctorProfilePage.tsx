@@ -85,11 +85,19 @@ export default function DoctorProfilePage() {
 
           <CardContent className="relative pt-0 pb-6 px-6">
             <div className="absolute -top-10 left-6">
-              <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30 border-4 border-white dark:border-slate-900 flex items-center justify-center">
-                <span className="text-3xl font-bold text-white">
-                  {(doctor.user?.name ?? "D").charAt(0).toUpperCase()}
-                </span>
-              </div>
+              {doctor.imageUrl || doctor.user?.imageUrl ? (
+                <img
+                  src={doctor.imageUrl || doctor.user?.imageUrl!}
+                  alt={doctor.user?.name ?? "Doctor"}
+                  className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-emerald-500/30 border-4 border-white dark:border-slate-900"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30 border-4 border-white dark:border-slate-900 flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">
+                    {(doctor.user?.name ?? "D").charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="flex justify-end pt-3">
