@@ -419,20 +419,8 @@ export type DoctorNullableScalarRelationFilter = {
   isNot?: Prisma.DoctorWhereInput | null
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type NullableEnumGenderFieldUpdateOperationsInput = {
   set?: $Enums.Gender | null
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type DoctorCreateNestedOneWithoutPrescriptionsInput = {

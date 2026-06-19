@@ -1,0 +1,12 @@
+model Blog {
+  id         String   @id @default(uuid())
+  title      String
+  content    String   @db.Text
+  coverImage String?
+
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

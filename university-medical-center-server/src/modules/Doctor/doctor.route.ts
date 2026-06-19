@@ -7,6 +7,11 @@ import { doctorValidationSchema } from './doctor.validation';
 const router = express.Router();
 
 router.get(
+    '/public',
+    DoctorController.getAllDoctors
+);
+
+router.get(
     '/profile',
     checkAuth('DOCTOR'),
     DoctorController.getMyProfile
@@ -21,13 +26,13 @@ router.patch(
 
 router.get(
     '/',
-    checkAuth('ADMIN'),
+    checkAuth('STUDENT','ADMIN'),
     DoctorController.getAllDoctors
 );
 
 router.get(
     '/:id',
-    checkAuth('ADMIN'),
+    checkAuth('STUDENT','ADMIN'),
     DoctorController.getSingleDoctor
 );
 
