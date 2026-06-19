@@ -6,3 +6,4 @@ export * from "./visit.types";
 export * from "./medicine.types";
 export * from "./prescription.types";
 export * from "./notification.types";
+export * from "./blog.types";

@@ -10,6 +10,7 @@ import {
   Star,
   Search,
   Pill,
+  PenLine,
 } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -73,8 +74,18 @@ const ADMIN_NAV = [
         icon: Tag,
       },
       {
-        title: "Create Medicine",
-        url: "/dashboard/create-medicine",
+        title: "Write Blog",
+        url: "/dashboard/write-blog",
+        icon: PenLine,
+      },
+      {
+        title: "My Blogs",
+        url: "/dashboard/my-blogs",
+        icon: BookOpen,
+      },
+      {
+        title: "Update Profile",
+        url: "/dashboard/update-profile",
         icon: Tag,
       },
       {
@@ -163,6 +174,16 @@ const DOCTOR_NAV = [
         title: "Create Prescription",
         url: "/dashboard/create-prescription",
         icon: Tag,
+      },
+      {
+        title: "Write Blog",
+        url: "/dashboard/write-blog",
+        icon: PenLine,
+      },
+      {
+        title: "My Blogs",
+        url: "/dashboard/my-blogs",
+        icon: BookOpen,
       },
       {
         title: "Update Profile",

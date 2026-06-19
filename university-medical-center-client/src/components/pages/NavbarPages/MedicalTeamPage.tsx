@@ -39,7 +39,7 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
-export default function MedicalTeamSection() {
+export default function MedicalTeamPage() {
   const [showAll, setShowAll] = useState(false);
   const { data, isLoading, isError } = usePublicDoctors(1, 100);
   const doctors = data?.data ?? [];

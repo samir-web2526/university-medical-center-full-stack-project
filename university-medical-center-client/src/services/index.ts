@@ -74,3 +74,13 @@ export {
   getUnreadCount,
   deleteNotification,
 } from "./notification.service";
+
+// ── Blog ──────────────────────────────────────────────────────────────────
+export {
+  getBlogs,
+  getBlogById,
+  getMyBlogs,
+  createBlog,
+  updateBlog,
+  deleteBlog,
+} from "./blog.service";

@@ -1,7 +1,7 @@
 import HeroSection from "@/components/pages/homeSections/HeroSection";
 import ServicesSection from "@/components/pages/homeSections/ServicesSection";
 import HowItWorksSection from "@/components/pages/homeSections/HowItWorksSection";
-import MedicalTeamSection from "@/components/pages/homeSections/MedicalTeamSection";
+import BlogPreviewSection from "@/components/pages/homeSections/BlogPreviewSection";
 import ContactSection from "@/components/pages/homeSections/ContactSection";
 
 export default function UniversityMedicalCenterHome() {
@@ -10,7 +10,7 @@ export default function UniversityMedicalCenterHome() {
       <HeroSection />
       <ServicesSection />
       <HowItWorksSection />
-      <MedicalTeamSection />
+      <BlogPreviewSection />
       <ContactSection />
     </>
   );

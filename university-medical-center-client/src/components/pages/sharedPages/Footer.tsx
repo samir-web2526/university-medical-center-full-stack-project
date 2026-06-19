@@ -4,12 +4,10 @@ import logo from "@/assets/images/logo.png"
 import { Separator } from "@/components/ui/separator"
 
 const footerLinks = {
-  portal: [
-    { label: "Patient Records", href: "#" },
-    { label: "Lab Results", href: "#" },
-    { label: "Imaging", href: "#" },
-    { label: "Pharmacy Orders", href: "#" },
-    { label: "Schedules", href: "#" },
+  quickLinks: [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ],
   departments: [
     { label: "Emergency", href: "#" },
@@ -19,11 +17,8 @@ const footerLinks = {
     { label: "Oncology", href: "#" },
   ],
   support: [
-    { label: "IT Support", href: "#" },
-    { label: "HR Portal", href: "#" },
-    { label: "Training", href: "#" },
-    { label: "Request Account", href: "#" },
-    { label: "Documentation", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "Privacy Policy", href: "#" }
   ],
 }
 
@@ -47,8 +42,7 @@ export default function Footer() {
             </div>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-xs">
-              Providing world-class healthcare and medical education. Our integrated
-              portal connects staff, faculty, and departments seamlessly.
+             Dedicated to improving student experiences through accessible services and digital innovation.
             </p>
 
             <div className="space-y-2">
@@ -75,10 +69,10 @@ export default function Footer() {
 
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-              Portal
+              Quick Links
             </p>
             <ul className="space-y-2.5">
-              {footerLinks.portal.map((link) => (
+              {footerLinks.quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -136,17 +130,6 @@ export default function Footer() {
           <p className="text-xs text-slate-500">
             © {new Date().getFullYear()} University Medical Center. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <a href="#" className="text-xs text-slate-500 hover:text-white transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="text-xs text-slate-500 hover:text-white transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-xs text-slate-500 hover:text-white transition-colors">
-              Data Policy
-            </a>
-          </div>
           <p className="text-xs text-slate-600 flex items-center gap-1">
             Made by Samir Baishnab
           </p>
