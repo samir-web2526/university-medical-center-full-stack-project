@@ -1,4 +1,4 @@
-import { Heart, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
 import Image from "next/image"
 import logo from "@/assets/images/logo.png"
 import { Separator } from "@/components/ui/separator"
@@ -11,14 +11,12 @@ const footerLinks = {
   ],
   departments: [
     { label: "Emergency", href: "#" },
-    { label: "Cardiology", href: "#" },
-    { label: "Neurology", href: "#" },
-    { label: "Pediatrics", href: "#" },
-    { label: "Oncology", href: "#" },
+    { label: "General Medicine", href: "#" },
+
   ],
   support: [
-    { label: "Terms of Service", href: "#" },
-    { label: "Privacy Policy", href: "#" }
+    { label: "Terms of Service", href: "/terms-of-service" },
+    { label: "Privacy Policy", href: "/privacy-policy" }
   ],
 }
 

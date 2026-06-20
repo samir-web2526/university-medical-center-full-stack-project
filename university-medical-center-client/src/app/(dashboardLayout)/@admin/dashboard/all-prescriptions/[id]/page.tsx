@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import PrescriptionDetailsPage from '@/components/pages/dashboardPages/AdminDashboardPages/PrescriptionDetailsPage';
 import { getPrescriptionById } from '@/services/prescription.service';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Prescription Details | UMC, JSTU",
+  };
+}
 
 export default async function PrescriptionDetails({
   params,

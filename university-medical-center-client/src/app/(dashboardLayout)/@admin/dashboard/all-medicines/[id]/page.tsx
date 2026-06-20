@@ -1,10 +1,16 @@
-
+import type { Metadata } from "next";
 import MedicineDetailsPage from '@/components/pages/dashboardPages/AdminDashboardPages/MedicineDetailsPage';
 import { getMedicineById } from '@/services';
 
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Medicine Details | UMC, JSTU",
+  };
+}
 
 export default async function MedicineDetails({
   params,

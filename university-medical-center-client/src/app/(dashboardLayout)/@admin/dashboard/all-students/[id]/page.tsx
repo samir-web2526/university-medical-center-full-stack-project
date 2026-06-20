@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import StudentDetailsPage from '@/components/pages/dashboardPages/AdminDashboardPages/StudentDetailsPage';
 import { getStudentById } from '@/services/student.service';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Student Details | UMC, JSTU",
+  };
+}
 
 export default async function StudentDetails({
   params,

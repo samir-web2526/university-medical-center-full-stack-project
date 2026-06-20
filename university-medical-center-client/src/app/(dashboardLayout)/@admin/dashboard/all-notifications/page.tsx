@@ -1,14 +1,9 @@
-// import NotificationsPage from '@/components/pages/dashboardPages/AdminDashboardPages/NotificationsPage'
-// import React from 'react'
-
-// export default function AllNotifications() {
-//   return (
-//     <div>
-//         <NotificationsPage></NotificationsPage>
-//     </div>
-//   )
-// }
+import type { Metadata } from "next";
 import NotificationsClient from "@/components/pages/dashboardPages/AdminDashboardPages/NotificationsClient";
+
+export const metadata: Metadata = {
+  title: "Notifications | UMC, JSTU",
+};
 import { getAllNotifications } from "@/services/notification.service";
 
 export default async function NotificationsPage({

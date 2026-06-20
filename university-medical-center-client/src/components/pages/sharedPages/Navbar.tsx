@@ -76,9 +76,7 @@ export function Navbar({ className, user }: NavbarProps) {
     >
       <div className="container mx-auto">
 
-        {/* Desktop */}
         <nav className="hidden lg:flex items-center justify-between h-16">
-          {/* Brand */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <Image src={logo} alt="UMC Logo" width={32} height={32} className="rounded-lg shadow-sm" />
             <div>
@@ -91,7 +89,6 @@ export function Navbar({ className, user }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Nav links */}
           <NavigationMenu className="flex-1 flex justify-center">
             <NavigationMenuList className="gap-0">
               {publicMenu.map((item) => (
@@ -107,17 +104,15 @@ export function Navbar({ className, user }: NavbarProps) {
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Right side */}
           <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
 
             {user ? (
               <div className="flex items-center gap-2">
-                {/* Dashboard button */}
                 <Button
                   asChild
                   size="sm"
-                  className="gap-1.5 bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold shadow-sm transition-opacity"
+                  className="gap-1.5 bg-linear-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold shadow-sm transition-opacity"
                 >
                   <Link href="/dashboard">
                     <LayoutDashboard size={14} />
@@ -125,7 +120,6 @@ export function Navbar({ className, user }: NavbarProps) {
                   </Link>
                 </Button>
 
-                {/* Avatar dropdown */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors outline-none">
@@ -189,7 +183,7 @@ export function Navbar({ className, user }: NavbarProps) {
                 <Button
                   asChild
                   size="sm"
-                  className="bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg px-4 font-semibold shadow-sm transition-opacity"
+                  className="bg-linear-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg px-4 font-semibold shadow-sm transition-opacity"
                 >
                   <Link href="/auth/register">Register</Link>
                 </Button>
@@ -198,7 +192,6 @@ export function Navbar({ className, user }: NavbarProps) {
           </div>
         </nav>
 
-        {/* Mobile */}
         <div className="flex lg:hidden items-center justify-between h-14">
           <Link href="/" className="flex items-center gap-2">
             <Image src={logo} alt="UMC Logo" width={28} height={28} className="rounded-lg" />
@@ -238,7 +231,6 @@ export function Navbar({ className, user }: NavbarProps) {
                 </SheetHeader>
 
                 <div className="flex flex-col gap-5 p-5">
-                  {/* Public links */}
                   <div className="flex flex-col gap-1">
                     {publicMenu.map((item) => (
                       <Link
@@ -255,7 +247,6 @@ export function Navbar({ className, user }: NavbarProps) {
 
                   {user ? (
                     <div className="flex flex-col gap-3">
-                      {/* User info */}
                       <div className="flex items-center gap-3 px-1">
                         <Avatar className="h-10 w-10">
                           {user.image ? (
@@ -279,10 +270,9 @@ export function Navbar({ className, user }: NavbarProps) {
                         </div>
                       </div>
 
-                      {/* Actions */}
                       <Button
                         asChild
-                        className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold gap-2 transition-opacity"
+                        className="w-full bg-linear-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold gap-2 transition-opacity"
                       >
                         <Link href="/dashboard">
                           <LayoutDashboard size={14} />
@@ -312,7 +302,7 @@ export function Navbar({ className, user }: NavbarProps) {
                       </Button>
                       <Button
                         asChild
-                        className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold transition-opacity"
+                        className="w-full bg-linear-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white rounded-lg font-semibold transition-opacity"
                       >
                         <Link href="/auth/register">Register</Link>
                       </Button>

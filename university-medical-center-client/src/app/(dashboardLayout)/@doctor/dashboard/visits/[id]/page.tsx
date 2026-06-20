@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { getVisitById } from "@/services";
 import VisitDetailsPage from "@/components/pages/dashboardPages/DoctorDashboardPages/VisitDetailsPage";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Visit Details | UMC, JSTU",
+  };
+}
 
 export default async function VisitDetails({
   params,
