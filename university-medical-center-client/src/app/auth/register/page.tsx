@@ -5,6 +5,9 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Building2 } from "lucide-react"
 import { register } from "@/services/auth.service"
+import Image from "next/image"
+import logo from "@/assets/images/logo.png"
+import bgImage from "@/assets/images/register.webp"
 
 type FormState = {
   fullName: string
@@ -124,228 +127,230 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-[#e8f4ff] via-[#d0e8ff] to-[#c8dff8] px-4 py-12">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden">
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+      {/* Card with background image */}
+      <div className="relative w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden">
+        <Image
+          src={bgImage}
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
 
-        <div className="bg-linear-to-r from-[#0b5394] to-[#2196f3] px-8 py-6 text-center">
-          <div className="flex items-center justify-center gap-2.5 mb-3">
-            <div className="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
-              <Building2 size={18} className="text-white" />
+        {/* Form content */}
+        <div className="relative z-10 p-10">
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm mb-4">
+              <Image src={logo} alt="UMC Logo" width={40} height={40} className="rounded-lg" />
             </div>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-white leading-tight">
-                University Medical Center
-              </p>
-              <p className="text-[11px] text-white/70 leading-tight">
-                Staff &amp; Faculty Portal
-              </p>
-            </div>
+            <h1 className="text-2xl font-bold text-white">Create Account</h1>
+            <p className="text-sm text-white/70 mt-1">Sign up for a UMC account</p>
           </div>
-          <h1 className="text-xl font-bold text-white">Create Account</h1>
-          <p className="text-sm text-white/70 mt-1">Register as a student</p>
-        </div>
 
-        <div className="px-8 py-6">
-          {serverError && (
-            <div className="mb-5 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-              {serverError}
-            </div>
-          )}
+        {serverError && (
+          <div className="mb-5 rounded-lg bg-red-500/20 backdrop-blur-sm border border-red-300/30 px-4 py-3 text-sm text-red-100">
+            {serverError}
+          </div>
+        )}
 
-          <form onSubmit={handleSubmit} noValidate className="space-y-4">
+        <form onSubmit={handleSubmit} noValidate className="space-y-4">
+          <Field id="fullName" label="Full Name" error={errors.fullName}>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              autoComplete="name"
+              value={form.fullName}
+              onChange={handleChange}
+              placeholder="e.g. Farhan Ahmed"
+              className={inputCn(!!errors.fullName)}
+            />
+          </Field>
 
-            <Field id="fullName" label="Full Name" error={errors.fullName}>
+          <Field id="email" label="Email Address" error={errors.email}>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="you@umc.edu.bd"
+              className={inputCn(!!errors.email)}
+            />
+          </Field>
+
+          <Field id="studentId" label="Student ID" error={errors.studentId}>
+            <input
+              id="studentId"
+              name="studentId"
+              type="text"
+              value={form.studentId}
+              onChange={handleChange}
+              placeholder="e.g. 2021-1-60-001"
+              className={inputCn(!!errors.studentId)}
+            />
+          </Field>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field id="department" label="Department" error={errors.department}>
               <input
-                id="fullName"
-                name="fullName"
+                id="department"
+                name="department"
                 type="text"
-                autoComplete="name"
-                value={form.fullName}
+                value={form.department}
                 onChange={handleChange}
-                placeholder="e.g. Farhan Ahmed"
-                className={inputCn(!!errors.fullName)}
+                placeholder="e.g. CSE"
+                className={inputCn(!!errors.department)}
               />
             </Field>
 
-            <Field id="email" label="Email Address" error={errors.email}>
+            <Field id="session" label="Session" error={errors.session}>
               <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@umc.edu.bd"
-                className={inputCn(!!errors.email)}
-              />
-            </Field>
-
-            <Field id="studentId" label="Student ID" error={errors.studentId}>
-              <input
-                id="studentId"
-                name="studentId"
+                id="session"
+                name="session"
                 type="text"
-                value={form.studentId}
+                value={form.session}
                 onChange={handleChange}
-                placeholder="e.g. 2021-1-60-001"
-                className={inputCn(!!errors.studentId)}
+                placeholder="e.g. 2021-22"
+                className={inputCn(!!errors.session)}
               />
             </Field>
+          </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Field id="department" label="Department" error={errors.department}>
-                <input
-                  id="department"
-                  name="department"
-                  type="text"
-                  value={form.department}
-                  onChange={handleChange}
-                  placeholder="e.g. CSE"
-                  className={inputCn(!!errors.department)}
-                />
-              </Field>
-
-              <Field id="session" label="Session" error={errors.session}>
-                <input
-                  id="session"
-                  name="session"
-                  type="text"
-                  value={form.session}
-                  onChange={handleChange}
-                  placeholder="e.g. 2021-22"
-                  className={inputCn(!!errors.session)}
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <Field
+          <div className="grid grid-cols-2 gap-3">
+            <Field
+              id="bloodGroup"
+              label={<>Blood Group <span className="text-white/40 font-normal">(optional)</span></>}
+            >
+              <select
                 id="bloodGroup"
-                label={<>Blood Group <span className="text-slate-400 font-normal">(optional)</span></>}
+                name="bloodGroup"
+                value={form.bloodGroup}
+                onChange={handleChange}
+                className={inputCn(false)}
               >
-                <select
-                  id="bloodGroup"
-                  name="bloodGroup"
-                  value={form.bloodGroup}
-                  onChange={handleChange}
-                  className={inputCn(false)}
-                >
-                  <option value="">Select</option>
-                  <option value="A_POSITIVE">A+</option>
-                  <option value="A_NEGATIVE">A−</option>
-                  <option value="B_POSITIVE">B+</option>
-                  <option value="B_NEGATIVE">B−</option>
-                  <option value="AB_POSITIVE">AB+</option>
-                  <option value="AB_NEGATIVE">AB−</option>
-                  <option value="O_POSITIVE">O+</option>
-                  <option value="O_NEGATIVE">O−</option>
-                </select>
-              </Field>
+                <option value="">Select</option>
+                <option value="A_POSITIVE">A+</option>
+                <option value="A_NEGATIVE">A−</option>
+                <option value="B_POSITIVE">B+</option>
+                <option value="B_NEGATIVE">B−</option>
+                <option value="AB_POSITIVE">AB+</option>
+                <option value="AB_NEGATIVE">AB−</option>
+                <option value="O_POSITIVE">O+</option>
+                <option value="O_NEGATIVE">O−</option>
+              </select>
+            </Field>
 
-              <Field
-                id="contactNumber"
-                label={<>Contact <span className="text-slate-400 font-normal">(optional)</span></>}
-              >
-                <input
-                  id="contactNumber"
-                  name="contactNumber"
-                  type="tel"
-                  value={form.contactNumber}
-                  onChange={handleChange}
-                  placeholder="01XXXXXXXXX"
-                  className={inputCn(false)}
-                />
-              </Field>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <Field id="presentAddress" label={<>Present Address <span className="text-slate-400 font-normal">(optional)</span></>}>
-                <input
-                  id="presentAddress"
-                  name="presentAddress"
-                  type="text"
-                  value={form.presentAddress}
-                  onChange={handleChange}
-                  placeholder="e.g. Dhaka"
-                  className={inputCn(false)}
-                />
-              </Field>
-
-              <Field id="permanentAddress" label={<>Permanent Address <span className="text-slate-400 font-normal">(optional)</span></>}>
-                <input
-                  id="permanentAddress"
-                  name="permanentAddress"
-                  type="text"
-                  value={form.permanentAddress}
-                  onChange={handleChange}
-                  placeholder="e.g. Sylhet"
-                  className={inputCn(false)}
-                />
-              </Field>
-            </div>
-
-            <Field id="guardianNumber" label={<>Guardian Number <span className="text-slate-400 font-normal">(optional)</span></>}>
+            <Field
+              id="contactNumber"
+              label={<>Contact <span className="text-white/40 font-normal">(optional)</span></>}
+            >
               <input
-                id="guardianNumber"
-                name="guardianNumber"
+                id="contactNumber"
+                name="contactNumber"
                 type="tel"
-                value={form.guardianNumber}
+                value={form.contactNumber}
                 onChange={handleChange}
                 placeholder="01XXXXXXXXX"
                 className={inputCn(false)}
               />
             </Field>
+          </div>
 
-            <Field id="password" label="Password" error={errors.password}>
-              <div className="relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  value={form.password}
-                  onChange={handleChange}
-                  placeholder="Min. 8 characters"
-                  className={inputCn(!!errors.password) + " pr-10"}
-                />
-                <EyeToggle open={showPassword} onToggle={() => setShowPassword((v) => !v)} />
-              </div>
+          <div className="grid grid-cols-2 gap-3">
+            <Field id="presentAddress" label={<>Present Address <span className="text-white/40 font-normal">(optional)</span></>}>
+              <input
+                id="presentAddress"
+                name="presentAddress"
+                type="text"
+                value={form.presentAddress}
+                onChange={handleChange}
+                placeholder="e.g. Dhaka"
+                className={inputCn(false)}
+              />
             </Field>
 
-            <Field id="confirmPassword" label="Confirm Password" error={errors.confirmPassword}>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={showConfirm ? "text" : "password"}
-                  autoComplete="new-password"
-                  value={form.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Re-enter your password"
-                  className={inputCn(!!errors.confirmPassword) + " pr-10"}
-                />
-                <EyeToggle open={showConfirm} onToggle={() => setShowConfirm((v) => !v)} />
-              </div>
+            <Field id="permanentAddress" label={<>Permanent Address <span className="text-white/40 font-normal">(optional)</span></>}>
+              <input
+                id="permanentAddress"
+                name="permanentAddress"
+                type="text"
+                value={form.permanentAddress}
+                onChange={handleChange}
+                placeholder="e.g. Sylhet"
+                className={inputCn(false)}
+              />
             </Field>
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-lg bg-linear-to-r from-[#0b5394] to-[#2196f3] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#2196f3] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
-            >
-              {loading ? "Creating account…" : "Create Account"}
-            </button>
-          </form>
+          <Field id="guardianNumber" label={<>Guardian Number <span className="text-white/40 font-normal">(optional)</span></>}>
+            <input
+              id="guardianNumber"
+              name="guardianNumber"
+              type="tel"
+              value={form.guardianNumber}
+              onChange={handleChange}
+              placeholder="01XXXXXXXXX"
+              className={inputCn(false)}
+            />
+          </Field>
 
-          <p className="mt-5 text-center text-sm text-slate-500">
-            Already have an account?{" "}
-            <Link
-              href="/auth/login"
-              className="font-medium text-[#0b5394] hover:underline underline-offset-2"
-            >
-              Sign in
-            </Link>
-          </p>
+          <Field id="password" label="Password" error={errors.password}>
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="Min. 8 characters"
+                className={inputCn(!!errors.password) + " pr-10"}
+              />
+              <EyeToggle open={showPassword} onToggle={() => setShowPassword((v) => !v)} />
+            </div>
+          </Field>
+
+          <Field id="confirmPassword" label="Confirm Password" error={errors.confirmPassword}>
+            <div className="relative">
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showConfirm ? "text" : "password"}
+                autoComplete="new-password"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                placeholder="Re-enter your password"
+                className={inputCn(!!errors.confirmPassword) + " pr-10"}
+              />
+              <EyeToggle open={showConfirm} onToggle={() => setShowConfirm((v) => !v)} />
+            </div>
+          </Field>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#0b5394] hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed transition"
+          >
+            {loading ? "Creating account…" : "Create Account"}
+          </button>
+        </form>
+
+        <p className="mt-5 text-center text-sm text-white/60">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="font-medium text-white hover:underline">
+            Sign in
+          </Link>
+        </p>
+
+        <div className="mt-4 pt-4 border-t border-white/10 text-center">
+          <Link href="/" className="text-xs text-white/50 hover:text-white/80 hover:underline">
+            ← Back to Home
+          </Link>
+        </div>
         </div>
       </div>
     </main>
@@ -353,8 +358,8 @@ export default function RegisterPage() {
 }
 
 function inputCn(hasError: boolean) {
-  return `w-full rounded-lg border px-3 py-2.5 text-sm text-gray-900 placeholder-slate-400 outline-none transition focus:ring-2 focus:ring-[#2196f3] focus:border-[#2196f3] ${
-    hasError ? "border-red-400 bg-red-50" : "border-slate-200 bg-white"
+  return `w-full rounded-lg border px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none transition focus:ring-2 focus:ring-white/50 bg-white/10 border-white/20 ${
+    hasError ? "ring-2 ring-red-400 border-red-400" : ""
   }`
 }
 
@@ -371,11 +376,11 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-medium text-slate-600 mb-1">
+      <label htmlFor={id} className="block text-xs font-medium text-white/80 mb-1">
         {label}
       </label>
       {children}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1 text-xs text-red-300">{error}</p>}
     </div>
   )
 }
@@ -386,7 +391,7 @@ function EyeToggle({ open, onToggle }: { open: boolean; onToggle: () => void }) 
       type="button"
       onClick={onToggle}
       tabIndex={-1}
-      className="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-slate-600"
+      className="absolute inset-y-0 right-3 flex items-center text-white/50 hover:text-white/80"
       aria-label={open ? "Hide password" : "Show password"}
     >
       {open ? (

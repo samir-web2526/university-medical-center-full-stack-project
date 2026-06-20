@@ -4,6 +4,9 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { login } from "@/services/auth.service"
+import Image from "next/image"
+import logo from "@/assets/images/logo.png"
+import bgImage from "@/assets/images/login1.jpg"
 
 type FormState = {
   email: string
@@ -62,27 +65,37 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <div className="mb-8 text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-100 mb-4">
-            <svg className="w-7 h-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3zm0 2c-2.67 0-8 1.337-8 4v1h16v-1c0-2.663-5.33-4-8-4z" />
-            </svg>
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
+      {/* Card with background image */}
+      <div className="relative w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden">
+        <Image
+          src={bgImage}
+          alt=""
+          fill
+          className="object-cover scale-150"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Form content */}
+        <div className="relative z-10 p-10">
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm mb-4">
+              <Image src={logo} alt="UMC Logo" width={40} height={40} className="rounded-lg" />
+            </div>
+            <h1 className="text-2xl font-bold text-white">Welcome back</h1>
+            <p className="text-sm text-white/70 mt-1">Sign in to your UMC account</p>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-          <p className="text-sm text-gray-500 mt-1">Sign in to your UMC account</p>
-        </div>
 
         {serverError && (
-          <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+          <div className="mb-4 rounded-lg bg-red-500/20 backdrop-blur-sm border border-red-300/30 px-4 py-3 text-sm text-red-100">
             {serverError}
           </div>
         )}
 
         <form onSubmit={handleSubmit} noValidate className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-1">
               Email address
             </label>
             <input
@@ -93,19 +106,19 @@ export default function LoginPage() {
               value={form.email}
               onChange={handleChange}
               placeholder="you@university.edu"
-              className={`w-full rounded-lg border px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                errors.email ? "border-red-400 bg-red-50" : "border-gray-300 bg-white"
+              className={`w-full rounded-lg border px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none transition focus:ring-2 focus:ring-white/50 bg-white/10 border-white/20 ${
+                errors.email ? "ring-2 ring-red-400 border-red-400" : ""
               }`}
             />
-            {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+            {errors.email && <p className="mt-1 text-xs text-red-300">{errors.email}</p>}
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-sm font-medium text-white/80">
                 Password
               </label>
-              <Link href="/auth/forgot-password" className="text-xs text-blue-600 hover:underline">
+              <Link href="/auth/forgot-password" className="text-xs text-white/60 hover:text-white/80 hover:underline">
                 Forgot password?
               </Link>
             </div>
@@ -118,14 +131,14 @@ export default function LoginPage() {
                 value={form.password}
                 onChange={handleChange}
                 placeholder="••••••••"
-                className={`w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-                  errors.password ? "border-red-400 bg-red-50" : "border-gray-300 bg-white"
+                className={`w-full rounded-lg border px-3 py-2.5 pr-10 text-sm text-white placeholder-white/40 outline-none transition focus:ring-2 focus:ring-white/50 bg-white/10 border-white/20 ${
+                  errors.password ? "ring-2 ring-red-400 border-red-400" : ""
                 }`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword((v) => !v)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
+                className="absolute inset-y-0 right-3 flex items-center text-white/50 hover:text-white/80"
                 tabIndex={-1}
               >
                 {showPassword ? (
@@ -141,24 +154,31 @@ export default function LoginPage() {
                 )}
               </button>
             </div>
-            {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password}</p>}
+            {errors.password && <p className="mt-1 text-xs text-red-300">{errors.password}</p>}
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition"
+            className="w-full rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-[#0b5394] hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed transition"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center text-sm text-white/60">
           Don&apos;t have an account?{" "}
-          <Link href="/auth/register" className="font-medium text-blue-600 hover:underline">
+          <Link href="/auth/register" className="font-medium text-white hover:underline">
             Create one
           </Link>
         </p>
+
+        <div className="mt-4 pt-4 border-t border-white/10 text-center">
+          <Link href="/" className="text-xs text-white/50 hover:text-white/80 hover:underline">
+            ← Back to Home
+          </Link>
+        </div>
+        </div>
       </div>
     </main>
   )
