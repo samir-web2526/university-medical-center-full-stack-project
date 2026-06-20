@@ -26,7 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useTransition } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -34,7 +34,7 @@ import { logout } from "@/services";
 
 interface NavbarProps {
   className?: string;
-  user?: { name: string; email: string; role?: string } | null;
+  user?: { name: string; email: string; role?: string; image?: string | null } | null;
 }
 
 const publicMenu = [
@@ -74,7 +74,7 @@ export function Navbar({ className, user }: NavbarProps) {
         className,
       )}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* Desktop */}
         <nav className="hidden lg:flex items-center justify-between h-16">
@@ -91,26 +91,24 @@ export function Navbar({ className, user }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Nav links — only when logged out */}
-          {!user && (
-            <NavigationMenu>
-              <NavigationMenuList className="gap-0">
-                {publicMenu.map((item) => (
-                  <NavigationMenuItem key={item.title}>
-                    <NavigationMenuLink
-                      href={item.url}
-                      className="inline-flex h-9 items-center justify-center rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
-                    >
-                      {item.title}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </NavigationMenu>
-          )}
+          {/* Nav links */}
+          <NavigationMenu className="flex-1 flex justify-center">
+            <NavigationMenuList className="gap-0">
+              {publicMenu.map((item) => (
+                <NavigationMenuItem key={item.title}>
+                  <NavigationMenuLink
+                    href={item.url}
+                    className="inline-flex h-9 items-center justify-center rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+                  >
+                    {item.title}
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* Right side */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
 
             {user ? (
@@ -132,9 +130,13 @@ export function Navbar({ className, user }: NavbarProps) {
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors outline-none">
                       <Avatar className="h-8 w-8">
-                        <AvatarFallback className="bg-[#e8f4ff] text-[#0b5394] text-xs font-bold">
-                          {user.name?.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
+                        {user.image ? (
+                          <AvatarImage src={user.image} alt={user.name} />
+                        ) : (
+                          <AvatarFallback className="bg-[#e8f4ff] text-[#0b5394] text-xs font-bold">
+                            {user.name?.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        )}
                       </Avatar>
                       <div className="hidden xl:block text-left">
                         <p className="text-xs font-semibold text-foreground leading-tight">
@@ -236,20 +238,18 @@ export function Navbar({ className, user }: NavbarProps) {
                 </SheetHeader>
 
                 <div className="flex flex-col gap-5 p-5">
-                  {/* Public links — logged out only */}
-                  {!user && (
-                    <div className="flex flex-col gap-1">
-                      {publicMenu.map((item) => (
-                        <Link
-                          key={item.title}
-                          href={item.url}
-                          className="flex items-center px-3 py-2 text-sm font-medium text-foreground/80 hover:text-[#0b5394] hover:bg-muted rounded-lg transition-colors"
-                        >
-                          {item.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  {/* Public links */}
+                  <div className="flex flex-col gap-1">
+                    {publicMenu.map((item) => (
+                      <Link
+                        key={item.title}
+                        href={item.url}
+                        className="flex items-center px-3 py-2 text-sm font-medium text-foreground/80 hover:text-[#0b5394] hover:bg-muted rounded-lg transition-colors"
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
 
                   <div className="h-px bg-border" />
 
@@ -258,9 +258,13 @@ export function Navbar({ className, user }: NavbarProps) {
                       {/* User info */}
                       <div className="flex items-center gap-3 px-1">
                         <Avatar className="h-10 w-10">
-                          <AvatarFallback className="bg-[#e8f4ff] text-[#0b5394] text-sm font-bold">
-                            {user.name?.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
+                          {user.image ? (
+                            <AvatarImage src={user.image} alt={user.name} />
+                          ) : (
+                            <AvatarFallback className="bg-[#e8f4ff] text-[#0b5394] text-sm font-bold">
+                              {user.name?.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
+                          )}
                         </Avatar>
                         <div>
                           <p className="text-sm font-semibold text-foreground">

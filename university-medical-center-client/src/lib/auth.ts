@@ -10,6 +10,7 @@ export interface CurrentUser {
   email: string;
   phone?: string | null;
   image?: string | null;
+  imageUrl?: string | null;
   role: Role;
   status: string;
 }
