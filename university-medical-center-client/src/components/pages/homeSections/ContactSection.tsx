@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquareWarning } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,14 +30,14 @@ export default function ContactSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center space-y-4 mb-14">
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#0b5394] bg-[#e8f4ff] dark:bg-[#0b5394]/20 dark:text-[#60a5fa] rounded-full px-4 py-1.5">
-            Contact Us
+            Complaint Box
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Get in Touch
+            Submit a Complaint
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Have questions? We&apos;d love to hear from you. Send us a message
-            and we&apos;ll respond as soon as possible.
+            Have an issue or feedback? Send your complaint to the admin and we
+            will address it as soon as possible.
           </p>
         </div>
 
@@ -80,6 +80,16 @@ export default function ContactSection() {
           </div>
 
           <div className="lg:col-span-3 border border-border rounded-2xl p-6 bg-card">
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-xl bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center">
+                <MessageSquareWarning size={18} className="text-[#0b5394] dark:text-[#60a5fa]" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground">Complaint Form</h3>
+                <p className="text-xs text-muted-foreground">Send your complaint to admin</p>
+              </div>
+            </div>
+
             <form className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
@@ -97,7 +107,7 @@ export default function ContactSection() {
                   </label>
                   <Input
                     type="number"
-                    placeholder="your phone number"
+                    placeholder="Your phone number"
                     className="rounded-xl border-border h-11"
                   />
                 </div>
@@ -105,20 +115,31 @@ export default function ContactSection() {
 
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">
-                  Subject
+                  Email
                 </label>
                 <Input
-                  placeholder="How can we help?"
+                  type="email"
+                  placeholder="Your email address"
                   className="rounded-xl border-border h-11"
                 />
               </div>
 
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-foreground">
-                  Message
+                  Subject
+                </label>
+                <Input
+                  placeholder="Complaint subject"
+                  className="rounded-xl border-border h-11"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-sm font-medium text-foreground">
+                  Complaint Details
                 </label>
                 <Textarea
-                  placeholder="Write your message here..."
+                  placeholder="Describe your complaint in detail..."
                   rows={4}
                   className="rounded-xl border-border resize-none"
                 />
@@ -129,7 +150,7 @@ export default function ContactSection() {
                 className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl h-11 gap-2 transition-opacity"
               >
                 <Send size={15} />
-                Send Message
+                Submit Complaint
               </Button>
             </form>
           </div>

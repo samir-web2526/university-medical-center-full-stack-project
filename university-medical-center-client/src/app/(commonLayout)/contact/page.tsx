@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactPage from "@/components/pages/NavbarPages/ContactPage";
 
 export const metadata: Metadata = {
   title: "Contact | UMC, JSTU",
@@ -6,8 +7,6 @@ export const metadata: Metadata = {
     "Get in touch with UMC, JSTU - phone, email, and location details.",
 };
 
-export default function ContactPage() {
-  return (
-    <div>ContactPage</div>
-  )
+export default function Contact() {
+  return <ContactPage />;
 }
