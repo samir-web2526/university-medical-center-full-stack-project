@@ -28,12 +28,6 @@ const values = [
       "We maintain the highest standards of medical practice and patient safety.",
   },
   {
-    icon: Users,
-    title: "Community Focus",
-    description:
-      "Dedicated to serving the JSTU community — students, faculty, and staff alike.",
-  },
-  {
     icon: Clock,
     title: "24/7 Availability",
     description:
@@ -41,14 +35,19 @@ const values = [
   },
 ];
 
-const stats = [
-  { icon: Stethoscope, value: "10+", label: "Expert Doctors" },
-  { icon: Users, value: "15,000+", label: "Patients Served" },
-  { icon: Award, value: "5+", label: "Years of Service" },
-  { icon: GraduationCap, value: "100%", label: "University Coverage" },
-];
+interface AboutPageProps {
+  doctorCount: number;
+  visitCount: number;
+}
 
-export default function AboutPage() {
+export default function AboutPage({ doctorCount, visitCount }: AboutPageProps) {
+  const stats = [
+    { icon: Stethoscope, value: doctorCount > 0 ? `${doctorCount}+` : "0", label: "Expert Doctors" },
+    { icon: Users, value: visitCount > 0 ? `${visitCount.toLocaleString()}+` : "0", label: "Patients Served" },
+    { icon: Award, value: "5+", label: "Years of Service" },
+    { icon: GraduationCap, value: "100%", label: "University Coverage" },
+  ];
+
   return (
     <div>
       {/* Hero Section */}
@@ -210,7 +209,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-6">
             {values.map((value) => (
               <div
                 key={value.title}

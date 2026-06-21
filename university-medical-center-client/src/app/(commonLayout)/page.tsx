@@ -6,6 +6,7 @@ import BlogPreviewSection from "@/components/pages/homeSections/BlogPreviewSecti
 import ContactSection from "@/components/pages/homeSections/ContactSection";
 import { getPublicDoctors } from "@/services/doctor.service";
 import { getVisits } from "@/services/visit.service";
+import { getCurrentUser } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Home | UMC, JSTU",
@@ -14,9 +15,10 @@ export const metadata: Metadata = {
 };
 
 export default async function UniversityMedicalCenterHome() {
-  const [doctorsRes, visitsRes] = await Promise.all([
+  const [doctorsRes, visitsRes, user] = await Promise.all([
     getPublicDoctors(1, 1),
     getVisits(1, 1),
+    getCurrentUser(),
   ]);
 
   const doctorCount = doctorsRes.data?.meta?.total ?? 0;
@@ -28,7 +30,7 @@ export default async function UniversityMedicalCenterHome() {
       <ServicesSection />
       <HowItWorksSection />
       <BlogPreviewSection />
-      <ContactSection />
+      <ContactSection user={user} />
     </>
   );
 }

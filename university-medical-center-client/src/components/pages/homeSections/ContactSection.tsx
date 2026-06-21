@@ -1,7 +1,11 @@
-import { Mail, Phone, MapPin, Send, MessageSquareWarning } from "lucide-react";
+"use client";
+
+import { Mail, Phone, MapPin, Send, MessageSquareWarning, LogIn, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
+import type { CurrentUser } from "@/lib/auth";
 
 const contactInfo = [
   {
@@ -24,7 +28,13 @@ const contactInfo = [
   },
 ];
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  user: CurrentUser | null;
+}
+
+export default function ContactSection({ user }: ContactSectionProps) {
+  const isStudent = user?.role === "STUDENT";
+
   return (
     <section className="py-20 bg-background">
       <div className="max-w-6xl mx-auto px-6">
@@ -90,69 +100,105 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <form className="space-y-5">
-              <div className="grid sm:grid-cols-2 gap-4">
+            {isStudent ? (
+              <form className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-medium text-foreground">
+                      Name
+                    </label>
+                    <Input
+                      placeholder="Your name"
+                      className="rounded-xl border-border h-11"
+                      defaultValue={user?.name ?? ""}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-medium text-foreground">
+                      Phone
+                    </label>
+                    <Input
+                      type="number"
+                      placeholder="Your phone number"
+                      className="rounded-xl border-border h-11"
+                      defaultValue={user?.phone ?? ""}
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-foreground">
-                    Name
+                    Email
                   </label>
                   <Input
-                    placeholder="Your name"
+                    type="email"
+                    placeholder="Your email address"
+                    className="rounded-xl border-border h-11"
+                    defaultValue={user?.email ?? ""}
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-sm font-medium text-foreground">
+                    Subject
+                  </label>
+                  <Input
+                    placeholder="Complaint subject"
                     className="rounded-xl border-border h-11"
                   />
                 </div>
+
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-foreground">
-                    Phone
+                    Complaint Details
                   </label>
-                  <Input
-                    type="number"
-                    placeholder="Your phone number"
-                    className="rounded-xl border-border h-11"
+                  <Textarea
+                    placeholder="Describe your complaint in detail..."
+                    rows={4}
+                    className="rounded-xl border-border resize-none"
                   />
                 </div>
-              </div>
 
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">
-                  Email
-                </label>
-                <Input
-                  type="email"
-                  placeholder="Your email address"
-                  className="rounded-xl border-border h-11"
-                />
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl h-11 gap-2 transition-opacity"
+                >
+                  <Send size={15} />
+                  Send Complaint
+                </Button>
+              </form>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-10 text-center space-y-5">
+                <div className="w-16 h-16 rounded-full bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center">
+                  {user ? (
+                    <AlertCircle size={28} className="text-[#0b5394] dark:text-[#60a5fa]" />
+                  ) : (
+                    <LogIn size={28} className="text-[#0b5394] dark:text-[#60a5fa]" />
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-lg font-semibold text-foreground">
+                    {user ? "Students Only" : "Login Required"}
+                  </h4>
+                  <p className="text-sm text-muted-foreground max-w-sm">
+                    {user
+                      ? "Only students can submit complaints. Please use your student account to access this feature."
+                      : "Please login as a student to submit a complaint to the admin."}
+                  </p>
+                </div>
+                {!user && (
+                  <Button
+                    asChild
+                    className="bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl px-6 gap-2"
+                  >
+                    <Link href="/auth/login">
+                      <LogIn size={16} />
+                      Login as Student
+                    </Link>
+                  </Button>
+                )}
               </div>
-
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">
-                  Subject
-                </label>
-                <Input
-                  placeholder="Complaint subject"
-                  className="rounded-xl border-border h-11"
-                />
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-sm font-medium text-foreground">
-                  Complaint Details
-                </label>
-                <Textarea
-                  placeholder="Describe your complaint in detail..."
-                  rows={4}
-                  className="rounded-xl border-border resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl h-11 gap-2 transition-opacity"
-              >
-                <Send size={15} />
-                Submit Complaint
-              </Button>
-            </form>
+            )}
           </div>
         </div>
       </div>
