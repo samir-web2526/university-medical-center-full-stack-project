@@ -41,7 +41,6 @@ const publicMenu = [
   { title: "Home", url: "/" },
   { title: "About", url: "/about" },
   { title: "Contact", url: "/contact" },
-  { title: "Medical Team", url: "/medical-team" },
   { title: "Blogs", url: "/blogs" },
 ];
 
