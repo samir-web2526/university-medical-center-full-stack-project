@@ -3,6 +3,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getAllNotifications,
+  getUnreadCount,
   markAsRead,
   deleteNotification,
 } from "@/services/notification.service";
@@ -16,6 +17,18 @@ export const notificationKeys = {
 };
 
 // Queries
+export function useUnreadNotificationCount() {
+  return useQuery({
+    queryKey: [...notificationKeys.all, "unread-count"],
+    queryFn: async () => {
+      const result = await getUnreadCount();
+      if (result.error) throw new Error(result.error);
+      return result.data?.count ?? 0;
+    },
+    refetchInterval: 30000,
+  });
+}
+
 export function useNotifications(page: number = 1, limit: number = 10) {
   return useQuery({
     queryKey: notificationKeys.list(page, limit),

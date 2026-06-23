@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, LayoutDashboard, LogOut, UserCircle } from "lucide-react";
+import { Menu, LayoutDashboard, LogOut, UserCircle, Bell } from "lucide-react";
 import Image from "next/image";
 import logo from "@/assets/images/logo.png";
 import { cn } from "@/lib/utils";
@@ -31,6 +31,7 @@ import Link from "next/link";
 import { useTransition } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { logout } from "@/services";
+import { useUnreadNotificationCount } from "@/hooks/queries/useNotificationQueries";
 
 interface NavbarProps {
   className?: string;
@@ -66,6 +67,9 @@ function LogoutButton({ mobile = false }: { mobile?: boolean }) {
 }
 
 export function Navbar({ className, user }: NavbarProps) {
+  const { data: unreadCount = 0 } = useUnreadNotificationCount();
+  const notificationUrl = user?.role === "ADMIN" ? "/dashboard/all-notifications" : "/dashboard/notifications";
+
   return (
     <header
       className={cn(
@@ -106,6 +110,20 @@ export function Navbar({ className, user }: NavbarProps) {
           <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
 
+            {user && (
+              <Link
+                href={notificationUrl}
+                className="relative flex items-center justify-center h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <Bell size={18} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+              </Link>
+            )}
+
             {user ? (
               <div className="flex items-center gap-2">
                 <Button
@@ -119,7 +137,7 @@ export function Navbar({ className, user }: NavbarProps) {
                   </Link>
                 </Button>
 
-                <DropdownMenu>
+                <DropdownMenu modal={false}>
                   <DropdownMenuTrigger asChild>
                     <button className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 hover:bg-muted transition-colors outline-none">
                       <Avatar className="h-8 w-8">
@@ -150,14 +168,7 @@ export function Navbar({ className, user }: NavbarProps) {
                           {user.role}
                         </span>
                       )}
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <Link href="/profile" className="gap-2 cursor-pointer">
-                        <UserCircle size={14} />
-                        My Profile
-                      </Link>
-                    </DropdownMenuItem>
+                    </DropdownMenuLabel>  
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="gap-2 text-destructive focus:text-destructive cursor-pointer"
@@ -201,6 +212,19 @@ export function Navbar({ className, user }: NavbarProps) {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            {user && (
+              <Link
+                href={notificationUrl}
+                className="relative flex items-center justify-center h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                <Bell size={18} />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+              </Link>
+            )}
             <Sheet>
               <SheetTrigger asChild>
                 <Button
