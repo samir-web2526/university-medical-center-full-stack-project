@@ -37,8 +37,67 @@ export default function ContactSection({ user }: ContactSectionProps) {
 
   return (
     <section className="py-20 bg-background">
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatUp {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        @keyframes btnFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .btn-float {
+          animation: btnFloat 2s ease-in-out infinite;
+          box-shadow: 0 4px 15px rgba(11, 83, 148, 0.2);
+        }
+        .btn-float:hover {
+          box-shadow: 0 8px 25px rgba(11, 83, 148, 0.4);
+        }
+        .btn-float:active {
+          transform: translateY(0);
+          animation: none;
+        }
+        .btn-float {
+          animation: btnFloat 1.5s ease-in-out infinite;
+        }
+        .btn-float:hover {
+          box-shadow: 0 8px 25px rgba(11, 83, 148, 0.4);
+        }
+        .btn-float:active {
+          transform: translateY(0) scale(0.97);
+          animation: none;
+        }
+        .contact-fade { animation: fadeUp 0.6s ease-out both; }
+        .contact-fade-d1 { animation-delay: 0.1s; }
+        .contact-fade-d2 { animation-delay: 0.2s; }
+        .contact-fade-d3 { animation-delay: 0.3s; }
+        .contact-fade-d4 { animation-delay: 0.4s; }
+        .contact-fade-d5 { animation-delay: 0.5s; }
+        .contact-info-item {
+          transition: all 0.3s ease;
+          border-radius: 0.75rem;
+          padding: 0.75rem;
+          margin: -0.75rem;
+        }
+        .contact-info-item:hover {
+          animation: floatUp 2s ease-in-out infinite;
+          background: rgba(11, 83, 148, 0.03);
+        }
+        .contact-form-card {
+          transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .contact-form-card:hover {
+          box-shadow: 0 8px 25px rgba(11, 83, 148, 0.08);
+          border-color: rgba(11, 83, 148, 0.15);
+        }
+      `}</style>
+
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center space-y-4 mb-14">
+        <div className="text-center space-y-4 mb-14 contact-fade">
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#0b5394] bg-[#e8f4ff] dark:bg-[#0b5394]/20 dark:text-[#60a5fa] rounded-full px-4 py-1.5">
             Complaint Box
           </span>
@@ -52,13 +111,14 @@ export default function ContactSection({ user }: ContactSectionProps) {
         </div>
 
         <div className="grid lg:grid-cols-5 gap-10">
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6 contact-fade contact-fade-d1">
             <div className="space-y-5">
-              {contactInfo.map((info) => (
+              {contactInfo.map((info, index) => (
                 <a
                   key={info.label}
                   href={info.href}
-                  className="flex items-start gap-4 group"
+                  className="contact-info-item flex items-start gap-4 group"
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                 >
                   <div className="w-10 h-10 rounded-xl bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center shrink-0 group-hover:bg-[#0b5394] dark:group-hover:bg-[#2196f3] transition-colors duration-300">
                     <info.icon
@@ -89,7 +149,7 @@ export default function ContactSection({ user }: ContactSectionProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-3 border border-border rounded-2xl p-6 bg-card">
+          <div className="lg:col-span-3 border border-border rounded-2xl p-6 bg-card contact-form-card contact-fade contact-fade-d2">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center">
                 <MessageSquareWarning size={18} className="text-[#0b5394] dark:text-[#60a5fa]" />
@@ -161,7 +221,7 @@ export default function ContactSection({ user }: ContactSectionProps) {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl h-11 gap-2 transition-opacity"
+                  className="btn-float w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] text-white font-semibold rounded-xl h-11 gap-2"
                 >
                   <Send size={15} />
                   Send Complaint
@@ -189,7 +249,7 @@ export default function ContactSection({ user }: ContactSectionProps) {
                 {!user && (
                   <Button
                     asChild
-                    className="bg-gradient-to-r from-[#0b5394] to-[#2196f3] hover:opacity-90 text-white font-semibold rounded-xl px-6 gap-2"
+                    className="btn-float bg-gradient-to-r from-[#0b5394] to-[#2196f3] text-white font-semibold rounded-xl px-6 gap-2"
                   >
                     <Link href="/auth/login">
                       <LogIn size={16} />

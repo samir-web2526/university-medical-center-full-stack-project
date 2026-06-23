@@ -188,17 +188,17 @@ export async function deleteDoctor(
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    const json = await res.json();
-
     if (!res.ok) {
-      return { data: null, error: json?.message || "Failed to delete doctor" };
+      let message = "Failed to delete doctor";
+      try {
+        const json = await res.json();
+        message = json?.message || message;
+      } catch {}
+      throw new Error(message);
     }
 
     return { data: null, error: null };
   } catch (err) {
-    return {
-      data: null,
-      error: err instanceof Error ? err.message : "Unexpected error",
-    };
+    throw new Error(err instanceof Error ? err.message : "Unexpected error");
   }
 }

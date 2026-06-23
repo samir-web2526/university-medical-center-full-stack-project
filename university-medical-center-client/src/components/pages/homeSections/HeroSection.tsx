@@ -46,6 +46,97 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
           transition: transform 3s ease-in-out, opacity 2s ease-in-out;
         }
       `}</style>
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes btnFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        @keyframes gentleFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+        .hero-fade { animation: fadeUp 0.7s ease-out both; }
+        .hero-fade-d1 { animation-delay: 0.1s; }
+        .hero-fade-d2 { animation-delay: 0.2s; }
+        .hero-fade-d3 { animation-delay: 0.3s; }
+        .hero-fade-d4 { animation-delay: 0.4s; }
+        .hero-fade-d5 { animation-delay: 0.5s; }
+        .hero-fade-d6 { animation-delay: 0.6s; }
+        .stat-card {
+          animation: gentleFloat 3s ease-in-out infinite;
+          transition: all 0.3s ease;
+        }
+        .stat-card:nth-child(1) { animation-delay: 0s; }
+        .stat-card:nth-child(2) { animation-delay: 0.5s; }
+        .stat-card:nth-child(3) { animation-delay: 1s; }
+        .stat-card:hover {
+          transform: translateY(-4px);
+          background: rgba(255,255,255,0.22);
+          box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .stat-card:hover .stat-icon {
+          transform: scale(1.1);
+        }
+        .stat-icon {
+          transition: all 0.3s ease;
+        }
+        .btn-hero-primary {
+          position: relative;
+          overflow: hidden;
+          animation: btnFloat 2s ease-in-out infinite;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+          z-index: 1;
+        }
+        .btn-hero-primary::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #0b5394, #0891b2, #2196f3);
+          background-size: 200% 200%;
+          animation: gradientShift 3s ease infinite;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.4s ease;
+          z-index: -1;
+        }
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .btn-hero-primary:hover::before {
+          transform: scaleX(1);
+        }
+        .btn-hero-primary:hover {
+          color: white;
+          box-shadow: 0 10px 35px rgba(11, 83, 148, 0.5);
+        }
+        .btn-hero-primary:active {
+          transform: translateY(0);
+          animation: none;
+        }
+        .btn-hero-outline {
+          transition: box-shadow 0.3s ease, background 0.3s ease;
+          animation: btnFloat 2s ease-in-out infinite;
+          animation-delay: 0.2s;
+          box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+        }
+        .btn-hero-outline:hover {
+          background: rgba(255,255,255,0.15);
+          box-shadow: 0 10px 35px rgba(255,255,255,0.25);
+        }
+        .btn-hero-outline:active {
+          transform: translateY(0);
+          animation: none;
+        }
+      `}</style>
 
       {/* Background Slides */}
       {slides.map((slide, index) => {
@@ -82,22 +173,22 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
       <div className="relative h-full max-w-6xl mx-auto px-6 flex items-center" style={{ zIndex: 4 }}>
         <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight hero-fade">
               Your Health,{" "}
               <span className="text-[#e8f4ff]">Our Priority</span>
             </h1>
 
-            <p className="text-lg text-white/80 max-w-lg leading-relaxed">
+            <p className="text-lg text-white/80 max-w-lg leading-relaxed hero-fade hero-fade-d1">
               Quality healthcare for JSTU students — from checkups to medicines.
               Visit when you need, get treated with care. Your health matters to
               us, always.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 hero-fade hero-fade-d2">
               <Button
                 asChild
                 size="lg"
-                className="bg-white text-gray-800 hover:bg-white/90 font-semibold rounded-xl px-8 shadow-lg shadow-black/10"
+                className="btn-hero-primary bg-white text-gray-800 font-semibold rounded-xl px-8"
               >
                 <Link href="/auth/register" className="gap-2">
                   Get Started
@@ -108,7 +199,7 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/40 text-white hover:bg-white/15 font-semibold rounded-xl px-8"
+                className="btn-hero-outline border-white/40 text-white hover:bg-white/15 font-semibold rounded-xl px-8"
               >
                 <Link href="/about">Learn More</Link>
               </Button>
@@ -116,12 +207,13 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
           </div>
 
           <div className="hidden lg:grid grid-cols-3 gap-4">
-            {stats.map((stat) => (
+            {stats.map((stat, index) => (
               <div
                 key={stat.label}
-                className="bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl p-6 text-center space-y-3"
+                className="stat-card bg-white/15 backdrop-blur-sm border border-white/25 rounded-2xl p-6 text-center space-y-3 hero-fade"
+                style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mx-auto">
+                <div className="stat-icon w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mx-auto">
                   <stat.icon size={22} className="text-white" />
                 </div>
                 <p className="text-2xl font-bold text-white">{stat.value}</p>

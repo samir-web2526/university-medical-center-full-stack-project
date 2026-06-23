@@ -18,17 +18,29 @@ export default function BlogDetailPage({ blog }: BlogDetailPageProps) {
 
   return (
     <section className="py-20 bg-background">
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .blog-fade { animation: fadeUp 0.6s ease-out both; }
+        .blog-fade-d1 { animation-delay: 0.1s; }
+        .blog-fade-d2 { animation-delay: 0.2s; }
+        .blog-fade-d3 { animation-delay: 0.3s; }
+        .blog-fade-d4 { animation-delay: 0.4s; }
+      `}</style>
+
       <div className="max-w-3xl mx-auto px-6">
         <Link
           href="/blogs"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-[#0b5394] dark:hover:text-[#60a5fa] transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-[#0b5394] dark:hover:text-[#60a5fa] transition-colors mb-8 blog-fade"
         >
           <ArrowLeft size={16} />
           Back to Blogs
         </Link>
 
         {blog.coverImage && (
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-8">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-8 blog-fade blog-fade-d1">
             <Image
               src={blog.coverImage}
               alt={blog.title}
@@ -39,11 +51,11 @@ export default function BlogDetailPage({ blog }: BlogDetailPageProps) {
           </div>
         )}
 
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-6 blog-fade blog-fade-d2">
           {blog.title}
         </h1>
 
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 pb-6 border-b border-border">
+        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-8 pb-6 border-b border-border blog-fade blog-fade-d2">
           {blog.author?.name && (
             <span className="flex items-center gap-1.5">
               <User size={14} />
@@ -60,7 +72,7 @@ export default function BlogDetailPage({ blog }: BlogDetailPageProps) {
           </span>
         </div>
 
-        <div className="text-base text-muted-foreground leading-relaxed whitespace-pre-wrap">
+        <div className="text-base text-muted-foreground leading-relaxed whitespace-pre-wrap blog-fade blog-fade-d3">
           {isLongContent && !readMore
             ? `${blog.content.slice(0, CONTENT_LIMIT)}...`
             : blog.content}
@@ -70,7 +82,7 @@ export default function BlogDetailPage({ blog }: BlogDetailPageProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="gap-1.5 mt-4 text-[#0b5394] dark:text-[#60a5fa] hover:bg-[#e8f4ff] dark:hover:bg-[#0b5394]/10 rounded-xl font-medium"
+            className="gap-1.5 mt-4 text-[#0b5394] dark:text-[#60a5fa] hover:bg-[#e8f4ff] dark:hover:bg-[#0b5394]/10 rounded-xl font-medium blog-fade blog-fade-d4"
             onClick={() => setReadMore(!readMore)}
           >
             {readMore ? (

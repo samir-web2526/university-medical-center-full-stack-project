@@ -68,8 +68,78 @@ export default function BlogPreviewSection({
 
   return (
     <section className="py-20 bg-background">
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatUp {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        @keyframes btnFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+        .blog-fade { animation: fadeUp 0.6s ease-out both; }
+        .blog-card {
+          animation: fadeUp 0.6s ease-out forwards;
+        }
+        .blog-card-inner {
+          transition: box-shadow 0.3s ease, border-color 0.3s ease;
+          border: 1px solid var(--border);
+          border-radius: 1rem;
+          overflow: hidden;
+          background: var(--card);
+        }
+        .blog-card-inner:hover {
+          animation: floatUp 2s ease-in-out infinite;
+          box-shadow: 0 8px 25px rgba(11, 83, 148, 0.12);
+          border-color: rgba(11, 83, 148, 0.2);
+        }
+        .btn-float {
+          position: relative;
+          overflow: hidden;
+          animation: btnFloat 2s ease-in-out infinite;
+          transition: box-shadow 0.3s ease;
+          box-shadow: 0 4px 15px rgba(11, 83, 148, 0.15);
+          z-index: 1;
+        }
+        .btn-float::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, #0b5394, #0891b2, #2196f3);
+          background-size: 200% 200%;
+          animation: gradientShift 3s ease infinite;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.4s ease;
+          z-index: -1;
+        }
+        @keyframes gradientShift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .btn-float:hover::before {
+          transform: scaleX(1);
+        }
+        .btn-float:hover {
+          color: white;
+          box-shadow: 0 10px 35px rgba(11, 83, 148, 0.5);
+        }
+        .btn-float:active {
+          transform: translateY(0);
+          animation: none;
+        }
+      `}</style>
+
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center space-y-4 mb-14">
+        <div className="text-center space-y-4 mb-14 blog-fade">
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#0b5394] bg-[#e8f4ff] dark:bg-[#0b5394]/20 dark:text-[#60a5fa] rounded-full px-4 py-1.5">
             Health Blog
           </span>
@@ -86,68 +156,71 @@ export default function BlogPreviewSection({
           {displayBlogs.map((blog, index) => (
             <div
               key={blog.id}
-              className="group border border-border rounded-2xl overflow-hidden bg-card hover:shadow-lg hover:border-[#0b5394]/20 dark:hover:border-[#2196f3]/20 transition-all duration-300"
+              className="blog-card group cursor-default"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Featured Image */}
-              <div
-                className={`relative h-44 bg-gradient-to-br ${getGradient(index)} overflow-hidden`}
-              >
-                {blog.coverImage ? (
-                  <Image
-                    src={blog.coverImage}
-                    alt={blog.title}
-                    fill
-                    unoptimized
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                ) : null}
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
-              </div>
-
-              {/* Content */}
-              <div className="p-5 space-y-3">
-                <h3 className="text-base font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-[#0b5394] dark:group-hover:text-[#60a5fa] transition-colors duration-300">
-                  {blog.title}
-                </h3>
-
-                <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                  {blog.content}
-                </p>
-
-                {/* Meta */}
-                <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
-                  {blog.author?.name && (
-                    <span className="flex items-center gap-1">
-                      <User size={12} />
-                      {blog.author.name}
-                    </span>
-                  )}
-                  <span className="flex items-center gap-1">
-                    <Calendar size={12} />
-                    {new Date(blog.createdAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </span>
+              <div className="blog-card-inner h-full flex flex-col">
+                {/* Featured Image */}
+                <div
+                  className={`relative h-44 bg-gradient-to-br ${getGradient(index)} overflow-hidden`}
+                >
+                  {blog.coverImage ? (
+                    <Image
+                      src={blog.coverImage}
+                      alt={blog.title}
+                      fill
+                      unoptimized
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  ) : null}
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
                 </div>
 
-                {/* Footer */}
-                <div className="flex items-center justify-end pt-3 border-t border-border">
-                  <Button
-                    asChild
-                    variant="ghost"
-                    size="sm"
-                    className="gap-1 text-[#0b5394] dark:text-[#60a5fa] hover:text-[#0b5394] dark:hover:text-[#60a5fa] font-semibold text-xs h-8 px-2"
-                  >
-                    <Link href={`/blogs/${blog.id}`}>
-                      Read More
-                      <ArrowRight
-                        size={12}
-                        className="group-hover:translate-x-0.5 transition-transform duration-300"
-                      />
-                    </Link>
-                  </Button>
+                {/* Content */}
+                <div className="p-5 space-y-3 flex-1 flex flex-col">
+                  <h3 className="text-base font-semibold text-foreground leading-snug line-clamp-2 group-hover:text-[#0b5394] dark:group-hover:text-[#60a5fa] transition-colors duration-300">
+                    {blog.title}
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+                    {blog.content}
+                  </p>
+
+                  {/* Meta */}
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
+                    {blog.author?.name && (
+                      <span className="flex items-center gap-1">
+                        <User size={12} />
+                        {blog.author.name}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-1">
+                      <Calendar size={12} />
+                      {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-end pt-3 border-t border-border">
+                    <Button
+                      asChild
+                      variant="ghost"
+                      size="sm"
+                      className="gap-1 text-[#0b5394] dark:text-[#60a5fa] hover:text-[#0b5394] dark:hover:text-[#60a5fa] font-semibold text-xs h-8 px-2"
+                    >
+                      <Link href={`/blogs/${blog.id}`}>
+                        Read More
+                        <ArrowRight
+                          size={12}
+                          className="group-hover:translate-x-0.5 transition-transform duration-300"
+                        />
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -155,12 +228,12 @@ export default function BlogPreviewSection({
         </div>
 
         {showViewAll && (
-          <div className="flex justify-center mt-10">
+          <div className="flex justify-center mt-10 blog-fade" style={{ animationDelay: "0.4s" }}>
             <Button
               asChild
               variant="outline"
               size="lg"
-              className="gap-2 border-[#0b5394]/30 dark:border-[#2196f3]/30 text-[#0b5394] dark:text-[#60a5fa] hover:bg-[#e8f4ff] dark:hover:bg-[#0b5394]/10 font-semibold rounded-xl px-8"
+              className="btn-float gap-2 border-[#0b5394]/30 dark:border-[#2196f3]/30 text-[#0b5394] dark:text-[#60a5fa] hover:bg-[#e8f4ff] dark:hover:bg-[#0b5394]/10 font-semibold rounded-xl px-8"
             >
               <Link href="/blogs">
                 View All Blogs

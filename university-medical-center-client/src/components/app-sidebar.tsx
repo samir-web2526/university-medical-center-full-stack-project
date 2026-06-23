@@ -70,19 +70,14 @@ const ADMIN_NAV = [
         icon: Star,
       },
       {
+        title: "All Blogs",
+        url: "/dashboard/all-blogs",
+        icon: BookOpen,
+      },
+      {
         title: "Create Doctor",
         url: "/dashboard/create-doctor",
         icon: Tag,
-      },
-      {
-        title: "Write Blog",
-        url: "/dashboard/write-blog",
-        icon: PenLine,
-      },
-      {
-        title: "My Blogs",
-        url: "/dashboard/my-blogs",
-        icon: BookOpen,
       },
       {
         title: "Update Profile",

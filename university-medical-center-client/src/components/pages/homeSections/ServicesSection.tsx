@@ -28,8 +28,36 @@ const services = [
 export default function ServicesSection() {
   return (
     <section className="py-20 bg-background">
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatUp {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .service-fade { animation: fadeUp 0.6s ease-out both; }
+        .service-fade-d1 { animation-delay: 0.1s; }
+        .service-card {
+          animation: fadeUp 0.6s ease-out forwards;
+        }
+        .service-card-inner {
+          transition: box-shadow 0.3s ease, border-color 0.3s ease;
+          border: 1px solid var(--border);
+          border-radius: 1rem;
+          padding: 1.5rem;
+          background: var(--card);
+        }
+        .service-card-inner:hover {
+          animation: floatUp 2s ease-in-out infinite;
+          box-shadow: 0 8px 25px rgba(11, 83, 148, 0.12);
+          border-color: rgba(11, 83, 148, 0.2);
+        }
+      `}</style>
+
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center space-y-4 mb-14">
+        <div className="text-center space-y-4 mb-14 service-fade">
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#0b5394] bg-[#e8f4ff] dark:bg-[#0b5394]/20 dark:text-[#60a5fa] rounded-full px-4 py-1.5">
             Our Services
           </span>
@@ -43,23 +71,26 @@ export default function ServicesSection() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <div
               key={service.title}
-              className="group border border-border rounded-2xl p-6 bg-card hover:shadow-lg hover:border-[#0b5394]/20 dark:hover:border-[#2196f3]/20 transition-all duration-300"
+              className="service-card cursor-default"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-12 h-12 rounded-xl bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center mb-4 group-hover:bg-[#0b5394] dark:group-hover:bg-[#2196f3] transition-colors duration-300">
-                <service.icon
-                  size={22}
-                  className="text-[#0b5394] dark:text-[#60a5fa] group-hover:text-white transition-colors duration-300"
-                />
+              <div className="service-card-inner group">
+                <div className="w-12 h-12 rounded-xl bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center mb-4 group-hover:bg-[#0b5394] dark:group-hover:bg-[#2196f3] transition-colors duration-300">
+                  <service.icon
+                    size={22}
+                    className="text-[#0b5394] dark:text-[#60a5fa] group-hover:text-white transition-colors duration-300"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                {service.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {service.description}
-              </p>
             </div>
           ))}
         </div>
