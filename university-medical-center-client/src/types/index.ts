@@ -2,6 +2,7 @@ export * from "./common.types";
 export * from "./auth.types";
 export * from "./student.types";
 export * from "./doctor.types";
+export * from "./admin.types";
 export * from "./visit.types";
 export * from "./medicine.types";
 export * from "./prescription.types";

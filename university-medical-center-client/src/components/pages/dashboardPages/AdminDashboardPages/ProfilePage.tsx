@@ -7,29 +7,18 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  User, Mail, ShieldCheck, Calendar,
-  Stethoscope, Activity, ArrowRight,
+  User, Mail, Phone, ShieldCheck, Calendar,
+  Stethoscope, Activity, ArrowRight, Pencil,
 } from "lucide-react";
-
-interface AdminProfile {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  status: string;
-  createdAt: string;
-}
-
-async function fetchAdminProfile(): Promise<AdminProfile | null> {
-  return null;
-}
+import { getMyProfile } from "@/services/admin.service";
+import type { AdminProfile } from "@/types";
 
 export default function AdminProfilePage() {
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchAdminProfile().then((data) => {
+    getMyProfile().then(({ data }) => {
       setProfile(data);
       setLoading(false);
     });
@@ -39,6 +28,7 @@ export default function AdminProfilePage() {
 
   const name = profile?.name ?? "Administrator";
   const email = profile?.email ?? "admin@clinic.com";
+  const phone = profile?.phone ?? "N/A";
   const status = profile?.status ?? "ACTIVE";
   const createdAt = profile?.createdAt ?? new Date().toISOString();
 
@@ -46,6 +36,7 @@ export default function AdminProfilePage() {
     { label: "Role", value: "Admin", icon: ShieldCheck, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-950/30" },
     { label: "Status", value: status, icon: Activity, color: status === "ACTIVE" ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400", bg: status === "ACTIVE" ? "bg-emerald-50 dark:bg-emerald-950/30" : "bg-red-50 dark:bg-red-950/30" },
     { label: "Email", value: email, icon: Mail, color: "text-slate-600 dark:text-slate-400", bg: "bg-slate-100 dark:bg-slate-800" },
+    { label: "Phone", value: phone, icon: Phone, color: "text-teal-600 dark:text-teal-400", bg: "bg-teal-50 dark:bg-teal-950/30" },
     { label: "Member Since", value: new Date(createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" }), icon: Calendar, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-950/30" },
   ];
 
@@ -70,6 +61,13 @@ export default function AdminProfilePage() {
               <Badge variant="outline" className={status === "ACTIVE" ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800" : "bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-800"}>
                 <ShieldCheck className="w-3 h-3 mr-1" />{status}
               </Badge>
+              <Link
+                href="/dashboard/update-profile"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+              >
+                <Pencil className="w-3 h-3" />
+                Edit Profile
+              </Link>
             </div>
           </CardContent>
         </Card>

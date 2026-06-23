@@ -35,6 +35,12 @@ export {
   deleteDoctor,
 } from "./doctor.service";
 
+// ── Admin ──────────────────────────────────────────────────────────────────
+export {
+  getMyProfile as getAdminProfile,
+  updateMyProfile as updateAdminProfile,
+} from "./admin.service";
+
 // ── Visit ───────────────────────────────────────────────────────────────────
 export {
   createVisit,

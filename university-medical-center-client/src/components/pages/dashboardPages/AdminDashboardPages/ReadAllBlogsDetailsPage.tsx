@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import {
-  ArrowLeft, Calendar, User, BookOpen, Trash2,
+  ArrowLeft, Calendar, User, Trash2,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -39,7 +39,7 @@ export default function ReadAllBlogsDetailsPage({ blog }: { blog: Blog }) {
           {blog.coverImage && (
             <div className="relative h-56 w-full">
               <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" unoptimized />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
             </div>
           )}
           <CardContent className="p-6 space-y-5">
