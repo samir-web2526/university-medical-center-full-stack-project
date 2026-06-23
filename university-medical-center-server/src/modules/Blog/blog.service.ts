@@ -68,12 +68,12 @@ const getMyBlogs = async (authorId: string) => {
     return result;
 };
 
-const updateBlog = async (id: string, authorId: string, payload: Partial<TBlog>) => {
+const updateBlog = async (id: string, authorId: string, payload: Partial<TBlog>, userRole?: string) => {
     const blog = await prisma.blog.findUnique({ where: { id } });
     if (!blog) {
         throw new AppError(status.NOT_FOUND, 'Blog not found');
     }
-    if (blog.authorId !== authorId) {
+    if (blog.authorId !== authorId && userRole !== 'ADMIN') {
         throw new AppError(status.FORBIDDEN, 'You are not the owner of this blog');
     }
 
@@ -93,12 +93,12 @@ const updateBlog = async (id: string, authorId: string, payload: Partial<TBlog>)
     return result;
 };
 
-const deleteBlog = async (id: string, authorId: string) => {
+const deleteBlog = async (id: string, authorId: string, userRole?: string) => {
     const blog = await prisma.blog.findUnique({ where: { id } });
     if (!blog) {
         throw new AppError(status.NOT_FOUND, 'Blog not found');
     }
-    if (blog.authorId !== authorId) {
+    if (blog.authorId !== authorId && userRole !== 'ADMIN') {
         throw new AppError(status.FORBIDDEN, 'You are not the owner of this blog');
     }
 

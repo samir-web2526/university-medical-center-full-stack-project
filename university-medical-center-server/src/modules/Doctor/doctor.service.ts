@@ -246,6 +246,10 @@ const deleteDoctor = async (id: string) => {
     }
 
     const result = await prisma.$transaction(async (tx) => {
+        await tx.blog.deleteMany({
+            where: { authorId: doctor.userId },
+        });
+
         const deletedDoctor = await tx.doctor.delete({
             where: { id },
             include: {

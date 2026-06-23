@@ -33,14 +33,14 @@ router.get(
 
 router.patch(
     '/:id',
-    checkAuth(Role.DOCTOR),
+    checkAuth(Role.DOCTOR, Role.ADMIN),
     validateRequest(blogValidationSchema.updateBlogValidationSchema),
     BlogController.updateBlog
 );
 
 router.delete(
     '/:id',
-    checkAuth(Role.DOCTOR),
+    checkAuth(Role.DOCTOR, Role.ADMIN),
     BlogController.deleteBlog
 );
 
