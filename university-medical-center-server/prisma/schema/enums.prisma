@@ -1,19 +1,19 @@
 enum Role {
-    STUDENT
-    DOCTOR
-    ADMIN
+  STUDENT
+  DOCTOR
+  ADMIN
 }
 
 enum UserStatus {
-    ACTIVE
-    BLOCKED
-    INACTIVE
+  ACTIVE
+  BLOCKED
+  INACTIVE
 }
 
 enum Gender {
-    MALE
-    FEMALE
-    OTHER
+  MALE
+  FEMALE
+  OTHER
 }
 
 enum PrescriptionStatus {
@@ -22,15 +22,16 @@ enum PrescriptionStatus {
 }
 
 enum BloodGroup {
-    A_POSITIVE
-    A_NEGATIVE
-    B_POSITIVE
-    B_NEGATIVE
-    AB_POSITIVE
-    AB_NEGATIVE
-    O_POSITIVE
-    O_NEGATIVE
+  A_POSITIVE
+  A_NEGATIVE
+  B_POSITIVE
+  B_NEGATIVE
+  AB_POSITIVE
+  AB_NEGATIVE
+  O_POSITIVE
+  O_NEGATIVE
 }
+
 enum NotificationType {
   MEDICINE_LOW_STOCK
   OUT_OF_STOCK

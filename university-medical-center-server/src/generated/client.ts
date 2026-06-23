@@ -45,6 +45,11 @@ export { Prisma }
  */
 export type Blog = Prisma.BlogModel
 /**
+ * Model Complaint
+ * 
+ */
+export type Complaint = Prisma.ComplaintModel
+/**
  * Model Doctor
  * 
  */

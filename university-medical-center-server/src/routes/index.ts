@@ -8,6 +8,7 @@ import { MedicineRoutes } from "../modules/Medicine/medicine.route";
 import { notificationRoutes } from "../modules/Notification/notification.route";
 import { ocrRoutes } from "../modules/Ocr/ocr.route";
 import { BlogRoutes } from "../modules/Blog/blog.route";
+import { ComplaintRoutes } from "../modules/Complaint/complaint.route";
 
 const router = Router();
 
@@ -47,6 +48,10 @@ const moduleRoutes = [
     {
         path: "/blogs",
         routes: BlogRoutes,
+    },
+    {
+        path: "/complaints",
+        routes: ComplaintRoutes,
     }
 ];
 

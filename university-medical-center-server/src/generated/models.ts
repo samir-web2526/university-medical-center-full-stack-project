@@ -9,6 +9,7 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Blog'
+export type * from './models/Complaint'
 export type * from './models/Doctor'
 export type * from './models/Medicine'
 export type * from './models/Notification'

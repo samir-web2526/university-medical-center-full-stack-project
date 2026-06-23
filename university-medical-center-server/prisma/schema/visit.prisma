@@ -1,27 +1,27 @@
 model Visit {
-  id               String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  studentId        String
-  student          Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
 
-  doctorId         String
-  doctor           Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
 
-  chiefComplaint   String
+  chiefComplaint String
 
-  bloodPressure    String?
-  temperature      Float?
-  weight           Float?
-  pulseRate        Int?
+  bloodPressure String?
+  temperature   Float?
+  weight        Float?
+  pulseRate     Int?
 
-  notes            String?
+  notes String?
 
-  prescription     Prescription?
+  prescription Prescription?
 
-  visitDate        DateTime @default(now())
+  visitDate DateTime @default(now())
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("visit")
 }

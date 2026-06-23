@@ -94,6 +94,14 @@ export const resetPasswordValidationSchema = z.object({
     }),
 });
 
+export const updateAdminProfileValidationSchema = z.object({
+    body: z.object({
+        name: z.string().optional(),
+        email: z.string().email('Invalid email address').optional(),
+        phone: z.string().optional().nullable(),
+    }).strict(),
+});
+
 export const updateUserStatusValidationSchema = z.object({
     body: z.object({
         status: z.nativeEnum(UserStatus, {
@@ -107,6 +115,7 @@ export const userValidationSchema = {
     createDoctorValidationSchema,
     changePasswordValidationSchema,
     updateDoctorProfileValidationSchema,
+    updateAdminProfileValidationSchema,
     loginUserValidationSchema,
     forgotPasswordValidationSchema,
     resetPasswordValidationSchema,

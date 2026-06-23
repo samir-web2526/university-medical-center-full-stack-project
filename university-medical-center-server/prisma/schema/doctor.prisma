@@ -1,22 +1,22 @@
 model Doctor {
-  id             String   @id @default(uuid())
+  id String @id @default(uuid())
 
-  userId         String   @unique
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  gender         Gender?
+  gender Gender?
 
-  qualification  String?
-  specialization String?
+  qualification          String?
+  specialization         String?
   bmdcRegistrationNumber String?
 
-  imageUrl       String?
+  imageUrl String?
 
-  visits         Visit[]
-  prescriptions  Prescription[]
+  visits        Visit[]
+  prescriptions Prescription[]
 
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("doctor")
 }

@@ -312,6 +312,67 @@ const resetPassword = async (payload: { token: string; newPassword: string }) =>
     return { message: 'Password reset successfully' };
 };
 
+const getMyProfile = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            role: true,
+            status: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, 'User not found');
+    }
+
+    return user;
+};
+
+const updateMyProfile = async (userId: string, payload: { name?: string; email?: string; phone?: string }) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+    });
+
+    if (!user) {
+        throw new AppError(status.NOT_FOUND, 'User not found');
+    }
+
+    if (user.role !== Role.ADMIN) {
+        throw new AppError(status.FORBIDDEN, 'Only admins can update their own profile through this endpoint');
+    }
+
+    const { name, email, phone } = payload;
+
+    const result = await prisma.user.update({
+        where: { id: userId },
+        data: {
+            ...(name && { name }),
+            ...(email && { email }),
+            ...(phone !== undefined && { phone }),
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            role: true,
+            status: true,
+            isActive: true,
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
+
+    return result;
+};
+
 const updateUserStatus = async (userId: string, payload: { status: UserStatus }) => {
     const user = await prisma.user.findUnique({
         where: { id: userId },
@@ -342,6 +403,8 @@ export const UserService = {
     createDoctor,
     changePassword,
     updateDoctorProfile,
+    getMyProfile,
+    updateMyProfile,
     login,
     refreshToken,
     forgotPassword,

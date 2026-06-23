@@ -46,6 +46,28 @@ const updateDoctorProfile = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const userId = req.user.id;
+    const result = await UserService.getMyProfile(userId);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Profile fetched successfully',
+        data: result,
+    });
+});
+
+const updateMyProfile = catchAsync(async (req: Request, res: Response) => {
+    const userId = req.user.id;
+    const result = await UserService.updateMyProfile(userId, req.body);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Profile updated successfully',
+        data: result,
+    });
+});
+
 const loginUser = catchAsync(async (req: Request, res: Response) => {
     const result = await UserService.login(req.body);
     const { refreshToken, accessToken, mustChangePassword, isProfileComplete } = result;
@@ -126,6 +148,8 @@ export const UserController = {
     createDoctor,
     changePassword,
     updateDoctorProfile,
+    getMyProfile,
+    updateMyProfile,
     loginUser,
     refreshToken,
     logoutUser,

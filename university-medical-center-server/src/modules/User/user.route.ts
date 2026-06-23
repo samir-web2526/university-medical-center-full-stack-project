@@ -8,6 +8,19 @@ import { Role } from '../../generated/enums';
 
 const router = express.Router();
 
+router.get(
+    '/profile',
+    checkAuth(Role.ADMIN),
+    UserController.getMyProfile
+);
+
+router.patch(
+    '/profile',
+    checkAuth(Role.ADMIN),
+    validateRequest(userValidationSchema.updateAdminProfileValidationSchema),
+    UserController.updateMyProfile
+);
+
 router.post(
     '/register',
     validateRequest(userValidationSchema.registerUserValidationSchema),
