@@ -1,10 +1,13 @@
 "use client";
 
-import { Mail, Phone, MapPin, Send, MessageSquareWarning, LogIn, AlertCircle } from "lucide-react";
+import { useState } from "react";
+import { Mail, Phone, MapPin, Send, MessageSquareWarning, LogIn, AlertCircle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { toast } from "sonner";
+import { createComplaint } from "@/services/complaint.service";
 import type { CurrentUser } from "@/lib/auth";
 
 const contactInfo = [
@@ -34,6 +37,39 @@ interface ContactSectionProps {
 
 export default function ContactSection({ user }: ContactSectionProps) {
   const isStudent = user?.role === "STUDENT";
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    name: user?.name ?? "",
+    phone: user?.phone ?? "",
+    email: user?.email ?? "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (key: string, value: string) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    const { error } = await createComplaint({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      subject: form.subject,
+      message: form.message,
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error(error);
+    } else {
+      toast.success("Complaint submitted successfully!");
+      setSubmitted(true);
+      setForm({ name: "", phone: "", email: "", subject: "", message: "" });
+    }
+  };
 
   return (
     <section className="py-20 bg-background">
@@ -161,7 +197,29 @@ export default function ContactSection({ user }: ContactSectionProps) {
             </div>
 
             {isStudent ? (
-              <form className="space-y-5">
+              submitted ? (
+                <div className="flex flex-col items-center justify-center py-10 text-center space-y-5">
+                  <div className="w-16 h-16 rounded-full bg-emerald-50 dark:bg-emerald-950/30 flex items-center justify-center">
+                    <CheckCircle2 size={28} className="text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="text-lg font-semibold text-foreground">
+                      Complaint Submitted!
+                    </h4>
+                    <p className="text-sm text-muted-foreground max-w-sm">
+                      Your complaint has been sent to the admin. We will address it as soon as possible.
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    className="rounded-xl gap-2"
+                    onClick={() => setSubmitted(false)}
+                  >
+                    Submit Another Complaint
+                  </Button>
+                </div>
+              ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-sm font-medium text-foreground">
@@ -170,7 +228,9 @@ export default function ContactSection({ user }: ContactSectionProps) {
                     <Input
                       placeholder="Your name"
                       className="rounded-xl border-border h-11"
-                      defaultValue={user?.name ?? ""}
+                      value={form.name}
+                      onChange={(e) => handleChange("name", e.target.value)}
+                      required
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -178,10 +238,12 @@ export default function ContactSection({ user }: ContactSectionProps) {
                       Phone
                     </label>
                     <Input
-                      type="number"
+                      type="tel"
                       placeholder="Your phone number"
                       className="rounded-xl border-border h-11"
-                      defaultValue={user?.phone ?? ""}
+                      value={form.phone}
+                      onChange={(e) => handleChange("phone", e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -194,7 +256,9 @@ export default function ContactSection({ user }: ContactSectionProps) {
                     type="email"
                     placeholder="Your email address"
                     className="rounded-xl border-border h-11"
-                    defaultValue={user?.email ?? ""}
+                    value={form.email}
+                    onChange={(e) => handleChange("email", e.target.value)}
+                    required
                   />
                 </div>
 
@@ -205,6 +269,9 @@ export default function ContactSection({ user }: ContactSectionProps) {
                   <Input
                     placeholder="Complaint subject"
                     className="rounded-xl border-border h-11"
+                    value={form.subject}
+                    onChange={(e) => handleChange("subject", e.target.value)}
+                    required
                   />
                 </div>
 
@@ -216,17 +283,31 @@ export default function ContactSection({ user }: ContactSectionProps) {
                     placeholder="Describe your complaint in detail..."
                     rows={4}
                     className="rounded-xl border-border resize-none"
+                    value={form.message}
+                    onChange={(e) => handleChange("message", e.target.value)}
+                    required
                   />
                 </div>
 
                 <Button
                   type="submit"
+                  disabled={submitting}
                   className="btn-float w-full bg-gradient-to-r from-[#0b5394] to-[#2196f3] text-white font-semibold rounded-xl h-11 gap-2"
                 >
-                  <Send size={15} />
-                  Send Complaint
+                  {submitting ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={15} />
+                      Send Complaint
+                    </>
+                  )}
                 </Button>
               </form>
+              )
             ) : (
               <div className="flex flex-col items-center justify-center py-10 text-center space-y-5">
                 <div className="w-16 h-16 rounded-full bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center">

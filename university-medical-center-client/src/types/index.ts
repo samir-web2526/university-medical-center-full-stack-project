@@ -8,3 +8,4 @@ export * from "./medicine.types";
 export * from "./prescription.types";
 export * from "./notification.types";
 export * from "./blog.types";
+export * from "./complaint.types";

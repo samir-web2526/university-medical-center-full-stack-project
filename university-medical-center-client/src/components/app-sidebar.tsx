@@ -12,6 +12,7 @@ import {
   Pill,
   PenLine,
   KeyRound,
+  MessageSquareWarning,
 } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -68,6 +69,11 @@ const ADMIN_NAV = [
         title: "All Notifications",
         url: "/dashboard/all-notifications",
         icon: Star,
+      },
+      {
+        title: "All Complaints",
+        url: "/dashboard/all-complaints",
+        icon: MessageSquareWarning,
       },
       {
         title: "All Blogs",

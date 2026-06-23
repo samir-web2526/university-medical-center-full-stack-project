@@ -90,3 +90,10 @@ export {
   updateBlog,
   deleteBlog,
 } from "./blog.service";
+
+// ── Complaint ─────────────────────────────────────────────────────────────
+export {
+  createComplaint,
+  getAllComplaints,
+  deleteComplaint,
+} from "./complaint.service";
