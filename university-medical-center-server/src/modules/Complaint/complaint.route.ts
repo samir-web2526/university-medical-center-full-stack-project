@@ -21,6 +21,19 @@ router.get(
     ComplaintController.getAllComplaints
 );
 
+router.patch(
+    '/mark-as-read/:id',
+    checkAuth(Role.ADMIN),
+    validateRequest(complaintValidationSchema.deleteValidation),
+    ComplaintController.markAsRead
+);
+
+router.patch(
+    '/mark-all-as-read',
+    checkAuth(Role.ADMIN),
+    ComplaintController.markAllAsRead
+);
+
 router.delete(
     '/:id',
     checkAuth(Role.ADMIN),

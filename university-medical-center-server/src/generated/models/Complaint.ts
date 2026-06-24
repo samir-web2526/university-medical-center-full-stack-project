@@ -31,6 +31,7 @@ export type ComplaintMinAggregateOutputType = {
   email: string | null
   subject: string | null
   message: string | null
+  isRead: boolean | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -43,6 +44,7 @@ export type ComplaintMaxAggregateOutputType = {
   email: string | null
   subject: string | null
   message: string | null
+  isRead: boolean | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +57,7 @@ export type ComplaintCountAggregateOutputType = {
   email: number
   subject: number
   message: number
+  isRead: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -69,6 +72,7 @@ export type ComplaintMinAggregateInputType = {
   email?: true
   subject?: true
   message?: true
+  isRead?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +85,7 @@ export type ComplaintMaxAggregateInputType = {
   email?: true
   subject?: true
   message?: true
+  isRead?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -93,6 +98,7 @@ export type ComplaintCountAggregateInputType = {
   email?: true
   subject?: true
   message?: true
+  isRead?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -178,6 +184,7 @@ export type ComplaintGroupByOutputType = {
   email: string
   subject: string
   message: string
+  isRead: boolean
   userId: string | null
   createdAt: Date
   updatedAt: Date
@@ -211,6 +218,7 @@ export type ComplaintWhereInput = {
   email?: Prisma.StringFilter<"Complaint"> | string
   subject?: Prisma.StringFilter<"Complaint"> | string
   message?: Prisma.StringFilter<"Complaint"> | string
+  isRead?: Prisma.BoolFilter<"Complaint"> | boolean
   userId?: Prisma.StringNullableFilter<"Complaint"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
@@ -224,6 +232,7 @@ export type ComplaintOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -240,6 +249,7 @@ export type ComplaintWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringFilter<"Complaint"> | string
   subject?: Prisma.StringFilter<"Complaint"> | string
   message?: Prisma.StringFilter<"Complaint"> | string
+  isRead?: Prisma.BoolFilter<"Complaint"> | boolean
   userId?: Prisma.StringNullableFilter<"Complaint"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
@@ -253,6 +263,7 @@ export type ComplaintOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -271,6 +282,7 @@ export type ComplaintScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Complaint"> | string
   subject?: Prisma.StringWithAggregatesFilter<"Complaint"> | string
   message?: Prisma.StringWithAggregatesFilter<"Complaint"> | string
+  isRead?: Prisma.BoolWithAggregatesFilter<"Complaint"> | boolean
   userId?: Prisma.StringNullableWithAggregatesFilter<"Complaint"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Complaint"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Complaint"> | Date | string
@@ -283,6 +295,7 @@ export type ComplaintCreateInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutComplaintsInput
@@ -295,6 +308,7 @@ export type ComplaintUncheckedCreateInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -307,6 +321,7 @@ export type ComplaintUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutComplaintsNestedInput
@@ -319,6 +334,7 @@ export type ComplaintUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,6 +347,7 @@ export type ComplaintCreateManyInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   userId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -343,6 +360,7 @@ export type ComplaintUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -354,6 +372,7 @@ export type ComplaintUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,6 +385,7 @@ export type ComplaintCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -378,6 +398,7 @@ export type ComplaintMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -390,6 +411,7 @@ export type ComplaintMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   message?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -403,6 +425,10 @@ export type ComplaintListRelationFilter = {
 
 export type ComplaintOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type ComplaintCreateNestedManyWithoutUserInput = {
@@ -454,6 +480,7 @@ export type ComplaintCreateWithoutUserInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -465,6 +492,7 @@ export type ComplaintUncheckedCreateWithoutUserInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -505,6 +533,7 @@ export type ComplaintScalarWhereInput = {
   email?: Prisma.StringFilter<"Complaint"> | string
   subject?: Prisma.StringFilter<"Complaint"> | string
   message?: Prisma.StringFilter<"Complaint"> | string
+  isRead?: Prisma.BoolFilter<"Complaint"> | boolean
   userId?: Prisma.StringNullableFilter<"Complaint"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Complaint"> | Date | string
@@ -517,6 +546,7 @@ export type ComplaintCreateManyUserInput = {
   email: string
   subject: string
   message: string
+  isRead?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -528,6 +558,7 @@ export type ComplaintUpdateWithoutUserInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -539,6 +570,7 @@ export type ComplaintUncheckedUpdateWithoutUserInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -550,6 +582,7 @@ export type ComplaintUncheckedUpdateManyWithoutUserInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   message?: Prisma.StringFieldUpdateOperationsInput | string
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -563,6 +596,7 @@ export type ComplaintSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   email?: boolean
   subject?: boolean
   message?: boolean
+  isRead?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -576,6 +610,7 @@ export type ComplaintSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   email?: boolean
   subject?: boolean
   message?: boolean
+  isRead?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -589,6 +624,7 @@ export type ComplaintSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   email?: boolean
   subject?: boolean
   message?: boolean
+  isRead?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -602,12 +638,13 @@ export type ComplaintSelectScalar = {
   email?: boolean
   subject?: boolean
   message?: boolean
+  isRead?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ComplaintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "email" | "subject" | "message" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["complaint"]>
+export type ComplaintOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "phone" | "email" | "subject" | "message" | "isRead" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["complaint"]>
 export type ComplaintInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Complaint$userArgs<ExtArgs>
 }
@@ -630,6 +667,7 @@ export type $ComplaintPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     email: string
     subject: string
     message: string
+    isRead: boolean
     userId: string | null
     createdAt: Date
     updatedAt: Date
@@ -1063,6 +1101,7 @@ export interface ComplaintFieldRefs {
   readonly email: Prisma.FieldRef<"Complaint", 'String'>
   readonly subject: Prisma.FieldRef<"Complaint", 'String'>
   readonly message: Prisma.FieldRef<"Complaint", 'String'>
+  readonly isRead: Prisma.FieldRef<"Complaint", 'Boolean'>
   readonly userId: Prisma.FieldRef<"Complaint", 'String'>
   readonly createdAt: Prisma.FieldRef<"Complaint", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Complaint", 'DateTime'>

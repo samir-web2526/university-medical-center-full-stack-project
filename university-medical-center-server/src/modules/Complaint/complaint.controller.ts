@@ -36,8 +36,29 @@ const getAllComplaints = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const markAsRead = catchAsync(async (req: Request, res: Response) => {
+    const id = req.params.id as string;
+    const result = await ComplaintService.markAsRead(id);
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Complaint marked as read',
+        data: result,
+    });
+});
+
+const markAllAsRead = catchAsync(async (req: Request, res: Response) => {
+    await ComplaintService.markAllAsRead();
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'All complaints marked as read',
+        data: null,
+    });
+});
+
 const deleteComplaint = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const result = await ComplaintService.deleteComplaint(id);
     sendResponse(res, {
         statusCode: status.OK,
@@ -50,5 +71,7 @@ const deleteComplaint = catchAsync(async (req: Request, res: Response) => {
 export const ComplaintController = {
     createComplaint,
     getAllComplaints,
+    markAsRead,
+    markAllAsRead,
     deleteComplaint,
 };

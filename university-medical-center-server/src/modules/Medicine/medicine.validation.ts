@@ -2,13 +2,13 @@ import { z } from 'zod';
 
 const createMedicineValidationSchema = z.object({
   body: z.object({
-    name: z.string(),
+    name: z.string().min(1),
     description: z.string().optional(),
-    dosageForm: z.string(),
-    strength: z.string(),
+    dosageForm: z.string().min(1),
+    strength: z.string().min(1),
     genericName: z.string().optional(),
     manufacturer: z.string().optional(),
-    stockQuantity: z.number().min(0),
+    stockQuantity: z.number().min(1),
     minimumStock: z.number().min(0),
     expiryDate: z.string().datetime().optional(),
     unitPrice: z.number().min(0).optional(),

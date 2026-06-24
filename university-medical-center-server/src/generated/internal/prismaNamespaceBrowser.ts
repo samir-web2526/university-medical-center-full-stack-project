@@ -102,6 +102,7 @@ export const ComplaintScalarFieldEnum = {
   email: 'email',
   subject: 'subject',
   message: 'message',
+  isRead: 'isRead',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

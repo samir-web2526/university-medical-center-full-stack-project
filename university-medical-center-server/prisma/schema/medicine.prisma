@@ -17,5 +17,7 @@ model Medicine {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([name, strength, dosageForm])
+
   @@map("medicine")
 }

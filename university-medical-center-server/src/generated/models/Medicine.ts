@@ -310,6 +310,7 @@ export type MedicineOrderByWithRelationInput = {
 
 export type MedicineWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name_strength_dosageForm?: Prisma.MedicineNameStrengthDosageFormCompoundUniqueInput
   AND?: Prisma.MedicineWhereInput | Prisma.MedicineWhereInput[]
   OR?: Prisma.MedicineWhereInput[]
   NOT?: Prisma.MedicineWhereInput | Prisma.MedicineWhereInput[]
@@ -326,7 +327,7 @@ export type MedicineWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Medicine"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Medicine"> | Date | string
   prescriptions?: Prisma.PrescriptionMedicineListRelationFilter
-}, "id">
+}, "id" | "name_strength_dosageForm">
 
 export type MedicineOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -482,6 +483,12 @@ export type MedicineUncheckedUpdateManyInput = {
   unitPrice?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type MedicineNameStrengthDosageFormCompoundUniqueInput = {
+  name: string
+  strength: string
+  dosageForm: string
 }
 
 export type MedicineCountOrderByAggregateInput = {

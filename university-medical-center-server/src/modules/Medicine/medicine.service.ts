@@ -7,31 +7,84 @@ import { Prisma } from '../../generated/client';
 import { NotificationType } from '../../generated/enums';
 import { MedicineSearchableFields } from './medicine.constant';
 
+// const createMedicine = async (payload: TMedicine) => {
+
+//     if (payload.minimumStock >= payload.stockQuantity) {
+//         throw new AppError(
+//             status.BAD_REQUEST,
+//             'Minimum stock cannot be greater than or equal to stock quantity'
+//         );
+//     }
+
+//     if (
+//         payload.expiryDate &&
+//         new Date(payload.expiryDate) <= new Date()
+//     ) {
+//         throw new AppError(
+//             status.BAD_REQUEST,
+//             'Expiry date must be in the future'
+//         );
+//     }
+
+//     const result = await prisma.medicine.create({
+//         data: payload,
+//     });
+
+//     return result;
+// };
 const createMedicine = async (payload: TMedicine) => {
+  payload.dosageForm = payload.dosageForm?.trim().toLowerCase();
+  payload.strength = payload.strength?.trim().toLowerCase();
+  payload.name = payload.name?.trim();
 
-    if (payload.minimumStock >= payload.stockQuantity) {
-        throw new AppError(
-            status.BAD_REQUEST,
-            'Minimum stock cannot be greater than or equal to stock quantity'
-        );
-    }
+  if (payload.minimumStock > payload.stockQuantity) {
+    throw new AppError(
+      status.BAD_REQUEST,
+      'Minimum stock cannot be greater than stock quantity'
+    );
+  }
 
-    if (
-        payload.expiryDate &&
-        new Date(payload.expiryDate) <= new Date()
-    ) {
-        throw new AppError(
-            status.BAD_REQUEST,
-            'Expiry date must be in the future'
-        );
-    }
+  if (
+    payload.expiryDate &&
+    new Date(payload.expiryDate) <= new Date()
+  ) {
+    throw new AppError(
+      status.BAD_REQUEST,
+      'Expiry date must be in the future'
+    );
+  }
 
-    const result = await prisma.medicine.create({
-        data: payload,
+  const existingMedicine = await prisma.medicine.findFirst({
+    where: {
+      name: payload.name,
+      strength: payload.strength,
+      dosageForm: payload.dosageForm,
+    },
+  });
+
+  if (existingMedicine) {
+    return await prisma.medicine.update({
+      where: {
+        id: existingMedicine.id,
+      },
+      data: {
+        stockQuantity: {
+          increment: payload.stockQuantity,
+        },
+        unitPrice: payload.unitPrice,
+        expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : null,
+      },
     });
+  }
 
-    return result;
+  return await prisma.medicine.create({
+    data: {
+      ...payload,
+      expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : null,
+    },
+  });
 };
+
 const getAllMedicines = async (filters: any, options: any) => {
     const { limit, page, skip, sortBy, sortOrder } = paginationHelper.calculatePagination(options);
     const { searchTerm, ...filterData } = filters;
@@ -115,7 +168,10 @@ const updateMedicine = async (
     const result = await prisma.$transaction(async (tx) => {
         const updated = await tx.medicine.update({
             where: { id },
-            data: payload,
+            data: {
+                ...payload,
+                expiryDate: payload.expiryDate ? new Date(payload.expiryDate) : payload.expiryDate,
+            },
         });
 
         await checkLowStockAndNotify(tx, id);

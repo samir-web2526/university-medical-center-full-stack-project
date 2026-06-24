@@ -60,6 +60,28 @@ const getAllComplaints = async (options: any, filters: any) => {
     };
 };
 
+const markAsRead = async (id: string) => {
+    const complaint = await prisma.complaint.findUnique({ where: { id } });
+
+    if (!complaint) {
+        throw new AppError(status.NOT_FOUND, 'Complaint not found');
+    }
+
+    return prisma.complaint.update({
+        where: { id },
+        data: { isRead: true },
+    });
+};
+
+const markAllAsRead = async () => {
+    await prisma.complaint.updateMany({
+        where: { isRead: false },
+        data: { isRead: true },
+    });
+
+    return null;
+};
+
 const deleteComplaint = async (id: string) => {
     const complaint = await prisma.complaint.findUnique({
         where: { id },
@@ -77,5 +99,7 @@ const deleteComplaint = async (id: string) => {
 export const ComplaintService = {
     createComplaint,
     getAllComplaints,
+    markAsRead,
+    markAllAsRead,
     deleteComplaint,
 };

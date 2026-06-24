@@ -18,8 +18,9 @@ export const doctorValidationSchema = {
         body: z.object({
             gender: z.enum(Gender).optional(),
             status: z.enum(UserStatus).optional(),
-            qualification: z.string().optional(),
-            specialization: z.string().optional(),
+            qualification: z.string().optional().nullable(),
+            specialization: z.string().optional().nullable(),
+            bmdcRegistrationNumber: z.string().optional().nullable(),
         }).strict(),
     }),
 };
