@@ -27,6 +27,8 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { useUnreadNotificationCount } from "@/hooks/queries/useNotificationQueries";
+import { useUnreadComplaintCount } from "@/hooks/queries/useComplaintQueries";
 
 const ADMIN_NAV = [
   {
@@ -65,7 +67,7 @@ const ADMIN_NAV = [
         url: "/dashboard/all-medicines",
         icon: Pill,
       },
-       {
+      {
         title: "All Notifications",
         url: "/dashboard/all-notifications",
         icon: Star,
@@ -232,13 +234,36 @@ export function AppSidebar({
   userEmail,
   ...props
 }: AppSidebarProps) {
+  const { data: unreadNotifications = 0 } = useUnreadNotificationCount();
+  const { data: unreadComplaintsData } = useUnreadComplaintCount();
+  const unreadComplaints = unreadComplaintsData ?? 0;
+
   let navItem = null;
   if (userRole === "ADMIN") {
-    navItem = ADMIN_NAV;
+    navItem = ADMIN_NAV.map((group) => ({
+      ...group,
+      items: group.items.map((item) => {
+        if (item.url === "/dashboard/all-notifications") {
+          return { ...item, badge: unreadNotifications };
+        }
+        if (item.url === "/dashboard/all-complaints") {
+          return { ...item, badge: unreadComplaints };
+        }
+        return item;
+      }),
+    }));
   } else if (userRole === "DOCTOR") {
     navItem = DOCTOR_NAV;
   } else {
-    navItem = STUDENT_NAV;
+    navItem = STUDENT_NAV.map((group) => ({
+      ...group,
+      items: group.items.map((item) => {
+        if (item.url === "/dashboard/notifications") {
+          return { ...item, badge: unreadNotifications };
+        }
+        return item;
+      }),
+    }));
   }
   return (
     <Sidebar collapsible="icon" data-role={userRole} {...props}>

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CheckCheck, Inbox, Sparkles } from "lucide-react";
 import { getMyNotifications, markAllAsRead, markAsRead, getUnreadCount } from "@/services/notification.service";
+import { notificationKeys } from "@/hooks/queries/useNotificationQueries";
 import type { Notification } from "@/types";
 import { toast } from "sonner";
 
@@ -13,6 +15,7 @@ export default function AllNotificationsPage() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     let cancelled = false;
@@ -35,6 +38,7 @@ export default function AllNotificationsPage() {
       toast.success("All marked as read");
       setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
       setUnreadCount(0);
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
     }
   };
 
@@ -43,6 +47,7 @@ export default function AllNotificationsPage() {
     if (!error) {
       setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, isRead: true } : n));
       setUnreadCount((prev) => Math.max(0, prev - 1));
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
     }
   };
 

@@ -2,7 +2,9 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { deleteComplaint, markComplaintAsRead, markAllComplaintsAsRead } from "@/services/complaint.service";
+import { complaintKeys } from "@/hooks/queries/useComplaintQueries";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -40,6 +42,7 @@ export default function AllComplaintsPage({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const complaints = initialData?.data ?? [];
   const total = initialData?.meta?.total ?? 0;
@@ -56,6 +59,7 @@ export default function AllComplaintsPage({
       const result = await markComplaintAsRead(id);
       if (result.error) throw new Error(result.error);
       toast.success("Complaint marked as read");
+      queryClient.invalidateQueries({ queryKey: complaintKeys.unreadCount });
       refresh();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to mark as read");
@@ -69,6 +73,7 @@ export default function AllComplaintsPage({
       const result = await markAllComplaintsAsRead();
       if (result.error) throw new Error(result.error);
       toast.success("All complaints marked as read");
+      queryClient.invalidateQueries({ queryKey: complaintKeys.unreadCount });
       refresh();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to mark all as read");

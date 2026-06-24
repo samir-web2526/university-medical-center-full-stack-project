@@ -28,10 +28,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useTransition } from "react";
+import { useTransition, useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { logout } from "@/services";
-import { useUnreadNotificationCount } from "@/hooks/queries/useNotificationQueries";
+import { getUnreadCount } from "@/services/notification.service";
 
 interface NavbarProps {
   className?: string;
@@ -67,8 +67,22 @@ function LogoutButton({ mobile = false }: { mobile?: boolean }) {
 }
 
 export function Navbar({ className, user }: NavbarProps) {
-  const { data: unreadCount = 0 } = useUnreadNotificationCount();
+  const [unreadCount, setUnreadCount] = useState(0);
   const notificationUrl = user?.role === "ADMIN" ? "/dashboard/all-notifications" : "/dashboard/notifications";
+
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    getUnreadCount().then((res) => {
+      if (!cancelled) setUnreadCount(res.data?.count ?? 0);
+    });
+    const interval = setInterval(() => {
+      getUnreadCount().then((res) => {
+        if (!cancelled) setUnreadCount(res.data?.count ?? 0);
+      });
+    }, 30000);
+    return () => { cancelled = true; clearInterval(interval); };
+  }, [user]);
 
   return (
     <header

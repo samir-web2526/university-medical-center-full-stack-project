@@ -81,6 +81,32 @@ export async function getAllComplaints(
   }
 }
 
+export async function getUnreadComplaintCount(): Promise<
+  ServiceResponse<{ count: number }>
+> {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API}/api/v1/complaints/unread-count`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to fetch unread count" };
+    }
+
+    return { data: json?.data ?? null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
 export async function markComplaintAsRead(
   id: string
 ): Promise<ServiceResponse<Complaint>> {

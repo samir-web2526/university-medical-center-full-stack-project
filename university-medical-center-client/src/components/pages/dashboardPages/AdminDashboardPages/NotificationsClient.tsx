@@ -2,11 +2,13 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   markAllAsRead,
   markAsRead,
   deleteNotification,
 } from "@/services/notification.service";
+import { notificationKeys } from "@/hooks/queries/useNotificationQueries";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,6 +61,7 @@ export default function NotificationsClient({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   const notifications = initialData?.data ?? [];
   const total = initialData?.meta?.total ?? 0;
@@ -74,6 +77,7 @@ export default function NotificationsClient({
     try {
       const result = await markAsRead(id);
       if (result.error) throw new Error(result.error);
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
       refresh();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to mark as read");
@@ -87,6 +91,7 @@ export default function NotificationsClient({
       const result = await markAllAsRead();
       if (result.error) throw new Error(result.error);
       toast.success("All notifications marked as read");
+      queryClient.invalidateQueries({ queryKey: notificationKeys.all });
       refresh();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Failed to mark all as read");

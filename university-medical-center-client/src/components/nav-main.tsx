@@ -1,6 +1,7 @@
 "use client"
 
 import { ChevronRight, type LucideIcon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
 import {
   Collapsible,
@@ -29,6 +30,7 @@ export function NavMain({
     items?: {
       title: string
       url: string
+      badge?: number
     }[]
   }[]
 }) {
@@ -56,8 +58,13 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
+                        <a href={subItem.url} className="flex items-center justify-between w-full">
                           <span>{subItem.title}</span>
+                          {subItem.badge != null && subItem.badge > 0 && (
+                            <Badge className="bg-red-500 hover:bg-red-500 text-white text-[10px] h-4 min-w-4 flex items-center justify-center rounded-full px-1 ml-auto">
+                              {subItem.badge > 99 ? "99+" : subItem.badge}
+                            </Badge>
+                          )}
                         </a>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
