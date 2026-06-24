@@ -260,7 +260,7 @@ export default function ContactPage() {
           ))}
         </div>
 
-        <div className="mt-12 relative overflow-hidden rounded-2xl bg-gradient-to-r from-red-500 via-red-600 to-rose-600 dark:from-red-600 dark:via-red-700 dark:to-rose-700 p-8 anim-emergency hover:shadow-2xl hover:shadow-red-500/20 transition-all duration-500">
+        <div className="mt-12 relative overflow-hidden rounded-2xl bg-linear-to-r from-red-500 via-red-600 to-rose-600 dark:from-red-600 dark:via-red-700 dark:to-rose-700 p-8 anim-emergency hover:shadow-2xl hover:shadow-red-500/20 transition-all duration-500">
           <div className="absolute -top-12 -right-12 w-40 h-40 bg-white/10 rounded-full anim-float" />
           <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-white/10 rounded-full anim-float delay-300" />
           <div className="absolute top-1/2 right-8 w-16 h-16 bg-white/5 rounded-full anim-float delay-500" />

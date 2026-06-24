@@ -168,7 +168,18 @@ export async function updateDoctor(
     const json = await res.json();
 
     if (!res.ok) {
-      throw new Error(json?.message || "Failed to update doctor");
+      let message = json?.message || "Failed to update doctor";
+      const sources = json?.errorSources || json?.errors;
+      if (Array.isArray(sources) && sources.length > 0) {
+        const details = sources
+          .map((e: { path?: string; message: string }) => {
+            const field = (e.path || "").replace(/--->/g, ".");
+            return field ? `${field}: ${e.message}` : e.message;
+          })
+          .join("; ");
+        message = details;
+      }
+      throw new Error(message);
     }
 
     return { data: json?.data ?? null, error: null };

@@ -64,7 +64,50 @@ export default function BlogPreviewSection({
     );
   }
 
-  if (isError || displayBlogs.length === 0) return null;
+  if (isError || displayBlogs.length === 0) {
+    return (
+      <section className="py-20 bg-background">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center space-y-4 mb-14">
+            <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#0b5394] bg-[#e8f4ff] dark:bg-[#0b5394]/20 dark:text-[#60a5fa] rounded-full px-4 py-1.5">
+              Health Blog
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Latest Health Articles
+            </h2>
+          </div>
+
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <div className="w-24 h-24 rounded-full bg-[#e8f4ff] dark:bg-[#0b5394]/20 flex items-center justify-center mb-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-[#0b5394] dark:text-[#60a5fa]"
+              >
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                <path d="m15 5 3 3" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-foreground mb-2">
+              No Blogs Yet
+            </h3>
+            <p className="text-muted-foreground max-w-sm">
+              We haven&apos;t published any health articles yet. Check back soon
+              for updates, tips, and wellness advice from our medical team.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-background">
