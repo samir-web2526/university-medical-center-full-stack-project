@@ -81,6 +81,56 @@ export async function getAllComplaints(
   }
 }
 
+export async function markComplaintAsRead(
+  id: string
+): Promise<ServiceResponse<Complaint>> {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API}/api/v1/complaints/mark-as-read/${id}`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to mark complaint as read" };
+    }
+
+    return { data: json?.data ?? null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
+export async function markAllComplaintsAsRead(): Promise<ServiceResponse<null>> {
+  try {
+    const token = await getToken();
+
+    const res = await fetch(`${API}/api/v1/complaints/mark-all-as-read`, {
+      method: "PATCH",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      return { data: null, error: json?.message || "Failed to mark all complaints as read" };
+    }
+
+    return { data: null, error: null };
+  } catch (err) {
+    return {
+      data: null,
+      error: err instanceof Error ? err.message : "Unexpected error",
+    };
+  }
+}
+
 export async function deleteComplaint(
   id: string
 ): Promise<ServiceResponse<null>> {

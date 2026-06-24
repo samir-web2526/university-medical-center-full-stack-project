@@ -9,6 +9,7 @@ export interface Complaint {
   email: string;
   subject: string;
   message: string;
+  isRead: boolean;
   userId?: string | null;
   createdAt: string;
   updatedAt: string;

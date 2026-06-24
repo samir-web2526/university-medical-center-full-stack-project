@@ -2,12 +2,12 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { deleteComplaint } from "@/services/complaint.service";
+import { deleteComplaint, markComplaintAsRead, markAllComplaintsAsRead } from "@/services/complaint.service";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  MessageSquareWarning, Trash2,
+  MessageSquareWarning, Trash2, CheckCheck,
   ChevronLeft, ChevronRight, Mail, Phone, User,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -44,10 +44,36 @@ export default function AllComplaintsPage({
   const complaints = initialData?.data ?? [];
   const total = initialData?.meta?.total ?? 0;
   const totalPages = Math.max(1, Math.ceil(total / limit));
+  const unreadCount = complaints.filter((c) => !c.isRead).length;
 
   function refresh() {
     startTransition(() => router.refresh());
   }
+
+  const handleMarkOne = async (id: string) => {
+    setLoadingId(id);
+    try {
+      const result = await markComplaintAsRead(id);
+      if (result.error) throw new Error(result.error);
+      toast.success("Complaint marked as read");
+      refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to mark as read");
+    } finally {
+      setLoadingId(null);
+    }
+  };
+
+  const handleMarkAll = async () => {
+    try {
+      const result = await markAllComplaintsAsRead();
+      if (result.error) throw new Error(result.error);
+      toast.success("All complaints marked as read");
+      refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to mark all as read");
+    }
+  };
 
   const handleDelete = async (id: string) => {
     setLoadingId(id);
@@ -86,12 +112,27 @@ export default function AllComplaintsPage({
               </div>
               Student Complaints
             </h1>
-            {total > 0 && (
+            {unreadCount > 0 && (
               <Badge className="bg-amber-600 hover:bg-amber-600 text-white text-xs h-5 min-w-5 flex items-center justify-center rounded-full px-1.5">
-                {total}
+                {unreadCount}
               </Badge>
             )}
           </div>
+          {unreadCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 gap-1.5 h-8 text-xs"
+              onClick={handleMarkAll}
+              disabled={isPending}
+            >
+              {isPending
+                ? <span className="w-3 h-3 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
+                : <CheckCheck className="w-3.5 h-3.5" />
+              }
+              Mark all as read
+            </Button>
+          )}
         </div>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 overflow-hidden">
@@ -125,8 +166,11 @@ export default function AllComplaintsPage({
                     <div
                       key={complaint.id}
                       className={cn(
-                        "px-4 sm:px-6 py-4 group transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50",
-                        isThisLoading && "opacity-50"
+                        "px-4 sm:px-6 py-4 group transition-colors",
+                        isThisLoading && "opacity-50",
+                        complaint.isRead
+                          ? "bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                          : "bg-amber-50/50 dark:bg-amber-950/20 hover:bg-amber-50 dark:hover:bg-amber-950/30"
                       )}
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -139,6 +183,9 @@ export default function AllComplaintsPage({
                               <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                                 {complaint.name}
                               </p>
+                              {!complaint.isRead && (
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-amber-500" />
+                              )}
                               <p className="text-xs text-slate-400 dark:text-slate-500">
                                 {timeAgo(complaint.createdAt)}
                               </p>
@@ -163,14 +210,26 @@ export default function AllComplaintsPage({
                             </div>
                           </div>
                         </div>
-                        <button
-                          onClick={() => handleDelete(complaint.id)}
-                          disabled={isThisLoading}
-                          className="p-1 rounded text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
-                          title="Delete complaint"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                          {!complaint.isRead && (
+                            <button
+                              onClick={() => handleMarkOne(complaint.id)}
+                              disabled={isThisLoading}
+                              className="p-1 rounded text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-950/30 transition-colors"
+                              title="Mark as read"
+                            >
+                              <CheckCheck className="w-4 h-4" />
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleDelete(complaint.id)}
+                            disabled={isThisLoading}
+                            className="p-1 rounded text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
+                            title="Delete complaint"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   );
