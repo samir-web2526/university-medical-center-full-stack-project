@@ -86,6 +86,10 @@ const ADMIN_NAV = [
         icon: Tag,
       },
       {
+        title: "Add Medicine",
+        url: "/dashboard/create-medicine"
+      },
+      {
         title: "Update Profile",
         url: "/dashboard/update-profile",
         icon: Tag,

@@ -27,6 +27,7 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
   const status = doctor.user?.status;
 
   const [edits, setEdits] = useState<Partial<AdminUpdateDoctorRequest>>({});
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const form: AdminUpdateDoctorRequest = {
     gender: doctor.gender,
@@ -60,7 +61,6 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this doctor? This action cannot be undone.")) return;
     try {
       await deleteMutation.mutateAsync(doctor.id);
       toast.success("Doctor deleted successfully");
@@ -202,16 +202,24 @@ export default function DoctorDetailsPage({ doctor }: { doctor: Doctor }) {
         </Card>
 
         <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 border-l-4 border-l-red-500">
-          <CardContent className="py-5">
+          <CardContent className="py-5 px-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Delete Doctor</h3>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Permanently remove this doctor from the system</p>
               </div>
-              <Button variant="destructive" className="gap-2" onClick={handleDelete} disabled={deleteMutation.isPending}>
-                {deleteMutation.isPending ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Trash2 className="w-3.5 h-3.5" />}
-                Delete
-              </Button>
+              {!showDeleteConfirm ? (
+                <Button variant="outline" size="sm" onClick={() => setShowDeleteConfirm(true)} className="border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 gap-1.5">
+                  <Trash2 className="w-4 h-4" /> Delete
+                </Button>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Button variant="outline" size="sm" onClick={() => setShowDeleteConfirm(false)} className="border-slate-200 dark:border-slate-700">Cancel</Button>
+                  <Button size="sm" onClick={handleDelete} disabled={deleteMutation.isPending} className="bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 gap-1.5">
+                    <Trash2 className="w-4 h-4" /> {deleteMutation.isPending ? "Deleting..." : "Confirm Delete"}
+                  </Button>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

@@ -36,6 +36,8 @@ export default function CreateMedicinePage() {
 
   const handleSubmit = async () => {
     if (!form.name) return toast.error("Medicine name is required");
+    if (!form.dosageForm) return toast.error("Dosage form is required");
+    if (!form.strength) return toast.error("Strength is required");
     if (form.stockQuantity <= 0) return toast.error("Stock quantity must be greater than 0");
     if (form.minimumStock < 0) return toast.error("Minimum stock cannot be negative");
 
@@ -105,13 +107,13 @@ export default function CreateMedicinePage() {
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Dosage Form
+                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Dosage Form *
                   </Label>
                   <Input placeholder="e.g. Capsule, Tablet, Syrup" value={form.dosageForm ?? ""} onChange={(e) => set("dosageForm", e.target.value)} className={inputClass} />
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Strength
+                    <FlaskConical className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" /> Strength *
                   </Label>
                   <Input placeholder="e.g. 20mg, 500mg" value={form.strength ?? ""} onChange={(e) => set("strength", e.target.value)} className={inputClass} />
                 </div>

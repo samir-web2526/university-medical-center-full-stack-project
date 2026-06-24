@@ -27,8 +27,8 @@ export interface CreateMedicineRequest {
   genericName?: string;
   description?: string;
   manufacturer?: string;
-  dosageForm?: string;
-  strength?: string;
+  dosageForm: string;
+  strength: string;
   expiryDate?: string;
   unitPrice?: number;
   stockQuantity: number;
