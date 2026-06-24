@@ -60,6 +60,13 @@ const getAllComplaints = async (options: any, filters: any) => {
     };
 };
 
+const getUnreadCount = async () => {
+    const count = await prisma.complaint.count({
+        where: { isRead: false },
+    });
+    return { count };
+};
+
 const markAsRead = async (id: string) => {
     const complaint = await prisma.complaint.findUnique({ where: { id } });
 
@@ -99,6 +106,7 @@ const deleteComplaint = async (id: string) => {
 export const ComplaintService = {
     createComplaint,
     getAllComplaints,
+    getUnreadCount,
     markAsRead,
     markAllAsRead,
     deleteComplaint,

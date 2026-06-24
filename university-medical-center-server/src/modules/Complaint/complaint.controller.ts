@@ -36,6 +36,16 @@ const getAllComplaints = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getUnreadCount = catchAsync(async (req: Request, res: Response) => {
+    const result = await ComplaintService.getUnreadCount();
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Unread complaint count retrieved',
+        data: result,
+    });
+});
+
 const markAsRead = catchAsync(async (req: Request, res: Response) => {
     const id = req.params.id as string;
     const result = await ComplaintService.markAsRead(id);
@@ -71,6 +81,7 @@ const deleteComplaint = catchAsync(async (req: Request, res: Response) => {
 export const ComplaintController = {
     createComplaint,
     getAllComplaints,
+    getUnreadCount,
     markAsRead,
     markAllAsRead,
     deleteComplaint,

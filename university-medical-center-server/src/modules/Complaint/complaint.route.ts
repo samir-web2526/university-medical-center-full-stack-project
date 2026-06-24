@@ -21,6 +21,12 @@ router.get(
     ComplaintController.getAllComplaints
 );
 
+router.get(
+    '/unread-count',
+    checkAuth(Role.ADMIN),
+    ComplaintController.getUnreadCount
+);
+
 router.patch(
     '/mark-as-read/:id',
     checkAuth(Role.ADMIN),
