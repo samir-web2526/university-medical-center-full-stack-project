@@ -34,7 +34,7 @@ export default async function CommonLayout({
           user ? { name: user.name, email: user.email, role: user.role, image: imageUrl } : null
         }
       />
-      <main className="flex-1 w-full">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-2">
         <TooltipProvider>{children}</TooltipProvider>
       </main>
       <Footer />

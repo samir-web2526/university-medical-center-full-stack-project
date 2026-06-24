@@ -91,7 +91,7 @@ export function Navbar({ className, user }: NavbarProps) {
         className,
       )}
     >
-      <div className="container mx-auto">
+      <div className="w-full px-4">
 
         <nav className="hidden lg:flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5 shrink-0">

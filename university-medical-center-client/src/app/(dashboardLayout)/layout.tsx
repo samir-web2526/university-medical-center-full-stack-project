@@ -56,7 +56,7 @@ const user = await getCurrentUser()
 
         </header>
 
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-4">
+        <div className="flex flex-1 flex-col gap-4 px-2 py-4 max-w-7xl mx-auto w-full">
           {user.role === "ADMIN" && admin}
           {user.role === "STUDENT" && student}
           {user.role === "DOCTOR" && doctor}
