@@ -33,7 +33,7 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
   ];
 
   return (
-    <section className="relative overflow-hidden h-[600px] md:h-[650px]">
+    <section className="relative overflow-hidden h-150 md:h-162.5">
       <style jsx>{`
         .slide-image {
           transition: transform 10s ease-in-out, opacity 2s ease-in-out;
@@ -164,7 +164,7 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
       })}
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" style={{ zIndex: 2 }} />
+      <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/50 to-black/30" style={{ zIndex: 2 }} />
 
       {/* Pattern Overlay */}
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDJ2LTJoMzRtMCA4djItSDJ2LTJoMzRtMCA4djItSDJ2LTJoMzRNMzQgMmgydjJoLTJ6bTggMGgydjJoLTJ6bTggMGgydjJoLTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20" style={{ zIndex: 3 }} />
@@ -243,7 +243,7 @@ export default function HeroSection({ doctorCount, visitCount }: HeroSectionProp
       </div>
 
       {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" style={{ zIndex: 3 }} />
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-linear-to-t from-background to-transparent" style={{ zIndex: 3 }} />
     </section>
   );
 }

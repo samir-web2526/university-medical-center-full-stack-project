@@ -87,7 +87,7 @@ export function Navbar({ className, user }: NavbarProps) {
                 University Medical Center
               </p>
               <p className="text-[10px] text-muted-foreground leading-tight">
-                Staff &amp; Faculty Portal
+                Student Health Portal
               </p>
             </div>
           </Link>
@@ -117,7 +117,7 @@ export function Navbar({ className, user }: NavbarProps) {
               >
                 <Bell size={18} />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-4.5 h-4.5 px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
                     {unreadCount > 99 ? "99+" : unreadCount}
                   </span>
                 )}
@@ -219,7 +219,7 @@ export function Navbar({ className, user }: NavbarProps) {
               >
                 <Bell size={18} />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-4.5 h-4.5 px-1 text-[10px] font-bold text-white bg-destructive rounded-full shadow-sm">
                     {unreadCount > 99 ? "99+" : unreadCount}
                   </span>
                 )}
@@ -247,7 +247,7 @@ export function Navbar({ className, user }: NavbarProps) {
                         University Medical Center
                       </p>
                       <p className="text-[10px] text-muted-foreground font-normal leading-tight">
-                        Staff &amp; Faculty Portal
+                Student Health Portal
                       </p>
                     </div>
                   </SheetTitle>
