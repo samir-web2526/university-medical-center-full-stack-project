@@ -41,6 +41,8 @@ export default function BlogDetailsPage({ blog }: BlogDetailsPageProps) {
   const [title, setTitle] = useState(blog.title);
   const [content, setContent] = useState(blog.content);
   const [saving, setSaving] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(
@@ -165,9 +167,9 @@ export default function BlogDetailsPage({ blog }: BlogDetailsPageProps) {
   };
 
   const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete "${blog.title}"?`)) return;
-
+    setDeleting(true);
     const { error } = await deleteBlog(blog.id);
+    setDeleting(false);
     if (error) {
       toast.error(error);
       return;
@@ -219,15 +221,6 @@ export default function BlogDetailsPage({ blog }: BlogDetailsPageProps) {
                 >
                   <PenLine className="w-3.5 h-3.5" />
                   Edit
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="bg-red-500/10 hover:bg-red-500/20 text-red-400 backdrop-blur-sm border border-red-500/20 gap-1.5 rounded-xl h-9"
-                  onClick={handleDelete}
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  Delete
                 </Button>
               </div>
             )}
@@ -445,6 +438,48 @@ export default function BlogDetailsPage({ blog }: BlogDetailsPageProps) {
               )}
             </Button>
           </div>
+        )}
+
+        {!isEditing && (
+          <Card className="border-0 shadow-md dark:bg-slate-900 dark:border-slate-800 border-l-4 border-l-red-500">
+            <CardContent className="py-5 px-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Delete Blog</h3>
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">Permanently remove this blog post</p>
+                </div>
+                {!showDeleteConfirm ? (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 gap-1.5"
+                  >
+                    <Trash2 className="w-4 h-4" /> Delete
+                  </Button>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowDeleteConfirm(false)}
+                      className="border-slate-200 dark:border-slate-700"
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={handleDelete}
+                      disabled={deleting}
+                      className="bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 gap-1.5"
+                    >
+                      <Trash2 className="w-4 h-4" /> {deleting ? "Deleting..." : "Confirm Delete"}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         )}
       </div>
     </div>
