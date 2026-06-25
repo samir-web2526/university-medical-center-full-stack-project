@@ -68,12 +68,14 @@ const createPrescription = async (
                 doctorId: doctor.id,
                 diagnosis: payload.diagnosis,
                 advice: payload.advice,
+                investigation: payload.investigation,
                 prescriptionImage: payload.prescriptionImage,
 
                 medicines: {
                     create: payload.medicines.map((med) => ({
                         medicineId: med.medicineId,
                         dosage: med.dosage,
+                        frequency: med.frequency,
                         duration: med.duration,
                         quantity: med.quantity ?? 1,
                         instructions: med.instructions,
