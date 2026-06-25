@@ -37,7 +37,7 @@ const createVisit = async (userId: string, payload: any) => {
             pulseRate: payload.pulseRate,
             notes: payload.notes,
 
-            visitDate: payload.visitDate || new Date(),
+            visitDate: payload.visitDate ? new Date(payload.visitDate) : new Date(),
         },
         include: {
             student: {
