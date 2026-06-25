@@ -126,6 +126,14 @@ export default function UpdateProfilePage() {
   };
 
   const handleSubmit = async () => {
+    if (form.phone && !/^\d{11}$/.test(form.phone)) {
+      toast.error("Phone number must be exactly 11 digits");
+      return;
+    }
+    if (form.guardianNumber && !/^\d{11}$/.test(form.guardianNumber)) {
+      toast.error("Guardian number must be exactly 11 digits");
+      return;
+    }
     setSaving(true);
     const payload: UpdateStudentProfileRequest = {
       gender: (form.gender as "MALE" | "FEMALE" | "OTHER") || undefined,
@@ -298,6 +306,7 @@ export default function UpdateProfilePage() {
                     value={form.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
                     placeholder="Enter phone"
+                    maxLength={11}
                   />
                 </div>
               </div>
@@ -379,6 +388,7 @@ export default function UpdateProfilePage() {
                   value={form.guardianNumber}
                   onChange={(e) => handleChange("guardianNumber", e.target.value)}
                   placeholder="Enter guardian's contact number"
+                  maxLength={11}
                 />
               </div>
             </div>

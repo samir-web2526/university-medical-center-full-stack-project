@@ -78,6 +78,14 @@ export default function RegisterPageClient() {
       newErrors.confirmPassword = "Passwords do not match"
     }
 
+    if (form.contactNumber && !/^\d{11}$/.test(form.contactNumber)) {
+      newErrors.contactNumber = "Contact number must be exactly 11 digits"
+    }
+
+    if (form.guardianNumber && !/^\d{11}$/.test(form.guardianNumber)) {
+      newErrors.guardianNumber = "Guardian number must be exactly 11 digits"
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -236,7 +244,7 @@ export default function RegisterPageClient() {
                   </select>
                 </Field>
                 <Field id="contactNumber" label={<>Contact <span className="text-gray-400 font-normal">(opt)</span></>}>
-                  <input id="contactNumber" name="contactNumber" type="tel" value={form.contactNumber} onChange={handleChange} placeholder="01XXXXXXXXX" className={inputCn(false)} />
+                  <input id="contactNumber" name="contactNumber" type="tel" value={form.contactNumber} onChange={handleChange} placeholder="01XXXXXXXXX" className={inputCn(false)} maxLength={11} />
                 </Field>
               </div>
 
@@ -252,7 +260,7 @@ export default function RegisterPageClient() {
 
               {/* Guardian */}
               <Field id="guardianNumber" label={<>Guardian Number <span className="text-gray-400 font-normal">(opt)</span></>}>
-                <input id="guardianNumber" name="guardianNumber" type="tel" value={form.guardianNumber} onChange={handleChange} placeholder="01XXXXXXXXX" className={inputCn(false)} />
+                <input id="guardianNumber" name="guardianNumber" type="tel" value={form.guardianNumber} onChange={handleChange} placeholder="01XXXXXXXXX" className={inputCn(false)} maxLength={11} />
               </Field>
 
               {/* Password */}

@@ -53,6 +53,10 @@ export default function ContactSection({ user }: ContactSectionProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.phone && !/^\d{11}$/.test(form.phone)) {
+      toast.error("Phone number must be exactly 11 digits");
+      return;
+    }
     setSubmitting(true);
     const { error } = await createComplaint({
       name: form.name,
@@ -243,6 +247,7 @@ export default function ContactSection({ user }: ContactSectionProps) {
                       className="rounded-xl border-border h-11"
                       value={form.phone}
                       onChange={(e) => handleChange("phone", e.target.value)}
+                      maxLength={11}
                       required
                     />
                   </div>

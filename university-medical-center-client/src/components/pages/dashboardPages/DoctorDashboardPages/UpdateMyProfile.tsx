@@ -121,6 +121,10 @@ export default function UpdateMyProfile() {
   };
 
   const handleSubmit = async () => {
+    if (form.phone && !/^\d{11}$/.test(form.phone)) {
+      toast.error("Phone number must be exactly 11 digits");
+      return;
+    }
     setSaving(true);
 
     const payload: UpdateDoctorProfileRequest = {
@@ -152,6 +156,7 @@ export default function UpdateMyProfile() {
     placeholder: string;
     icon: React.ElementType;
     type?: string;
+    maxLength?: number;
   }[] = [
     {
       key: "name",
@@ -183,6 +188,7 @@ export default function UpdateMyProfile() {
       placeholder: "+880 1XXX-XXXXXX",
       icon: Phone,
       type: "tel",
+      maxLength: 11,
     },
   ];
 
@@ -303,6 +309,7 @@ export default function UpdateMyProfile() {
                   placeholder={field.placeholder}
                   value={form[field.key]}
                   onChange={(e) => handleChange(field.key, e.target.value)}
+                  maxLength={field.maxLength}
                   className="h-11 border-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 focus-visible:ring-emerald-500 focus-visible:border-emerald-400 rounded-xl transition-colors"
                 />
               </div>
