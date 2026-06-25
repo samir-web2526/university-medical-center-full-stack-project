@@ -25,13 +25,13 @@ export const registerUserValidationSchema = z.object({
             session: z.string({
                 message: 'Session is required',
             }),
-            phone: z.string().optional().nullable(),
+            phone: z.string().regex(/^\d{0,11}$/, 'Phone number must be at most 11 digits').optional().nullable(),
             gender: z.nativeEnum(Gender).optional().nullable(),
             bloodGroup: z.nativeEnum(BloodGroup).optional().nullable(),
             imageUrl: z.string().url('Invalid image URL').optional().nullable(),
             presentAddress: z.string().optional().nullable(),
             permanentAddress: z.string().optional().nullable(),
-            guardianNumber: z.string().optional().nullable(),
+            guardianNumber: z.string().regex(/^\d{0,11}$/, 'Guardian number must be at most 11 digits').optional().nullable(),
         }).optional(),
     }),
 });
@@ -61,7 +61,7 @@ export const changePasswordValidationSchema = z.object({
 
 export const updateDoctorProfileValidationSchema = z.object({
     body: z.object({
-        phone: z.string().optional().nullable(),
+        phone: z.string().regex(/^\d{0,11}$/, 'Phone number must be at most 11 digits').optional().nullable(),
         gender: z.nativeEnum(Gender).optional().nullable(),
         qualification: z.string().optional().nullable(),
         specialization: z.string().optional().nullable(),
@@ -98,7 +98,7 @@ export const updateAdminProfileValidationSchema = z.object({
     body: z.object({
         name: z.string().optional(),
         email: z.string().email('Invalid email address').optional(),
-        phone: z.string().optional().nullable(),
+        phone: z.string().regex(/^\d{0,11}$/, 'Phone number must be at most 11 digits').optional().nullable(),
     }).strict(),
 });
 

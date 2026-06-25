@@ -6,7 +6,7 @@ export const doctorValidationSchema = {
         body: z.object({
             name: z.string().optional(),
             email: z.string().email().optional(),
-            phone: z.string().optional(),
+            phone: z.string().regex(/^\d{0,11}$/, 'Phone number must be at most 11 digits').optional(),
             gender: z.enum(Gender).optional(),
             qualification: z.string().optional(),
             specialization: z.string().optional(),

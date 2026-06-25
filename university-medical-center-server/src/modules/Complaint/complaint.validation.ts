@@ -3,7 +3,7 @@ import { z } from 'zod';
 const createComplaintValidationSchema = z.object({
     body: z.object({
         name: z.string({ message: 'Name is required' }),
-        phone: z.string({ message: 'Phone is required' }),
+        phone: z.string({ message: 'Phone is required' }).regex(/^\d{11}$/, 'Phone number must be exactly 11 digits'),
         email: z.string({ message: 'Email is required' }),
         subject: z.string({ message: 'Subject is required' }),
         message: z.string({ message: 'Message is required' }),
