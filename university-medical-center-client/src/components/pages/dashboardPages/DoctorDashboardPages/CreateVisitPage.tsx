@@ -138,7 +138,7 @@ export default function CreateVisitPage() {
         ...(form.notes.trim() && { notes: form.notes.trim() }),
       };
 
-      const { data, error } = await createVisit(payload);
+      const { error } = await createVisit(payload);
 
       if (error) {
         toast.error(error);
@@ -207,7 +207,7 @@ export default function CreateVisitPage() {
                   placeholder="Enter student ID"
                   value={form.studentId}
                   onChange={(e) => updateField("studentId", e.target.value)}
-                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.studentId ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.studentId ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
                 />
                 {errors.studentId && <p className="text-xs text-red-500">{errors.studentId}</p>}
               </div>
@@ -233,7 +233,7 @@ export default function CreateVisitPage() {
                 placeholder="e.g. Headache for 3 days, Fever and cough…"
                 value={form.chiefComplaint}
                 onChange={(e) => updateField("chiefComplaint", e.target.value)}
-                className={`resize-none border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 min-h-20 dark:bg-slate-800 dark:text-white rounded-xl ${errors.chiefComplaint ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                className={`resize-none border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 min-h-20 dark:bg-slate-800 dark:text-white rounded-xl ${errors.chiefComplaint ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
               />
               {errors.chiefComplaint && <p className="text-xs text-red-500">{errors.chiefComplaint}</p>}
             </div>
@@ -263,7 +263,7 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 120/80 mmHg"
                   value={form.bloodPressure}
                   onChange={(e) => updateField("bloodPressure", e.target.value)}
-                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.bloodPressure ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.bloodPressure ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
                 />
                 {errors.bloodPressure && <p className="text-xs text-red-500">{errors.bloodPressure}</p>}
               </div>
@@ -277,7 +277,7 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 98.6"
                   value={form.temperature}
                   onChange={(e) => updateField("temperature", e.target.value)}
-                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.temperature ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.temperature ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
                 />
                 {errors.temperature && <p className="text-xs text-red-500">{errors.temperature}</p>}
               </div>
@@ -291,7 +291,7 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 65"
                   value={form.weight}
                   onChange={(e) => updateField("weight", e.target.value)}
-                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.weight ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.weight ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
                 />
                 {errors.weight && <p className="text-xs text-red-500">{errors.weight}</p>}
               </div>
@@ -305,7 +305,7 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 72"
                   value={form.pulseRate}
                   onChange={(e) => updateField("pulseRate", e.target.value)}
-                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.pulseRate ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.pulseRate ? "border-red-400! bg-red-50! dark:bg-red-950/30!" : ""}`}
                 />
                 {errors.pulseRate && <p className="text-xs text-red-500">{errors.pulseRate}</p>}
               </div>

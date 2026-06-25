@@ -225,6 +225,10 @@ export default function CreatePrescriptionPage() {
       return toast.error("Please select a medicine for each entry");
     if (form.medicines.some((m) => m.medicineId && (!m.quantity || Number(m.quantity) < 1)))
       return toast.error("Quantity is required for each medicine");
+    if (form.medicines.some((m) => m.medicineId && !m.dosage.trim()))
+      return toast.error("Dosage is required for each medicine");
+    if (form.medicines.some((m) => m.medicineId && !m.duration.trim()))
+      return toast.error("Duration is required for each medicine");
 
     setSaving(true);
     try {
