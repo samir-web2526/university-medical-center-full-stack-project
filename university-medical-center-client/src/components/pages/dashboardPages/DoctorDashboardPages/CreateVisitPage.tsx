@@ -42,6 +42,8 @@ interface VisitForm {
   visitDate: string;
 }
 
+type FormErrors = Partial<Record<keyof VisitForm, string>>;
+
 export default function CreateVisitPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -57,24 +59,74 @@ export default function CreateVisitPage() {
     notes: "",
     visitDate: new Date().toISOString().slice(0, 10),
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [saving, setSaving] = useState(false);
 
   const updateField = <K extends keyof VisitForm>(
     key: K,
     value: VisitForm[K]
-  ) => setForm((prev) => ({ ...prev, [key]: value }));
+  ) => {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
+
+  function validate(): boolean {
+    const e: FormErrors = {};
+
+    if (!form.studentId.trim()) {
+      e.studentId = "Student ID is required";
+    }
+
+    if (!form.chiefComplaint.trim()) {
+      e.chiefComplaint = "Chief complaint is required";
+    }
+
+    if (form.bloodPressure.trim() && !/^\d{1,3}\s*\/\s*\d{1,3}(\s*mmHg)?$/i.test(form.bloodPressure.trim())) {
+      e.bloodPressure = "Format: 120/80 or 120/80 mmHg";
+    }
+
+    if (form.temperature.trim()) {
+      const t = Number(form.temperature);
+      if (isNaN(t)) {
+        e.temperature = "Temperature must be a number";
+      } else if (t < 90 || t > 110) {
+        e.temperature = "Temperature must be between 90°F and 110°F";
+      }
+    }
+
+    if (form.weight.trim()) {
+      const w = Number(form.weight);
+      if (isNaN(w)) {
+        e.weight = "Weight must be a number";
+      } else if (w < 1 || w > 500) {
+        e.weight = "Weight must be between 1 kg and 500 kg";
+      }
+    }
+
+    if (form.pulseRate.trim()) {
+      const p = Number(form.pulseRate);
+      if (isNaN(p)) {
+        e.pulseRate = "Pulse rate must be a number";
+      } else if (!Number.isInteger(p)) {
+        e.pulseRate = "Pulse rate must be a whole number";
+      } else if (p < 20 || p > 300) {
+        e.pulseRate = "Pulse rate must be between 20 and 300 bpm";
+      }
+    }
+
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
 
   const handleSubmit = async () => {
-    if (!form.studentId.trim())
-      return toast.error("Please enter a student ID");
-    if (!form.chiefComplaint.trim())
-      return toast.error("Chief complaint is required");
+    if (!validate()) return;
 
     setSaving(true);
     try {
       const payload = {
         studentId: form.studentId.trim(),
         chiefComplaint: form.chiefComplaint.trim(),
+        visitDate: form.visitDate,
         ...(form.bloodPressure.trim() && {
           bloodPressure: form.bloodPressure.trim(),
         }),
@@ -84,7 +136,6 @@ export default function CreateVisitPage() {
         ...(form.weight.trim() && { weight: Number(form.weight) }),
         ...(form.pulseRate.trim() && { pulseRate: Number(form.pulseRate) }),
         ...(form.notes.trim() && { notes: form.notes.trim() }),
-        ...(form.visitDate && { visitDate: form.visitDate }),
       };
 
       const { data, error } = await createVisit(payload);
@@ -150,14 +201,15 @@ export default function CreateVisitPage() {
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
-                  Student ID
+                  Student ID <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   placeholder="Enter student ID"
                   value={form.studentId}
                   onChange={(e) => updateField("studentId", e.target.value)}
-                  className="h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl"
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.studentId ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
                 />
+                {errors.studentId && <p className="text-xs text-red-500">{errors.studentId}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
@@ -175,14 +227,15 @@ export default function CreateVisitPage() {
             <div className="space-y-1.5">
               <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
-                Chief Complaint
+                Chief Complaint <span className="text-red-500">*</span>
               </Label>
               <Textarea
                 placeholder="e.g. Headache for 3 days, Fever and cough…"
                 value={form.chiefComplaint}
                 onChange={(e) => updateField("chiefComplaint", e.target.value)}
-                className="resize-none border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 min-h-20 dark:bg-slate-800 dark:text-white rounded-xl"
+                className={`resize-none border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 min-h-20 dark:bg-slate-800 dark:text-white rounded-xl ${errors.chiefComplaint ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
               />
+              {errors.chiefComplaint && <p className="text-xs text-red-500">{errors.chiefComplaint}</p>}
             </div>
           </CardContent>
         </Card>
@@ -210,21 +263,23 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 120/80 mmHg"
                   value={form.bloodPressure}
                   onChange={(e) => updateField("bloodPressure", e.target.value)}
-                  className="h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl"
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.bloodPressure ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
                 />
+                {errors.bloodPressure && <p className="text-xs text-red-500">{errors.bloodPressure}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                   <Thermometer className="w-3.5 h-3.5 text-teal-500 dark:text-teal-400" />
-                  Temperature
+                  Temperature (°F)
                 </Label>
                 <Input
                   type="number"
                   placeholder="e.g. 98.6"
                   value={form.temperature}
                   onChange={(e) => updateField("temperature", e.target.value)}
-                  className="h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl"
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.temperature ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
                 />
+                {errors.temperature && <p className="text-xs text-red-500">{errors.temperature}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
@@ -236,8 +291,9 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 65"
                   value={form.weight}
                   onChange={(e) => updateField("weight", e.target.value)}
-                  className="h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl"
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.weight ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
                 />
+                {errors.weight && <p className="text-xs text-red-500">{errors.weight}</p>}
               </div>
               <div className="space-y-1.5">
                 <Label className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
@@ -249,8 +305,9 @@ export default function CreateVisitPage() {
                   placeholder="e.g. 72"
                   value={form.pulseRate}
                   onChange={(e) => updateField("pulseRate", e.target.value)}
-                  className="h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl"
+                  className={`h-10 border-slate-200 dark:border-slate-700 focus-visible:ring-emerald-500 dark:bg-slate-800 dark:text-white rounded-xl ${errors.pulseRate ? "!border-red-400 !bg-red-50 dark:!bg-red-950/30" : ""}`}
                 />
+                {errors.pulseRate && <p className="text-xs text-red-500">{errors.pulseRate}</p>}
               </div>
             </div>
           </CardContent>
