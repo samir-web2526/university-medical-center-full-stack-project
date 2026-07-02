@@ -78,12 +78,12 @@ export default function RegisterPageClient() {
       newErrors.confirmPassword = "Passwords do not match"
     }
 
-    if (form.contactNumber && !/^\d{11}$/.test(form.contactNumber)) {
-      newErrors.contactNumber = "Contact number must be exactly 11 digits"
+    if (form.contactNumber && !/^\d{0,11}$/.test(form.contactNumber)) {
+      newErrors.contactNumber = "Contact number must be at most 11 digits"
     }
 
-    if (form.guardianNumber && !/^\d{11}$/.test(form.guardianNumber)) {
-      newErrors.guardianNumber = "Guardian number must be exactly 11 digits"
+    if (form.guardianNumber && !/^\d{0,11}$/.test(form.guardianNumber)) {
+      newErrors.guardianNumber = "Guardian number must be at most 11 digits"
     }
 
     setErrors(newErrors)
@@ -128,7 +128,11 @@ export default function RegisterPageClient() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) {
     const { name, value } = e.target
-    setForm((prev) => ({ ...prev, [name]: value }))
+    let sanitized = value
+    if (name === "contactNumber" || name === "guardianNumber") {
+      sanitized = value.replace(/\D/g, "").slice(0, 11)
+    }
+    setForm((prev) => ({ ...prev, [name]: sanitized }))
     setErrors((prev) => ({ ...prev, [name]: undefined }))
   }
 

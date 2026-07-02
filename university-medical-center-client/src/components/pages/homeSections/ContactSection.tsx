@@ -48,6 +48,9 @@ export default function ContactSection({ user }: ContactSectionProps) {
   });
 
   const handleChange = (key: string, value: string) => {
+    if (key === "phone") {
+      value = value.replace(/\D/g, "").slice(0, 11);
+    }
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 

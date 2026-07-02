@@ -73,6 +73,9 @@ export default function UpdateProfilePage() {
   }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
+    if (key === "phone" || key === "guardianNumber") {
+      value = value.replace(/\D/g, "").slice(0, 11);
+    }
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
@@ -126,12 +129,12 @@ export default function UpdateProfilePage() {
   };
 
   const handleSubmit = async () => {
-    if (form.phone && !/^\d{11}$/.test(form.phone)) {
-      toast.error("Phone number must be exactly 11 digits");
+    if (form.phone && !/^\d{0,11}$/.test(form.phone)) {
+      toast.error("Phone number must be at most 11 digits");
       return;
     }
-    if (form.guardianNumber && !/^\d{11}$/.test(form.guardianNumber)) {
-      toast.error("Guardian number must be exactly 11 digits");
+    if (form.guardianNumber && !/^\d{0,11}$/.test(form.guardianNumber)) {
+      toast.error("Guardian number must be at most 11 digits");
       return;
     }
     setSaving(true);

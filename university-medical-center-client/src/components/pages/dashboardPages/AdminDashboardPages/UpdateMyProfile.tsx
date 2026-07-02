@@ -43,12 +43,15 @@ export default function UpdateMyProfile() {
   }, []);
 
   const handleChange = (key: keyof FormState, value: string) => {
+    if (key === "phone") {
+      value = value.replace(/\D/g, "").slice(0, 11);
+    }
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleSubmit = async () => {
-    if (form.phone && !/^\d{11}$/.test(form.phone)) {
-      toast.error("Phone number must be exactly 11 digits");
+    if (form.phone && !/^\d{0,11}$/.test(form.phone)) {
+      toast.error("Phone number must be at most 11 digits");
       return;
     }
     setSaving(true);
@@ -96,7 +99,7 @@ export default function UpdateMyProfile() {
     {
       key: "phone",
       label: "Contact Number",
-      placeholder: "+880 1XXX-XXXXXX",
+      placeholder: "01XXXXXXXXX",
       icon: Phone,
       type: "tel",
       maxLength: 11,
