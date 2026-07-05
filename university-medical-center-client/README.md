@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# University Medical Center Frontend
 
-## Getting Started
+A modern, full-stack medical center management platform designed to streamline patient care, provide powerful management tools for administrators and doctors, and ensure seamless platform oversight.
 
-First, run the development server:
+## 📖 Table of Contents
+- [About The Project](#about-the-project)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation & Setup](#installation--setup)
+- [Environment Variables](#environment-variables)
+- [Folder Structure](#folder-structure)
+- [Dependencies](#dependencies)
+- [Live Demo](#live-demo)
+- [Contact](#contact)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## About The Project
+University Medical Center is an intuitive healthcare management system that allows patients to seamlessly book appointments, view medical records, and interact with doctors. The platform includes role-based dashboards, medicine and inventory management for administrators, appointment scheduling features, and a modern responsive UI for an enhanced user experience across all devices.
+
+## Features
+- **Role-based dashboards** for Admin, Doctor, and Patient
+- **Advanced medicine inventory** and management system
+- **Secure JWT-based authentication**
+- **Fully responsive modern UI** with sleek animations
+- **Form handling and robust validation**
+- **Data visualization** using interactive charts
+- **Protected routes** and intuitive navigation
+- **Real-time appointments** and schedule management
+
+## Tech Stack
+**Frontend**
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+
+**UI & Libraries**
+- Shadcn UI
+- Radix UI
+- Lucide React
+- Recharts
+
+**Form & Validation**
+- React Hook Form
+- Zod
+- @hookform/resolvers
+
+**Data Fetching & State**
+- @tanstack/react-query
+
+## Installation & Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/samir-web2526/university-medical-center-client.git
+   ```
+
+2. **Navigate to the project folder**
+   ```bash
+   cd university-medical-center-client
+   ```
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Setup environment variables**
+   Create a `.env` file in the root directory and add the following:
+   ```env
+   # App URL
+   NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+   # Backend API
+   NEXT_PUBLIC_BACKEND_URL="http://localhost:5000"
+   ```
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+## Environment Variables
+| Variable Name | Description |
+|---|---|
+| `NEXT_PUBLIC_APP_URL` | Frontend application base URL |
+| `NEXT_PUBLIC_BACKEND_URL` | Backend API base URL |
+
+## Folder Structure
+```
+university-medical-center-client/
+│
+├── src/
+│   ├── app/                 # Next.js App Router pages & layouts
+│   ├── components/          # Reusable UI components & pages (e.g. Dashboard)
+│   ├── hooks/               # Custom React hooks (e.g. useMedicineQueries)
+│   ├── lib/                 # Utility functions and configurations
+│   ├── services/            # API service functions
+│   └── types/               # TypeScript definitions
+│
+├── public/                  # Static assets
+├── package.json             # Dependencies and scripts
+└── next.config.ts           # Next.js configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dependencies
+```json
+"dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "@tanstack/react-query": "^5.101.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^1.17.0",
+    "next": "16.2.9",
+    "next-themes": "^0.4.6",
+    "radix-ui": "^1.5.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.78.0",
+    "recharts": "^3.8.1",
+    "shadcn": "^4.11.0",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.6.0",
+    "tw-animate-css": "^1.4.0",
+    "zod": "^4.4.3"
+}
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Live Demo
+🔗 **Live Site:** [Insert Live Link Here]
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact
+- **Portfolio:** [https://portfolio-kappa-weld-92.vercel.app/](https://portfolio-kappa-weld-92.vercel.app/)
+- **Email:** baishnabsamir26@gmail.com

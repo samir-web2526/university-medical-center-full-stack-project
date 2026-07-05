@@ -43,13 +43,13 @@ export default function CreateMedicinePage() {
 
     const payload: CreateMedicineRequest = {
       name: form.name,
+      dosageForm: form.dosageForm,
+      strength: form.strength,
       stockQuantity: form.stockQuantity,
       minimumStock: form.minimumStock,
       ...(form.genericName && { genericName: form.genericName }),
       ...(form.description && { description: form.description }),
       ...(form.manufacturer && { manufacturer: form.manufacturer }),
-      ...(form.dosageForm && { dosageForm: form.dosageForm }),
-      ...(form.strength && { strength: form.strength }),
       ...(form.unitPrice && { unitPrice: form.unitPrice }),
       ...(form.expiryDate && { expiryDate: new Date(form.expiryDate).toISOString() }),
     };
