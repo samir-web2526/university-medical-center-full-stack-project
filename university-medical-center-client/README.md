@@ -1,6 +1,6 @@
 # University Medical Center Frontend
 
-A modern, full-stack medical center management platform designed to streamline student care, provide powerful management tools for administrators and doctors, and ensure seamless platform oversight.
+A modern, full-stack medical center management platform designed to streamline patient(student) care, provide powerful management tools for administrators and doctors, and ensure seamless platform oversight.
 
 ## 📖 Table of Contents
 - [About The Project](#about-the-project)
@@ -131,4 +131,4 @@ university-medical-center-client/
 
 ## Contact
 - **Portfolio:** [https://portfolio-kappa-weld-92.vercel.app/](https://portfolio-kappa-weld-92.vercel.app/)
-- **Email:** samirbaishnab26@gmail.com
+- **Email:** baishnabsamir26@gmail.com
