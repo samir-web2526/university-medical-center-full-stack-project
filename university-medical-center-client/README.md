@@ -1,6 +1,6 @@
 # University Medical Center Frontend
 
-A modern, full-stack medical center management platform designed to streamline patient care, provide powerful management tools for administrators and doctors, and ensure seamless platform oversight.
+A modern, full-stack medical center management platform designed to streamline student care, provide powerful management tools for administrators and doctors, and ensure seamless platform oversight.
 
 ## 📖 Table of Contents
 - [About The Project](#about-the-project)
@@ -14,10 +14,10 @@ A modern, full-stack medical center management platform designed to streamline p
 - [Contact](#contact)
 
 ## About The Project
-University Medical Center is an intuitive healthcare management system that allows patients to seamlessly book appointments, view medical records, and interact with doctors. The platform includes role-based dashboards, medicine and inventory management for administrators, appointment scheduling features, and a modern responsive UI for an enhanced user experience across all devices.
+University Medical Center is an intuitive healthcare management system that allows patients to seamlessly view medical records, and interact with doctors. The platform includes role-based dashboards, medicine and inventory management for administrators, and a modern responsive UI for an enhanced user experience across all devices.
 
 ## Features
-- **Role-based dashboards** for Admin, Doctor, and Patient
+- **Role-based dashboards** for Admin, Doctor, and Student
 - **Advanced medicine inventory** and management system
 - **Secure JWT-based authentication**
 - **Fully responsive modern UI** with sleek animations
@@ -127,8 +127,8 @@ university-medical-center-client/
 ```
 
 ## Live Demo
-🔗 **Live Site:** [Insert Live Link Here]
+🔗 **Live Site:** [https://university-medical-center-client.vercel.app/](https://university-medical-center-client.vercel.app/)
 
 ## Contact
 - **Portfolio:** [https://portfolio-kappa-weld-92.vercel.app/](https://portfolio-kappa-weld-92.vercel.app/)
-- **Email:** baishnabsamir26@gmail.com
+- **Email:** samirbaishnab26@gmail.com
