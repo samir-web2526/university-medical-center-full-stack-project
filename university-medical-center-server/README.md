@@ -1,6 +1,6 @@
 # University Medical Center Backend
 
-A modern, robust REST API for the University Medical Center platform, enabling seamless patient management, doctor scheduling, medicine inventory, and administrative oversight.
+A modern, robust REST API for the University Medical Center platform, enabling seamless patient(student) management, doctor scheduling, medicine inventory, and administrative oversight.
 
 ## 📖 Table of Contents
 - [About The Project](#about-the-project)
@@ -14,10 +14,10 @@ A modern, robust REST API for the University Medical Center platform, enabling s
 - [Contact](#contact)
 
 ## About The Project
-University Medical Center Backend is a comprehensive RESTful API built to power the medical center management platform. It handles secure user authentication, role-based access control, database interactions for doctors and patients, medicine inventory management, and appointment scheduling. The architecture is modular and scalable, utilizing Express.js, TypeScript, and Prisma ORM.
+University Medical Center Backend is a comprehensive RESTful API built to power the medical center management platform. It handles secure user authentication, role-based access control, database interactions for doctors and patients(student) and medicine inventory management. The architecture is modular and scalable, utilizing Express.js, TypeScript, and Prisma ORM.
 
 ## Features
-- **Role-based authorization** (Admin, Doctor, Patient)
+- **Role-based authorization** (Admin, Doctor, Student)
 - **Secure authentication** with JWT & HTTP-only cookies
 - **Advanced database management** using Prisma ORM with PostgreSQL
 - **Comprehensive management modules** for Doctors, Patients/Students, Medicines, Prescriptions, and Visits
@@ -174,7 +174,7 @@ university-medical-center-server/
 ```
 
 ## Live API
-🔗 **Base URL:** [Insert Live API Link Here]
+🔗 **Base URL:** [https://university-medical-center-server.vercel.app/](https://university-medical-center-server.vercel.app/)
 
 ## Contact
 - **Portfolio:** [https://portfolio-kappa-weld-92.vercel.app/](https://portfolio-kappa-weld-92.vercel.app/)
